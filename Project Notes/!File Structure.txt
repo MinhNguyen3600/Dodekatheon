@@ -1,0 +1,26 @@
+
+File Structure 1:
+warhammer/
+├── dice.py
+├── board.py
+├── unit.py
+├── player.py
+├── game.py
+└── main.py
+
+File Structure 2:
+!40k Game/
+├── Data
+    ├── datasheet_loader.py
+    ├── unit_abilities.py
+    ├── weapon_abilities.py
+    ├── datasheets.JSON
+├── Game
+    ├── game.py
+    ├── customizer.py (empty file, left for future implementation)
+├── Objects
+    ├── dice.py
+    ├── board.py
+    ├── unit.py
+    ├── player.py
+└── main.py
