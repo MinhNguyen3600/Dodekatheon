@@ -15,54 +15,54 @@ ds_morty = loader.get_unit("Mortarion")
 ds_fulgrim = loader.get_unit("Fulgrim")
 
 # Assign unit start location
-unit_C1 = Unit("Custodian Squad 1", 'C', 14, 10, ds_cGuard)
-unit_C2 = Unit("Custodian Squad 2", 'S', 13, 10, ds_cGuard)
+unit_C1 = Unit("Custodian Squad 1", 'C', 32, 24, ds_cGuard)
+unit_C2 = Unit("Custodian Squad 2", 'S', 31, 24, ds_cGuard)
 
 
 unit_L = Unit("Lion El'Johnson", 'L', 0, 0, ds_lion)
 # unit_L = Unit("Lion El'Johnson", 'L', 1, 0, ds_lion)
-# unit_L = Unit("Lion El'Johnson", 'L', 14, 10, ds_lion)
-# unit_L = Unit("Lion El'Johnson", 'L', 13, 10, ds_lion)
+# unit_L = Unit("Lion El'Johnson", 'L', 32, 24, ds_lion)
+# unit_L = Unit("Lion El'Johnson", 'L', 31, 24, ds_lion)
 
 # unit_T = Unit("Terminator Squad", 'T', 0, 0, ds_termie)
-unit_T = Unit("Terminator Squad", 'T', 1, 0, ds_termie)
-# unit_T = Unit("Terminator Squad", 'T', 14, 10, ds_termie)
-# unit_T = Unit("Terminator Squad", 'T', 13, 10, ds_termie)
+# unit_T = Unit("Terminator Squad", 'T', 1, 0, ds_termie)
+# unit_T = Unit("Terminator Squad", 'T', 32, 24, ds_termie)
+# unit_T = Unit("Terminator Squad", 'T', 31, 24, ds_termie)
 
 # unit_A = Unit("Angron", 'A', 0, 0, ds_angron)
 # unit_A = Unit("Angron", 'A', 1, 0, ds_angron)
-# unit_A = Unit("Angron", 'A', 13, 10, ds_angron)
-# unit_A = Unit("Angron", 'A', 14, 10, ds_angron)
+# unit_A = Unit("Angron", 'A', 31, 24, ds_angron)
+unit_A = Unit("Angron", 'A', 32, 24, ds_angron)
 
 # unit_M = Unit("Mortarion", 'M', 4, 0, ds_morty)
 # unit_M = Unit("Mortarion", 'M', 1, 0, ds_morty)
-# unit_M = Unit("Mortarion", 'M', 13, 10, ds_morty)
-# unit_M = Unit("Mortarion", 'M', 14, 10, ds_morty)
+# unit_M = Unit("Mortarion", 'M', 31, 24, ds_morty)
+# unit_M = Unit("Mortarion", 'M', 32, 24, ds_morty)
 
 # unit_F = Unit("Fulgrim", 'F', 0, 0, ds_fulgrim)
 # unit_F = Unit("Fulgrim", 'F', 1, 0, ds_fulgrim)
-# unit_F = Unit("Fulgrim", 'F', 13, 10, ds_fulgrim)
-unit_F = Unit("Fulgrim", 'F', 14, 24, ds_fulgrim)
+# unit_F = Unit("Fulgrim", 'F', 31, 24, ds_fulgrim)
+# unit_F = Unit("Fulgrim", 'F', 32, 24, ds_fulgrim)
 
 # Player 1
 p1 = Player("P1")
 # p1.add_unit(unit_A)
 # p1.add_unit(unit_M)
 p1.add_unit(unit_L)
-p1.add_unit(unit_T)
+# p1.add_unit(unit_T)
 # p1.add_unit(unit_C1)
 # p1.add_unit(unit_C2)
 # p1.add_unit(unit_F)
 
 # Player 2
 p2 = Player("P2")
-# p2.add_unit(unit_A)
+p2.add_unit(unit_A)
 # p2.add_unit(unit_M)
 # p2.add_unit(unit_L)
 # p2.add_unit(unit_T)
 # p2.add_unit(unit_C1)
 # p2.add_unit(unit_C2)
-p2.add_unit(unit_F)
+# p2.add_unit(unit_F)
 
 # Player 2: single Custodian squad (4 Guards + Shield Captain)
 # Combine Guard + Captain datasheets into one squad
