@@ -4,16 +4,31 @@ from objects.dice import roll_d6
 from data.unit_abilities import LoneOperative, DarkAngelsBodyguard
 
 def shooting_phase(game):
-    for unit in [u for u in game.current_player().units if u.is_alive() and not (u.advanced or u.fell_back)]:
+
+    # iterate all alive, non–fell-back units (they may have advanced)
+    for unit in [u for u in game.current_player().units if u.is_alive() and not u.fell_back]:
+            all_weapons = unit.datasheet['ranged_weapons']
+
+            # If unit advanced, only allow assault weapons
+            if unit.advanced:
+                weaps = [w for w in all_weapons if w['abilities'].is_assault]
+                if not weaps:
+                    print(f"{unit.name} advanced and has no Assault weapons. Cannot shoot.\n")
+                    continue
+                else:
+                    print(f"{unit.name} advanced — only Assault weapons can be used.")
+            else:
+                weaps = all_weapons
+
             print(f"Shooting for {unit.name}:")
-            weaps = unit.datasheet['ranged_weapons']
             if not weaps or input(f"Shoot with {unit.name}? (y/n): ").lower()!='y':
                 continue
 
-            # pick weapon
+            # pick weapon from the (possibly filtered) list
             idx = 0
             if len(weaps)>1:
-                for i,w in enumerate(weaps): print(f"{i}: {w['name']}")
+                for i,w in enumerate(weaps):
+                    print(f"{i}: {w['name']}")
                 idx = int(input("Select ranged weapon: "))
             w = weaps[idx]
 
