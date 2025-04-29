@@ -81,6 +81,8 @@ class DatasheetLoader:
             if abil:
                 unit_abilities.append(abil)
         return {
+            # carry through the number-of-models field
+            'size': entry.get('size', 1),
             'M': M,
             'T': T,
             'Sv': int(str(Sv).rstrip('+')),

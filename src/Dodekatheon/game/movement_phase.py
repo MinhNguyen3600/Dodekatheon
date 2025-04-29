@@ -1,7 +1,7 @@
 # movement_phase.py
 import math as _math
 from objects.dice import roll_d6
-from .utils import reachable_squares    # or wherever you put it
+from .utils import reachable_squares, parse_column_label    # or wherever you put it
 
 def movement_phase(self):
     for u in [u for u in self.current_player().units if u.is_alive()]:
@@ -31,27 +31,33 @@ def movement_phase(self):
         # now prompt until they give a legal square code
         while True:
             code = input("Enter destination (e.g. E10): ").strip().upper()
-            if len(code) < 2:
-                print("Bad format, try again."); continue
-            col = code[0]
-            row_s = code[1:]
-            if not ('A' <= col < chr(ord('A')+self.board.width)):
-                print("Column out of range."); continue
-            if not row_s.isdigit():
-                print("Row must be a number."); continue
-            row = int(row_s)
-            x = ord(col) - ord('A')
-            y = row - 1
-            if not (0 <= x < self.board.width and 0 <= y < self.board.height):
-                print("That square is off-board."); continue
-            if (x,y) not in moves:
-                print("That square is not reachable this move."); continue
-            # legal!
+            for i in range(1, len(code)):
+                col_label, row_s = code[:i], code[i:]
+                if row_s.isdigit():
+                    try:
+                        x = parse_column_label(col_label)
+                        y = int(row_s) - 1
+                        if not (0 <= x < self.board.width and 0 <= y < self.board.height):
+                            raise ValueError
+                        if (x, y) not in moves:
+                            print("That square is not reachable this move.")
+                            break
+                        # legal
+                        self.board.move_unit(u, x, y)
+                        print(f"{u.name} moved to {col_label}{row_s}\n")
+                        self.board.display(flip=True)
+                        break
+                    except ValueError:
+                        print("Invalid coordinate. Try again.")
+                        break
+            else:
+                print("Invalid format. Try again.")
+                continue
             break
 
-        # perform the move
-        self.board.move_unit(u, x, y)
-        print(f"{u.name} moved to {col}{row}\n")
-        # redisplay full un-gridded board
-        self.board.display(flip=True)
+        # # perform the move
+        # self.board.move_unit(u, x, y)
+        # print(f"{u.name} moved to {col}{row}\n")
+        # # redisplay full un-gridded board
+        # self.board.display(flip=True)
     

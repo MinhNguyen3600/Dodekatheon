@@ -1,6 +1,16 @@
 import math as _math
 from objects.dice import roll_d6
-from .movement_phase import reachable_squares
+from .movement_phase import reachable_squares, parse_column_label
+
+def parse_column_label(label):
+    """Convert Excel-style column label (A, B, ..., Z, AA, AB...) to 0-based index"""
+    total = 0
+    for c in label:
+        if not ('A' <= c <= 'Z'):
+            raise ValueError("Invalid column letter")
+        total = total * 26 + (ord(c) - ord('A') + 1)
+    return total - 1
+
 
 def charge_phase(game):
     # ask whether to charge at all
@@ -32,30 +42,31 @@ def charge_phase(game):
         # prompt for coordinate
         while True:
             coord = input(f"Enter destination (e.g. E10) for {u.name}: ").strip().upper()
-            if len(coord) < 2:
+            for i in range(1, len(coord)):
+                col_label, row_s = coord[:i], coord[i:]
+                if row_s.isdigit():
+                    try:
+                        x = parse_column_label(col_label)
+                        y = int(row_s) - 1
+                        if (x, y) not in moves:
+                            print(f"{coord} is not a valid charge destination. Choose again.")
+                            break
+                        u.charged = True
+                        game.board.move_unit(u, x, y)
+                        if u.symbol == 'C':
+                            for v in game.current_player().units:
+                                if v is not u and v.symbol == 'C':
+                                    game.board.clear_position(*v.position)
+                                    v.position = (x, y)
+                                    game.board.place_unit(v)
+                        game.display_state()
+                        break
+                    except ValueError:
+                        print("Invalid coordinate. Try again.")
+                        break
+            else:
                 print("Invalid format. Try again.")
                 continue
-            col = coord[0]
-            row_s = coord[1:]
-            if not col.isalpha() or not row_s.isdigit():
-                print("Invalid format. Letters then numbers. Try again.")
-                continue
-            x = ord(col) - ord('A')
-            y = int(row_s) - 1
-            if (x,y) not in moves:
-                print(f"{coord} is not a valid charge destination. Choose again.")
-                continue
-            # perform move
-            u.charged = True
-            game.board.move_unit(u, x, y)
-            # carry any “C” buddies
-            if u.symbol=='C':
-                for v in game.current_player().units:
-                    if v is not u and v.symbol=='C':
-                        game.board.clear_position(*v.position)
-                        v.position = (x,y)
-                        game.board.place_unit(v)
-            game.display_state()
             break
 
     return True

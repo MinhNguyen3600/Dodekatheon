@@ -1,6 +1,17 @@
 # board.py
 import math
 
+def _col_label(idx):
+    """
+    Convert a zero-based column index to Excel-style column name: A, B, ..., Z, AA, AB, ..., AZ, BA, ...
+    """
+    label = ""
+    while idx >= 0:
+        idx, rem = divmod(idx, 26)
+        label = chr(65 + rem) + label
+        idx -= 1
+    return label
+
 class Board:
     def __init__(self, width=15, height=11, terrain=None):
         self.width  = width
@@ -54,28 +65,28 @@ class Board:
         """
         highlight = highlight or set()
 
-        # header
-        cols = '   '.join(chr(ord('A') + i) for i in range(self.width))
-        print("   ", cols)
+        # Determine label spacing
+        labels = [_col_label(i) for i in range(self.width)]
+        spacing = []
+        for lbl in labels:
+            if len(lbl) == 1:
+                spacing.append(f"  {lbl} ")
+            else:
+                spacing.append(f" {lbl} ")
 
-        # build top border
+        print("   " + "".join(spacing)) 
+
         def row_border(y):
-            # for each x, if (x,y) or (x,y+1) in highlight then draw +---+ else +   +
             pieces = []
             for x in range(self.width):
-                up   = (x, y)     in highlight
-                down = (x, y-1)   in highlight
-                if up or down:
-                    pieces.append("---")
-                else:
-                    pieces.append("   ")
+                up   = (x, y)   in highlight
+                down = (x, y-1) in highlight
+                pieces.append("---" if up or down else "   ")
             return "+" + "+".join(pieces) + "+"
 
         row_range = range(self.height-1, -1, -1) if flip else range(self.height)
-        # topmost border
         print("  " + row_border(self.height-1))
         for y in row_range:
-            # row contents: show vertical bars only if that cell is highlighted
             row_cells = []
             for x in range(self.width):
                 cell = self.grid[y][x]
@@ -85,3 +96,4 @@ class Board:
                     row_cells.append(f"  {cell} ")
             print(f"{y+1:2}" + "".join(row_cells) + "|")
             print("  " + row_border(y))
+

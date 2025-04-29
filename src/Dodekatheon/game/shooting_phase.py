@@ -72,6 +72,8 @@ def shooting_phase(game):
 
             # determine how many attacks we actually make
             num_attacks = w['abilities'].extra_attacks(w['A'], context)
+            # every remaining model in the unit fires its attacks
+            num_attacks *= unit.current_models
 
             # ROLL TO HIT
             hits = 0

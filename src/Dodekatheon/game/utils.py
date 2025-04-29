@@ -1,5 +1,14 @@
 # src/wh40kgame/game/utils.py
 
+def parse_column_label(label):
+    """Convert Excel-style column label (A, B, ..., Z, AA, AB...) to 0-based index"""
+    total = 0
+    for c in label:
+        if not ('A' <= c <= 'Z'):
+            raise ValueError("Invalid column letter")
+        total = total * 26 + (ord(c) - ord('A') + 1)
+    return total - 1
+
 def reachable_squares(unit, board, max_dist):
     """
     Return set of (x,y) on board within Euclidean distance ≤ max_dist from unit.position.
