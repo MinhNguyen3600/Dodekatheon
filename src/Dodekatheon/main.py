@@ -15,11 +15,18 @@ ds_morty = loader.get_unit("Mortarion")
 ds_fulgrim = loader.get_unit("Fulgrim")
 
 # Assign unit start location
-unit_C1 = Unit("Custodian Squad 1", 'C', 32, 24, ds_cGuard)
-unit_C2 = Unit("Custodian Squad 2", 'S', 31, 24, ds_cGuard)
+unit_C1 = Unit("Custodian Squad 1", 'C', 0, 0, ds_cGuard)
+# unit_C1 = Unit("Custodian Squad 1", 'C', 1, 0, ds_cGuard)
+# unit_C1 = Unit("Custodian Squad 1", 'C', 32, 24, ds_cGuard)
+# unit_C1 = Unit("Custodian Squad 1", 'C', 31, 24, ds_cGuard)
 
 
-unit_L = Unit("Lion El'Johnson", 'L', 0, 0, ds_lion)
+# unit_C2 = Unit("Custodian Squad 2", 'S', 0, 0, ds_cGuard)
+unit_C2 = Unit("Custodian Squad 2", 'S', 1, 0, ds_cGuard)
+# unit_C2 = Unit("Custodian Squad 2", 'S', 32, 24, ds_cGuard)
+# unit_C2 = Unit("Custodian Squad 2", 'S', 31, 24, ds_cGuard)
+
+# unit_L = Unit("Lion El'Johnson", 'L', 0, 0, ds_lion)
 # unit_L = Unit("Lion El'Johnson", 'L', 1, 0, ds_lion)
 # unit_L = Unit("Lion El'Johnson", 'L', 32, 24, ds_lion)
 # unit_L = Unit("Lion El'Johnson", 'L', 31, 24, ds_lion)
@@ -48,10 +55,10 @@ unit_A = Unit("Angron", 'A', 32, 24, ds_angron)
 p1 = Player("P1")
 # p1.add_unit(unit_A)
 # p1.add_unit(unit_M)
-p1.add_unit(unit_L)
+# p1.add_unit(unit_L)
 # p1.add_unit(unit_T)
-# p1.add_unit(unit_C1)
-# p1.add_unit(unit_C2)
+p1.add_unit(unit_C1)
+p1.add_unit(unit_C2)
 # p1.add_unit(unit_F)
 
 # Player 2
