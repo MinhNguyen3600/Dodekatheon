@@ -4,7 +4,7 @@ WH40k Dodekatheon is a simple/minimalistic tabletop simulator for Warhammer 40k'
 
 Please note that this game is not intended to replace the tabletop game itself, but merely imitate it to create a faster and simpler experience compared to the real game. If you are truly interested in the games themselves, I highly recommend you get some sets that you think is cool and try to play the real game yourself with some friends or with your local hobby store!
 
-Disclaimer - Warhammer 40k - Doddekatheon is an unofficial fan game project and is not affiliated with Games Workshop  
+** Disclaimer - Warhammer 40k - Doddekatheon is an unofficial fan game project and is not affiliated with Games Workshop  **
 
 Dodekatheon 
 
