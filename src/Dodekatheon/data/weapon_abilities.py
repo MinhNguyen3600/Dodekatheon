@@ -11,11 +11,11 @@ class WeaponAbility:
         self.names = set(n.upper() for n in (names or []))
 
         # boolean flags for simple abilities
-        self.is_pistol          = "PISTOL"               in self.names
-        self.is_assault         = "ASSAULT"              in self.names
-        self.is_lethal_hits     = "LETHAL HITS"          in self.names
-        self.is_blast           = "BLAST"                in self.names
-        self.is_devastating     = "DEVASTATING WOUNDS"   in self.names
+        self.is_pistol = "PISTOL" in self.names
+        self.is_assault = "ASSAULT" in self.names
+        self.is_lethal_hits = "LETHAL HITS" in self.names
+        self.is_blast = "BLAST" in self.names
+        self.is_devastating = "DEVASTATING WOUNDS" in self.names
 
         # parse parametric abilities
         self.sustained_hits = 0

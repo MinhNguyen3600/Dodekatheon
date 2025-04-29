@@ -39,7 +39,7 @@ unit_C2 = Unit("Custodian Squad 2", 'S', 1, 0, ds_cGuard)
 # unit_A = Unit("Angron", 'A', 0, 0, ds_angron)
 # unit_A = Unit("Angron", 'A', 1, 0, ds_angron)
 # unit_A = Unit("Angron", 'A', 31, 24, ds_angron)
-unit_A = Unit("Angron", 'A', 57, 25, ds_angron)
+unit_A = Unit("Angron", 'A', 30, 15, ds_angron)
 
 # unit_M = Unit("Mortarion", 'M', 4, 0, ds_morty)
 # unit_M = Unit("Mortarion", 'M', 1, 0, ds_morty)

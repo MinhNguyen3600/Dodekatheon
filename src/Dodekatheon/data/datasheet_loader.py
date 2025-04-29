@@ -72,7 +72,13 @@ class DatasheetLoader:
 
     def get_unit(self, key):
         entry = self.data[key]
-        M, T, Sv, W, Ld, OC = entry['statline']
+        M, T, Sv_raw, W, Ld_raw, OC_raw = entry['statline']
+
+        # parse and convert saves, leadership, objective control to ints
+        Sv = int(str(Sv_raw).rstrip('+'))
+        Ld = int(str(Ld_raw).rstrip('+'))
+        OC = int(str(OC_raw).rstrip('+'))
+
         ranged = [ build_weapon(w, 'ranged') for w in entry.get('ranged_weapons', []) ]
         melee  = [ build_weapon(w, 'melee')  for w in entry.get('melee_weapons', []) ]
         unit_abilities = []
@@ -85,7 +91,7 @@ class DatasheetLoader:
             'size': entry.get('size', 1),
             'M': M,
             'T': T,
-            'Sv': int(str(Sv).rstrip('+')),
+            'Sv': Sv,
             'W': W,
             'Ld': Ld,
             'OC': OC,

@@ -27,9 +27,20 @@ class Unit:
         self.advanced = False
         self.fell_back = False
         self.charged = False
+        self.battle_shocked = False
 
     def is_alive(self):
         return self.current_wounds > 0
+    
+    @property
+    def below_half_strength(self):
+        import math
+        # characters (size=1): wounds < half their W characteristic
+        if self.size == 1:
+            # e.g. W=3 → half=1.5 → ceil(1.5)=2 → below if current_wounds<2
+            return self.current_wounds < math.ceil(self.wounds_per_model/2)
+        # multi-model: models remaining < half starting models
+        return self.current_models < math.ceil(self.size/2)
 
     def take_damage(self, d=1):
         # subtract from pooled wounds
