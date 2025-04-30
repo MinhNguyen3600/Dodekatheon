@@ -50,6 +50,14 @@ class Unit:
     def current_models(self):
         # how many individual models remain (round up)
         return math.ceil(self.current_wounds / self.wounds_per_model)
+    
+    @property
+    def below_half_strength(self):
+        # Characters (size==1): below half if wounds < half of wounds_per_model
+        if self.size == 1:
+            return self.current_wounds < (self.wounds_per_model / 2)
+        # Multi-model: below half if remaining models < half of starting size
+        return self.current_models < (self.size / 2)
 
     def display_stats(self):
         ds = self.datasheet

@@ -15,20 +15,20 @@ def command_phase(game):
 
     # test each unit that is below half-strength
     for u in game.current_player().units:
-        if not u.is_alive():
-            continue
-        if not u.below_half_strength:
+        if not u.is_alive() or not u.below_half_strength:
             continue
 
         # roll 2D6
         dice = roll_d6(2)
         total = sum(dice)
+
         leadership = u.datasheet['Ld']
-        print(f"  {u.name} below half-strength → roll {dice} = {total} vs Ld {leadership}", end=' ')
+        print(f"  {u.name} below half-strength -> roll {dice} = {total} vs Ld {leadership}", end=' ')
         if total < leadership:
             u.battle_shocked = True
-            print("→ FAILED → Battle-shocked!")
+            is_battle_shocked = True
+            print(f"-> FAILED => {u.name} is Battle-shocked!")
         else:
-            print("→ passed.")
+            print("-> Passed.")
 
     print()

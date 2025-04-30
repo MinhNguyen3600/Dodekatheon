@@ -1,0 +1,123 @@
+{
+  "Lion El'Johnson": {
+    "statline": [8, 9, "2+", 10, "5+", 4],
+    "ranged_weapons": [
+      ["Arma Luminis - Bolt", "12", 4, "2+", 4, -1, 2, ["pistol"]],
+      ["Arma Luminis - Beam", "12", 2, "2+", 8, -3, 2, ["pistol"]]
+    ],
+    "melee_weapons": [
+      ["Fealty - strike", 8, "2+", 12, -4, 4, ["lethal_hits"]],
+      ["Fealty - sweep", 16, "2+", 6, -3, 2, ["sustained_hits 1"]]
+    ],
+    "abilities": {
+      "the_emperors_shield": {
+        "type": "melee_save_retaliate",
+        "trigger": 6,
+        "effect": "attacker_suffers_same_damage"
+      },
+      "dark_angels_bodyguard": {
+        "type": "dark_angels_bodyguard",
+        "radius": 3
+      }
+    }
+  },
+
+
+  "Custodian Guard": {
+    "size": 5,
+    "statline": [6, 6, "2+", 3, "6+", 2],
+    "ranged_weapons": [
+      ["Guardian Spear", "24", 2, "2+", 4, -1, 2, ["assault"]]
+    ],
+    "melee_weapons": [
+      ["Guardian Spear", 5, "2+", 7, -2, 2, ["assault"]]
+    ],
+    "abilities": {
+      "stand_vigil": {
+        "type": "reroll_wound_1",
+        "condition": "always"
+      }
+    }
+  },
+
+  "Terminator Squad": {
+    "size": 5,
+    "statline": [5, 5, "2+", 3, "6+", 1],
+    "ranged_weapons": [
+      ["Storm bolter", "24", 2, "3+", 4, 0, 1, ["rapid_fire 2"]]
+    ],
+    "melee_weapons": [
+      ["Powerfist", 3, "3+", 8, -2, 2, []]
+    ],
+    "abilities": {
+      "Fury_of_the_First": {
+        "type": "Add_1_hitroll",
+        "condition": "always"
+      }
+    }
+  },
+
+  "Angron": {
+    "statline": [14, 11, "2+", 16, "5+", 6],
+    "ranged_weapons": [],
+    "melee_weapons": [
+      ["Samni'arius and Spinegrinder - strike", 8, "2+", 16, -4, "D6+2", []],
+      ["Samni'arius and Spinegrinder - cleave", 18, "2+", 8, -2, 2, []]
+    ],
+    "abilities": {},
+    "specialRules": {
+      "damagedBracket": {
+        "woundThreshold": 6,
+        "hitPenalty": -1
+      }
+    }
+  },
+
+  "Mortarion": {
+    "statline": [10, 12, "2+", 16, "5+", 6],
+    "ranged_weapons": [
+      ["Rotwind", "18", "D6+3", "2+", 7, -2, 1, ["blast", "devastating_wounds", "lethal_hits"]],
+      ["Lantern", "18", 1, "2+", 9, -3, 3, ["pistol", "sustained_hits d3"]]
+    ],
+    "melee_weapons": [
+      ["Silence - strike", 5, "2+", 14, -3, 4, ["lethal_hits"]],
+      ["Silence - sweep", 15, "2+", 7, -1, 1, ["lethal_hits"]]
+    ],
+    "abilities": {},
+    "specialRules": {
+      "damagedBracket": {
+        "woundThreshold": 6,
+        "hitPenalty": -1
+      }
+    }
+  },
+
+  "Fulgrim": {
+    "statline": [16, 11, "2+", 16, "5+", 6],
+    "ranged_weapons": [
+      ["Rotwind", "12", 6, "2+", 8, -2, 2, ["sustained_hits 1"]]
+    ],
+    "melee_weapons": [
+      ["Daemonic blades - strike", 6, "2+", 14, -3, "D6+1", ["sustained_hits 1"]],
+      ["Daemonic blades - cleave", 12, "2+", 8, -2, 2, ["sustained_hits 1"]]
+    ],
+    "abilities": {},
+    "specialRules": {
+      "damagedBracket": {
+        "woundThreshold": 6,
+        "hitPenalty": -1
+      }
+    }
+  },
+
+  "Shield Captain": {
+    "statline": [6, 6, "2+", 6, "6+", 2],
+    "ranged_weapons": [
+      ["Guardian Spear", "24", 2, "2+", 4, -1, 2, ["assault"]]
+    ],
+    "melee_weapons": [
+      ["Guardian Spear", 7, "2+", 7, -2, 2, ["assault"]]
+    ],
+    "abilities": {}
+  }
+}

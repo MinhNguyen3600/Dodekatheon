@@ -1,0 +1,64 @@
+I see, so the issue with the current shooting phase is, there aren't any weapon options and stats for the units! So, here is the structure I want to store the character/unit stats and their weapon stats:
+
+(NOTE: henceforth, character stats will be shown as a list, seperated by commas in a "[ ]" square bracket)
+ 
+- character stats : [M, T, Sv, W, Ld, OC]
+- ranged weapon options : [Weapon Name, Range, A, BS, S, AP, D] 
+- melee weapon options : [Weapon Name, A, WS, S, AP, D] 
+
+(Here are the unabbreviated names of the stats:
+Note: the "+" sign after every stat, should they be included, means "and above", meaning, if the stat is "2+", it means that the unmodified/natural result of the roll of that stat is >=2, then it is considered a success.
+
+- CHaracter/unit stat:
+M = Movement, shows maximum distance a unit can move in normal movement phase
+T = Toughness, during opponent's unit's Wound Roll step of their Shooting phase, compare it with current player's weapon's S (strength) stat
+Sv = Save/Saving Throw, the opponent's unit then makes one saving throw after the Wound Roll step is successful by the current player, if the rolled number is equal to or above the value stated here, the attack is null and the model/unit is not damaged, ending the attack on that unit
+W = Maximum amount of health of a model, once a model of a unit's health goes down to 0, that model is destroyed and automatically removed from the table
+Ld = Leadership, unimportant for the moment
+OC = Objective Capture, unimportant for the moment
+
+- Weapon options' stat:
+Range = Maximum effective range of current weapon, if the target unit/character is within the current model/unit's range stated here, in all directions, the current model/unit is eligible to make an attack using this weapon.
+
+	MELEE = For melee weapons, the weapon's effective range will be defaulted to MELEE, meaning that the model/unit must be DIRECTLY in front (no spaces between the 2 models in all directions) of the target model/unit in order to be eligible for the MELEE weapon's attack
+
+A = Attacks, the number of attacks/rolls you can make while attacking the target model/unit with this weapon
+BS, WS = Ballistic Skill and Weapon Skill, Respectively stats used for Ranged weapons, and Melee Weapons. These stats are used during the HIT ROLL to see if the currently attacking weapon hits the target model/unit (before moving to the WOUND ROLL). If the number rolled is equals to or higher than it is stated here, the Hit is successful, then it moves to the WOUND ROLL step. If the number rolled is LESS than it is stated here, then it is a failed Hit, and their melee/shooting phase for this model/unit is finished, and continues to move on to the next model/unit until their turn is finished.
+S = Strength, during current player's unit's Wound Roll step of current player's Shooting Phase, compare it with the opponent's T (Toughness) stat
+AP = Armor Piercing, a modify stat. It is always denoted as a negative number or a 0. This is because it modifies the result of your opponents' and your targeting unit/model's SAVING THROW. During the saving throw, opponent rolling to save that model must subtract the result of their save throw with the value shown here, the negative sign is to denote how much the value is reduced.
+D = Damage dealt by this weapon, per Attack, upon a successful Hit, Wound, and opponents failed save throws.)
+
+2 units I wish to include for this demo: 
+
+1. Lion El' Johnson (shown on board as "L"): 
+Stat: [8, 9, 2+, 10, 5+, 4]
+Ranged Weapons:
+- [Arma Luminis - Bolt, 12, 4, 2+, 4, -1, 2]
+- [Arma Luminis - Bolt, 12, 2, 2+, 8, -3, 2]
+
+Melee Weapons:
+- [Fealty – strike, 8, 2+, 12, -4, 4] 
+- [Fealty – sweep, 16, 2+, 6, -3, 2]
+
+Abilities:
+	- The Emperor’s Shield: Each time a melee attack is allocated to this model, on an unmodified saving throw of 5+, the attacking unit suffers the same damage (including attacks) as it would've had it successfully hit this model, after it has finished making its attacks.
+
+NOTE: for abilities, I specifically chose the ones that can be modified as stats for each unit/model in the game, so instead of storing this as text, comprehend them and incorporate them into the unit as a condition in the unit's code, or modify the stat directly when you export the JSON data file.
+
+2. Custodian Guard (4 models) with 1 Shield Captain (shown on board as "C"):
+Stat:
+- Custodian guard: [6, 6, 2+, 3, 6+, 2]
+	+ Ranged Weapons: [Guardian Spear, 24, 2, 2+, 4, -1, 2]
+	+ Melee Weapons: [Guardian Spear, 5, 2+, 7, -2, 2]
+	
+- Shield Captain: [6, 6, 2+, 6, 6+, 2]
+	+ Ranged Weapons: [Guardian Spear, 24, 2, 2+, 4, -1, 2]
+	+ Melee Weapons: [Guardian Spear, 7, 2+, 7, -2, 2]
+
+Abilities:
+- Custodian Guard:
+	+ Stand Vigil: Each time a model in this unit makes an attack, re-roll a Wound roll of 1. While this unit is within range of an objective marker you control, you can re-roll the Wound roll instead.
+
+MASSIVE NOTE FOR CUSTODIAN GUARD AND SHIELD CAPTAIN - Custodian guard typically have 5 units when they're alone, and a Shield captain is his own individual character model, not a unit. BUT the Shield captain can be attached to and considered a part of a Custodian guard model, retaining his original stats and weapons, at the cost of replacing on of the original Custodian Guard model, which is why there is 4 models of custodian guard model and 1 shield captain model in this unit, their stats and weapon options should remain as separate entities when being stored
+
+Create a JSON data file with each units I provide in the game (including their listed weapon options), and update the code to pull the stats from the data file for the game's initialization and shooting phase/attack phase (for now). Do note that it must be pulled into the code, not modify the data in the file as these stats must remain permanent in the data file.
