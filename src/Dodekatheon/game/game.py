@@ -3,20 +3,22 @@
 from objects.dice import roll_d6
 from objects.board import Board
 
-from .command_phase  import command_phase
-from .movement_phase import movement_phase
-from .shooting_phase import shooting_phase
-from .charge_phase   import charge_phase
-from .fight_phase    import fight_phase
+from .phases.command_phase  import command_phase
+from .phases.movement_phase import movement_phase
+from .phases.shooting_phase import shooting_phase
+from .phases.charge_phase   import charge_phase
+from .phases.fight_phase    import fight_phase
 
 class Game:
     def __init__(self, p1, p2, board_width=15, board_height=11):
         self.board = Board(board_width, board_height)
+
         self.players = [p1, p2]
         self.current = 0
         self.round = 1
         # place all units initially
-        self._refresh_board()
+        # self._refresh_board()
+        
 
     def other_player(self):
         return self.players[1 - self.current]
@@ -25,11 +27,42 @@ class Game:
         return self.players[self.current]
 
     def display_state(self):
-        print(f"-- Round {self.round}: {self.current_player().name}'s turn --")
-        self.board.display(flip=True)
         for u in self.current_player().units:
+            # 1) show the normal unit stats
             u.display_stats()
-        print(f"CP: {self.current_player().cp}\n")
+
+            # 2) then enumerate its ranged weapon-groups and their profiles
+            print(f"    Ranged Weapons: ")
+            for wg in u.datasheet['ranged_weapons']:
+                # if it's a group-with-profiles, use that; otherwise single-profile
+                profiles = wg.get('profiles') if isinstance(wg, dict) else None
+                if profiles:
+                    print(f"    Ranged Weapon Group: {wg['name']}")
+                else:
+                    # old format: wg itself is a profile
+                    profiles = [wg]
+            
+                for prof in profiles:
+                    abil = ",".join(prof['abilities'].names) or "-"
+                    rng = prof.get('range', 'N/A')
+                    bsws = prof.get('BS', prof.get('WS', ''))
+                    print(f"      • {prof['name']}: Range {prof['range']}\"  A={prof['A']}  BS={prof.get('BS', prof.get('WS'))}"
+                          f"S={prof['S']}  AP={prof['AP']}  D={prof['D']}  Abils=[{abil}]") 
+                    
+            # 3) same for melee
+            print(f"    Melee Weapons:")
+            for wg in u.datasheet['melee_weapons']:
+                profiles = wg.get('profiles') if isinstance(wg, dict) else None
+                if profiles:
+                    print(f"    Melee Weapon Group: {wg['name']}")
+                else:
+                    profiles = [wg]
+                for prof in profiles:
+                    abil = ",".join(prof['abilities'].names) or "-"
+                    ws = prof.get('WS','')
+                    print(f"      • {prof['name']}: A={prof['A']}  WS={ws}  "
+                          f"S={prof['S']}  AP={prof['AP']}  D={prof['D']}  Abils=[{abil}]")
+            print()
 
     # now each phase just delegates:
     def command_phase(self):

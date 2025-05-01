@@ -1,4 +1,5 @@
 # weapon_abilities.py
+from objects.dice import roll_d6
 
 class WeaponAbility:
     """
@@ -46,11 +47,17 @@ class WeaponAbility:
         return key.upper() in self.names
 
     def extra_attacks(self, base_attacks, context):
-        """
-        Returns modified attack count.
-        context: dict with keys like 'distance', 'target_models', 'unit_advanced', 'half_range'
-        """
-        a = base_attacks
+        # ensure we have an integer to start with
+        try:
+            a = int(base_attacks)
+        except (TypeError, ValueError):
+            # if it's something like "D6+3", roll it now:
+            if isinstance(base_attacks, str) and base_attacks.startswith('D6'):
+                parts = base_attacks.split('+')
+                bonus = int(parts[1]) if len(parts)>1 else 0
+                a = roll_d6()[0] + bonus
+            else:
+                a = 0
 
         # rapid fire
         if self.rapid_fire_bonus and context.get("half_range", False):
@@ -58,7 +65,7 @@ class WeaponAbility:
 
         # blast: +1 attack per 5 models in target
         if self.is_blast and "target_models" in context:
-            a += context["target_models"] // 5
+            a += (context["target_models"] // 5)
 
         return a
 

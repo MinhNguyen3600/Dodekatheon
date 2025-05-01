@@ -22,3 +22,12 @@ def reachable_squares(unit, board, max_dist):
                 if board.distance_inches((cx, cy), (x, y)) <= max_dist:
                     valid.add((x, y))
     return valid
+
+def bdr_s():
+    print("---------------") # 15 dashes
+
+def bdr_m():
+    print("------------------------------") # 30 dashes
+
+def bdr_l():
+    print("----------------------------------------") # 40 dashes

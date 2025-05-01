@@ -1,42 +1,167 @@
 {
-  "Lion El'Johnson": {
-    "statline": [8, 9, "2+", 10, "5+", 4],
-    "ranged_weapons": [
-      ["Arma Luminis - Bolt", "12", 4, "2+", 4, -1, 2, ["pistol"]],
-      ["Arma Luminis - Beam", "12", 2, "2+", 8, -3, 2, ["pistol"]]
-    ],
-    "melee_weapons": [
-      ["Fealty - strike", 8, "2+", 12, -4, 4, ["lethal_hits"]],
-      ["Fealty - sweep", 16, "2+", 6, -3, 2, ["sustained_hits 1"]]
-    ],
-    "abilities": {
-      "the_emperors_shield": {
-        "type": "melee_save_retaliate",
-        "trigger": 6,
-        "effect": "attacker_suffers_same_damage"
-      },
-      "dark_angels_bodyguard": {
-        "type": "dark_angels_bodyguard",
-        "radius": 3
-      }
-    }
-  },
-
 
   "Custodian Guard": {
     "size": 5,
     "statline": [6, 6, "2+", 3, "6+", 2],
+
     "ranged_weapons": [
-      ["Guardian Spear", "24", 2, "2+", 4, -1, 2, ["assault"]]
+      {
+        "name": "Guardian Spear",
+        "profiles": [
+          ["Guardian spear", "24", 2, "2+", 4, -1, 2, ["assault"]],
+          ["Sentinel blade",  "12", 2, "2+", 4, -1, 2, ["assault","pistol"]]
+        ]
+      }
     ],
     "melee_weapons": [
-      ["Guardian Spear", 5, "2+", 7, -2, 2, ["assault"]]
+      {
+        "name": "Guardian spear",
+        "profiles": [
+          ["Guardian spear", 5, "2+", 7, -2, 2, ["assault"]],
+          ["Misericordia",    5, "2+", 5, -2, 1, []]
+        ]
+      }
+    ],
+
+    "wargear_options": {
+      "Guardian Spear": [
+        { "replace_with": ["Sentinel blade","Praesidium shield"] },
+        { "replace_with": ["Vexilla","Misericordia"] }
+      ]
+    },
+
+    "attachable_leaders": ["Shield-Captain"],
+    "abilities": {
+      "stand_vigil": { "type": "reroll_wound_1", "condition": "always" }
+    }
+  }  ,
+  "Shield-Captain": {
+    "size": 1,
+    "statline": [6, 6, "2+", 6, "6+", 2],
+    "ranged_weapons": [
+      ["Castellan axe", "24", 2, "2+", 4, -1, 2, ["assault"]],
+      ["Guardian spear",   "24", 2, "2+", 4, -1, 2, ["assault"]],
+      ["Pyrithite spear",  "12", 1, "2+", 9, -4, "D6", ["melta 2"]],
+      ["Sentinel blade",    5,   2, "2+", 4, -1, 2, ["assault","pistol"]]
+    ],
+    "melee_weapons": [
+      ["Castellan axe", 6, "2+", 9, -1, 3, []],
+      ["Guardian spear",5, "2+", 7, -2, 2, []],
+      ["Pyrithite spear",5,"2+", 7, -2, 2, []],
+      ["Sentinel blade", 5,"2+", 6, -2, 1, []]
     ],
     "abilities": {
-      "stand_vigil": {
-        "type": "reroll_wound_1",
-        "condition": "always"
-      }
+      "deep_strike":           { "type": "deep_strike" },
+      "leader":                { "type": "leader" },
+      "master_of_the_stances": { "type": "master_of_the_stances", "once_per": "battle" },
+      "strategic_mastery":     { "type": "strategic_mastery",   "once_per": "battle_round" }
+    }
+  },
+
+  "Custodian Wardens": {
+    "size": 5,
+    "statline": [6, 6, "2+", 3, "6+", 2],
+    "ranged_weapons": [
+      ["Castellan axe", "24", 2, "2+", 4, -1, 2, ["assault"]],
+      ["Guardian spear", "24", 2, "2+", 4, -1, 2, ["assault"]]
+    ],
+    "melee_weapons": [
+      ["Castellan axe", 4, "2+", 9, -1, 3, []],
+      ["Guardian spear",5, "2+", 7, -2, 2, []]
+    ],
+    "abilities": {
+      "deep_strike":     { "type": "deep_strike" },
+      "resolute_will":   { "type": "resolute_will",   "condition": "character_leader" },
+      "living_fortress": { "type": "living_fortress", "once_per": "battle", "grants": "feel_no_pain_4" }
+    }
+  },
+
+  "Lion El'Johnson": {
+    "size": 1,
+    "statline": [8, 9, "2+", 10, "5+", 4],
+    "ranged_weapons": [
+      ["Arma Luminis - bolt",  "12", 4, "2+", 4, -1, 2, ["pistol"]],
+      ["Arma Luminis - beam",  "12", 2, "2+", 8, -3, 2, ["pistol"]]
+    ],
+    "melee_weapons": [
+      ["Fealty - strike",      8, "2+",12, -4, 4, ["lethal hits"]],
+      ["Fealty - sweep",      16, "2+", 6, -3, 2, ["sustained hits 1"]]
+    ],
+    "abilities": {
+      "deep_strike":             { "type": "deep_strike" },
+      "fights_first":            { "type": "fights_first" },
+      "the_emperors_shield":     { "type": "melee_save_retaliate", "trigger": 6, "effect": "attacker_suffers_same_damage" },
+      "dark_angels_bodyguard":   { "type": "dark_angels_bodyguard", "radius": 3 },
+      "all_secrets_revealed":    { "type": "all_secrets_revealed", "once_per": "turn" },
+      "martial_exemplar":        { "type": "martial_exemplar",   "aura": 6, "bonus": "hit_roll" },
+      "no_hiding_from_watchers": { "type": "no_hiding_from_watchers", "aura": 6, "grants": "feel_no_pain_4" }
+    }
+  },
+
+  "Angron": {
+    "size": 1,
+    "statline": [14, 11, "2+", 16, "5+", 6],
+    "ranged_weapons": [],
+    "melee_weapons": [
+      ["Samni'arius & Spinegrinder - strike", 8, "2+",16, -4, "D6+2", []],
+      ["Samni'arius & Spinegrinder - cleave", 18, "2+", 8, -2, 2, []]
+    ],
+    "abilities": {
+      "deep_strike": { "type": "deep_strike" },
+      "fights_first":{ "type": "fights_first" }
+    },
+    "specialRules": {
+      "damagedBracket": { "woundThreshold": 6, "hitPenalty": -1 }
+    }
+  },
+
+  "Mortarion": {
+    "size": 1,
+    "statline": [10, 12, "2+", 16, "5+", 6],
+    "ranged_weapons": [
+      ["Rotwind",    "18", "D6+3", "2+", 7, -2, 1, ["blast","devastating wounds","lethal hits","psychic"]],
+      ["The Lantern","18", 1,      "2+", 9, -3, 3, ["pistol","sustained hits D3"]]
+    ],
+    "melee_weapons": [
+      ["Silence - strike", 5, "2+",14, -3, 4, ["lethal hits"]],
+      ["Silence - sweep", 15, "2+", 7, -1, 1, ["lethal hits"]]
+    ],
+    "abilities": {
+      "deep_strike":    { "type": "deep_strike" },
+      "deadly_demise":  { "type": "deadly_demise", "dice": "D6" },
+      "feel_no_pain":   { "type": "feel_no_pain",   "threshold": 5 }
+    },
+    "specialRules": {
+      "damagedBracket": { "woundThreshold": 6, "hitPenalty": -1 }
+    },
+    "unit_abilities": {
+      "miasma_of_pestilence": { "type": "aura_benefit", "aura": 6, "benefit": "cover" },
+      "diseased_influence":   { "type": "aura_reroll_wound_1", "aura": 6 },
+      "toxic_presence":       { "type": "aura_contagion_bonus", "aura": 12, "bonus": 3 }
+    }
+  },
+
+  "Fulgrim": {
+    "size": 1,
+    "statline": [16, 11, "2+", 16, "5+", 6],
+    "ranged_weapons": [
+      ["Malefic lash", "12", 6, "2+", 8, -2, 2, ["sustained hits 1"]]
+    ],
+    "melee_weapons": [
+      ["Daemonic blades - strike", 6,  "2+",14, -3, "D6+1", ["sustained hits 1"]],
+      ["Daemonic blades - sweep",  12, "2+", 8, -2, 2, ["sustained hits 1"]],
+      ["Serpentine tail",           6, "2+", 6, -1, 1, ["extra attacks"]]
+    ],
+    "abilities": {
+      "deep_strike":     { "type": "deep_strike" },
+      "deadly_demise":   { "type": "deadly_demise", "dice": "D6" },
+      "feel_no_pain":    { "type": "feel_no_pain",    "threshold": 5 },
+      "beguiling_form":  { "type": "beguiling_form",  "effect": "hit_roll_penalty" },
+      "daemonic_speed":  { "type": "fights_first" },
+      "enthralling_hypnosis": { "type": "aura_leadership_test", "aura": 6 }
+    },
+    "specialRules": {
+      "damagedBracket": { "woundThreshold": 6, "hitPenalty": -1 }
     }
   },
 
@@ -44,80 +169,22 @@
     "size": 5,
     "statline": [5, 5, "2+", 3, "6+", 1],
     "ranged_weapons": [
-      ["Storm bolter", "24", 2, "3+", 4, 0, 1, ["rapid_fire 2"]]
+      ["Assault cannon",       "24", 6, "3+", 6,  0, 1, ["devastating wounds"]],
+      ["Cyclone ML - frag",    "36", "2D6", "3+", 4,  0, 1, ["blast"]],
+      ["Storm bolter",         "24", 2,      "3+", 4,  0, 1, ["rapid fire 2"]],
+      ["Heavy flamer",         "12", "D6",   "N/A",5, -1, 1, ["ignores cover","torrent"]]
     ],
     "melee_weapons": [
-      ["Powerfist", 3, "3+", 8, -2, 2, []]
+      ["Chainfist - anti-vehicle", 3, "4+", 8, -2, 2, []],
+      ["Power fist",               3, "3+", 8, -2, 2, []],
+      ["Power weapon",             4, "3+", 5, -2, 1, []]
     ],
     "abilities": {
-      "Fury_of_the_First": {
-        "type": "Add_1_hitroll",
-        "condition": "always"
-      }
+      "deep_strike":      { "type": "deep_strike" },
+      "teleport_homer":   { "type": "teleport_homer" },
+      "fury_of_the_first":{ "type": "fury_of_the_first" }
     }
-  },
-
-  "Angron": {
-    "statline": [14, 11, "2+", 16, "5+", 6],
-    "ranged_weapons": [],
-    "melee_weapons": [
-      ["Samni'arius and Spinegrinder - strike", 8, "2+", 16, -4, "D6+2", []],
-      ["Samni'arius and Spinegrinder - cleave", 18, "2+", 8, -2, 2, []]
-    ],
-    "abilities": {},
-    "specialRules": {
-      "damagedBracket": {
-        "woundThreshold": 6,
-        "hitPenalty": -1
-      }
-    }
-  },
-
-  "Mortarion": {
-    "statline": [10, 12, "2+", 16, "5+", 6],
-    "ranged_weapons": [
-      ["Rotwind", "18", "D6+3", "2+", 7, -2, 1, ["blast", "devastating_wounds", "lethal_hits"]],
-      ["Lantern", "18", 1, "2+", 9, -3, 3, ["pistol", "sustained_hits d3"]]
-    ],
-    "melee_weapons": [
-      ["Silence - strike", 5, "2+", 14, -3, 4, ["lethal_hits"]],
-      ["Silence - sweep", 15, "2+", 7, -1, 1, ["lethal_hits"]]
-    ],
-    "abilities": {},
-    "specialRules": {
-      "damagedBracket": {
-        "woundThreshold": 6,
-        "hitPenalty": -1
-      }
-    }
-  },
-
-  "Fulgrim": {
-    "statline": [16, 11, "2+", 16, "5+", 6],
-    "ranged_weapons": [
-      ["Rotwind", "12", 6, "2+", 8, -2, 2, ["sustained_hits 1"]]
-    ],
-    "melee_weapons": [
-      ["Daemonic blades - strike", 6, "2+", 14, -3, "D6+1", ["sustained_hits 1"]],
-      ["Daemonic blades - cleave", 12, "2+", 8, -2, 2, ["sustained_hits 1"]]
-    ],
-    "abilities": {},
-    "specialRules": {
-      "damagedBracket": {
-        "woundThreshold": 6,
-        "hitPenalty": -1
-      }
-    }
-  },
-
-  "Shield Captain": {
-    "statline": [6, 6, "2+", 6, "6+", 2],
-    "ranged_weapons": [
-      ["Guardian Spear", "24", 2, "2+", 4, -1, 2, ["assault"]]
-    ],
-    "melee_weapons": [
-      ["Guardian Spear", 7, "2+", 7, -2, 2, ["assault"]]
-    ],
-    "abilities": {}
   }
+
+
 }

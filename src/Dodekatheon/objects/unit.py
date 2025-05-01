@@ -28,6 +28,60 @@ class Unit:
         self.fell_back = False
         self.charged = False
         self.battle_shocked = False
+        # instead of one datasheet-wide loadout, make a list per model:
+        self.models = [ {'wargear': None} for _ in range(self.size) ]
+        # attachments holds other Unit instances (Characters)
+        self.attachments = []
+
+        self.stats = {
+            'rng_fired':       0,
+            'rng_hits':        0,
+            'melee_fired':     0,
+            'melee_hits':      0,
+            'mortal_wounds':   0,
+            'damage_dealt':    0,
+            'models_killed':   0,
+            'cp_spent':        0
+        }
+
+    def register_damage_dealt(self, dmg, models_killed, is_ranged, is_melee, mortal_wounds=0):
+        self.stats['damage_dealt']    += dmg
+        self.stats['models_killed']   += models_killed
+        self.stats['mortal_wounds']   += mortal_wounds
+        if is_ranged:
+            # assume each wound roll corresponds to an attack fired
+            self.stats['rng_fired']   += getattr(self, '_last_num_attacks', 0)
+            self.stats['rng_hits']    += getattr(self, '_last_hits', 0)
+        if is_melee:
+            self.stats['melee_fired'] += getattr(self, '_last_num_attacks', 0)
+            self.stats['melee_hits']  += getattr(self, '_last_hits', 0)
+
+    @property
+    def current_models(self):
+        return math.ceil(self.current_wounds/self.wounds_per_model)
+
+    def attach_leader(self, leader_unit):
+        if leader_unit.name in self.datasheet['attachable_leaders']:
+            self.attachments.append(leader_unit)
+            # increase size & wounds
+            self.size += leader_unit.size
+            self.max_wounds += leader_unit.max_wounds
+            self.current_wounds += leader_unit.current_wounds
+
+    def choose_wargear(self):
+        """Console-UI: let user swap wargear pre-game."""
+        opts = self.datasheet['wargear_options']
+        if not opts:
+            return
+        for wg_name, choices in opts.items():
+            print(f"For weapon {wg_name} you may choose:")
+            for i,ch in enumerate(choices):
+                print(f"  {i}: replace with {ch['replace_with']}")
+            pick = input("Pick option or ENTER to keep default: ")
+            if pick.isdigit():
+                choice = choices[int(pick)]
+                # record choice on one of your models:
+                self.models[0]['wargear']=choice['replace_with']
 
     def is_alive(self):
         return self.current_wounds > 0

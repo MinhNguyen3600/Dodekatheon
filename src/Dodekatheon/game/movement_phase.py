@@ -1,7 +1,7 @@
 # movement_phase.py
 import math as _math
 from objects.dice import roll_d6
-from .utils import reachable_squares, parse_column_label    # your helper to turn "AA"->int
+from ..utils import reachable_squares, parse_column_label    # your helper to turn "AA"->int
 
 ENGAGEMENT_RANGE = 1.0
 
@@ -77,28 +77,36 @@ def movement_phase(self):
         # prompt until a legal destination is entered
         while True:
             code = input("Enter destination (e.g. E10): ").strip().upper()
-            # split between letters and digits
+            valid = False
             for i in range(1, len(code)):
                 col_label, row_s = code[:i], code[i:]
-                if row_s.isdigit():
-                    try:
-                        x = parse_column_label(col_label)
-                        y = int(row_s) - 1
-                        if not (0 <= x < self.board.width and 0 <= y < self.board.height):
-                            raise ValueError
-                        if (x, y) not in moves:
-                            print("That square is not reachable this move.")
-                            break
-                        # perform the move
-                        self.board.move_unit(u, x, y)
-                        print(f"{u.name} moved to {col_label}{row_s}\n")
-                        self.board.display(flip=True)
-                        break
-                    except ValueError:
-                        print("Invalid coordinate. Try again.")
-                        break
-            else:
-                print("Invalid format. Try again.")
+                if not row_s.isdigit():
+                    continue
+                x = parse_column_label(col_label)
+                y = int(row_s) - 1
+                # bounds check
+                if not (0 <= x < self.board.width and 0 <= y < self.board.height):
+                    print("That coordinate is off the board.")
+                    break
+                # reachability check
+                if (x,y) not in moves:
+                    print("That square is not reachable this move.")
+                    break
+                # occupancy check
+                if self.board.grid[y][x] != ' ':
+                    print("That square is occupied; choose another.")
+                    break
+
+                # if we get here, x,y is good:
+                valid = True
+                break
+
+            if not valid:
+                # either bad format, off-board, not reachable, or occupied
                 continue
-            # exit the outer while once move succeeded
+
+            # now perform the move
+            self.board.move_unit(u, x, y)
+            print(f"{u.name} moved to {col_label}{row_s}\n")
+            self.board.display(flip=True)
             break
