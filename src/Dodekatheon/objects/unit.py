@@ -44,17 +44,18 @@ class Unit:
             'cp_spent':        0
         }
 
-    def register_damage_dealt(self, dmg, models_killed, is_ranged, is_melee, mortal_wounds=0):
-        self.stats['damage_dealt']    += dmg
-        self.stats['models_killed']   += models_killed
-        self.stats['mortal_wounds']   += mortal_wounds
+    def register_damage_dealt(self, *, dmg, models_killed, is_ranged, is_melee, mortal_wounds=0):
+        # update damage and kills
+        self.stats['damage_dealt']  += dmg + mortal_wounds
+        self.stats['models_killed'] += models_killed
         if is_ranged:
-            # assume each wound roll corresponds to an attack fired
-            self.stats['rng_fired']   += getattr(self, '_last_num_attacks', 0)
-            self.stats['rng_hits']    += getattr(self, '_last_hits', 0)
+            self.stats['ranged_attacks'] += getattr(self, '_last_num_attacks', 0)
+            self.stats['ranged_hits']    += getattr(self, '_last_hits', 0)
         if is_melee:
-            self.stats['melee_fired'] += getattr(self, '_last_num_attacks', 0)
-            self.stats['melee_hits']  += getattr(self, '_last_hits', 0)
+            self.stats['melee_attacks'] += getattr(self, '_last_num_attacks', 0)
+            self.stats['melee_hits']    += getattr(self, '_last_hits', 0)
+        # clear last for next round
+        self._last_num_attacks = self._last_hits = None
 
     @property
     def current_models(self):

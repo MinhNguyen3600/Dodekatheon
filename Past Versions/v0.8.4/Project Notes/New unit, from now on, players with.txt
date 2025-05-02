@@ -1,0 +1,25 @@
+New unit, from now on, players with multiple deployed units & characters will be played by the that player, the player gets to choose which unit they will go first, after that unit/character has done it's turn, they get to choose the next (or move to the remaining unit by default, should there only be 2).
+
+Unit: Terminator Squad (x5)
+Stats: [5, 5, 2+, 3, 6+, 1]
+Weapons:
+	- Ranged : [Storm bolter, 24, 2, 3+, 4, 0, 1]
+	- Melee : [Powerfist, 3, 3+, 8, -2, 2]
+
+Abilities:
+	- Fury of the First: Each time a model in this unit makes an attack, add 1 to the Hit roll.
+	- Rapid Fire 2: Rapid fire weapons are capable of long-ranged precision shots or controlled bursts at nearby targets.
+Weapons with [RAPID FIRE X] in their profile are known as Rapid Fire weapons. Each time such a weapon targets a unit within half that weapon’s range, the Attacks characteristic of that weapon is increased by the amount denoted by ‘x’.
+
+Example: A model targets a unit that is within half range of a weapon with an Attacks characteristic of 1 and the [RAPID FIRE 1] ability. That weapon therefore makes two attacks at the target, and you make two Hit rolls.
+
+    [RAPID FIRE X]: Increase the Attacks by ‘x’ when targeting units within half range.
+
+
+
+Note: this will be the first weapon abilities are mentioned, I will build more up, but to put it simply, we need to create a new JSON file to show the description of what it does, and define how the code can use that rule appropriate when it's pulled into the game. These abilities are not separate, but are a core part of the weapons that is assigned to them, but some weapons don't have that at all, and some have multiple.
+
+So from now on, the datasheets.JSON file will include weapon abilities' names as a list, e.g.[Storm bolter, [Rapid Fire 2] 24, 2, 3+, 4, 0, 1]. This will act sort of like a key to a weaponability.JSON file to fetch what changes will be done if this weapon is chosen for attacking and rolling.
+
+
+

@@ -2,6 +2,7 @@
 import math as _math
 from objects.dice import roll_d6
 from ..utils import bdr_s, bdr_m, bdr_l
+from ..objective import Objective
 
 def fight_phase(game):
     for attacker in [u for u in game.current_player().units if u.is_alive() and u.charged]:
@@ -118,5 +119,6 @@ def fight_phase(game):
             is_melee=True,
             mortal_wounds=mw_total
         )
-
+    Objective.update_objective_control(game)
     return True
+    

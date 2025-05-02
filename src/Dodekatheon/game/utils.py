@@ -1,4 +1,5 @@
 # src/wh40kgame/game/utils.py
+import json, os
 
 def parse_column_label(label):
     """Convert Excel-style column label (A, B, ..., Z, AA, AB...) to 0-based index"""
@@ -22,6 +23,26 @@ def reachable_squares(unit, board, max_dist):
                 if board.distance_inches((cx, cy), (x, y)) <= max_dist:
                     valid.add((x, y))
     return valid
+
+def load_json(relpath):
+    here = os.path.dirname(__file__)
+    full = os.path.abspath(os.path.join(here, '..', relpath))
+    with open(full) as f: return json.load(f)
+
+def print_table(headers, rows):
+    # simple column widths
+    widths = [len(h) for h in headers]
+    for row in rows:
+        for i,cell in enumerate(row):
+            widths[i] = max(widths[i], len(str(cell)))
+    # format string
+    fmt = "  ".join(f"{{:{w}}}" for w in widths)
+    # header
+    print(fmt.format(*headers))
+    print(fmt.format(*["─"*w for w in widths]))
+    # rows
+    for row in rows:
+        print(fmt.format(*[str(c) for c in row]))
 
 def bdr_s():
     print("---------------") # 15 dashes

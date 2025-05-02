@@ -1,8 +1,9 @@
 # Game/shooting_phase.py
 import math as _math
 from objects.dice import roll_d6
-from data.unit_abilities import LoneOperative, DarkAngelsBodyguard
+from data.unit_abilities import *
 from ..utils import bdr_s, bdr_m, bdr_l
+from ..objective import Objective
 
 def shooting_phase(game):
     for unit in [u for u in game.current_player().units if u.is_alive() and not u.fell_back]:
@@ -138,3 +139,4 @@ def shooting_phase(game):
             is_melee=False,
             mortal_wounds=mw_total
         )
+        Objective.update_objective_control(game)

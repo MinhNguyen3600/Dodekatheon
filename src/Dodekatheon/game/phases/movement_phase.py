@@ -2,11 +2,12 @@
 import math as _math
 from objects.dice import roll_d6
 from ..utils import reachable_squares, parse_column_label    # your helper to turn "AA"->int
+from ..objective import Objective
 
 ENGAGEMENT_RANGE = 1.0
 
-def movement_phase(self):
-    for u in [u for u in self.current_player().units if u.is_alive()]:
+def movement_phase(game):
+    for u in [u for u in game.current_player().units if u.is_alive()]:
         base = u.datasheet['M']
         choice = input(f"{u.name} move [n]ormal/[a]dv/[f]all/[s]tationary: ").lower()
 
@@ -45,24 +46,24 @@ def movement_phase(self):
             # Fall-back: any square ≤ max_move, but cannot end in Engagement Range of any enemy
             moves = set()
             cx, cy = u.position
-            for x in range(self.board.width):
-                for y in range(self.board.height):
+            for x in range(game.board.width):
+                for y in range(game.board.height):
                     # distance check
-                    if self.board.distance_inches((cx, cy), (x, y)) <= max_move:
+                    if game.board.distance_inches((cx, cy), (x, y)) <= max_move:
                         # must end on empty or its own start
-                        if (x,y) == (cx,cy) or self.board.grid[y][x] == ' ':
+                        if (x,y) == (cx,cy) or game.board.grid[y][x] == ' ':
                             # ensure not within ER of any enemy
                             too_close = False
-                            for opp in self.other_player().units:
+                            for opp in game.other_player().units:
                                 if not opp.is_alive(): continue
-                                if self.board.distance_inches((x,y), opp.position) <= ENGAGEMENT_RANGE:
+                                if game.board.distance_inches((x,y), opp.position) <= ENGAGEMENT_RANGE:
                                     too_close = True
                                     break
                             if not too_close:
                                 moves.add((x,y))
         else:
             # Normal or Advance or Stationary
-            moves = reachable_squares(u, self.board, max_move)
+            moves = reachable_squares(u, game.board, max_move)
 
         # never include starting square
         moves.discard(u.position)
@@ -72,7 +73,7 @@ def movement_phase(self):
             continue
 
         # show board with only those squares highlighted
-        self.board.display(flip=True, highlight=moves)
+        game.board.display(flip=True, highlight=moves)
 
         # prompt until a legal destination is entered
         while True:
@@ -85,7 +86,7 @@ def movement_phase(self):
                 x = parse_column_label(col_label)
                 y = int(row_s) - 1
                 # bounds check
-                if not (0 <= x < self.board.width and 0 <= y < self.board.height):
+                if not (0 <= x < game.board.width and 0 <= y < game.board.height):
                     print("That coordinate is off the board.")
                     break
                 # reachability check
@@ -93,7 +94,7 @@ def movement_phase(self):
                     print("That square is not reachable this move.")
                     break
                 # occupancy check
-                if self.board.grid[y][x] != ' ':
+                if game.board.grid[y][x] != ' ':
                     print("That square is occupied; choose another.")
                     break
 
@@ -106,7 +107,8 @@ def movement_phase(self):
                 continue
 
             # now perform the move
-            self.board.move_unit(u, x, y)
+            game.board.move_unit(u, x, y)
             print(f"{u.name} moved to {col_label}{row_s}\n")
-            self.board.display(flip=True)
+            game.board.display(flip=True)
             break
+        Objective.update_objective_control(game)

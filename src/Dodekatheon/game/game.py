@@ -1,5 +1,7 @@
-# game.py
 # Game/game.py
+import json
+from game.utils import *   # or define load_json inline
+from .objective import Objective
 from objects.dice import roll_d6
 from objects.board import Board
 
@@ -9,28 +11,63 @@ from .phases.shooting_phase import shooting_phase
 from .phases.charge_phase   import charge_phase
 from .phases.fight_phase    import fight_phase
 
+from game.objective import Objective
+
 class Game:
-    def __init__(self, p1, p2, board_width=15, board_height=11):
-        self.board = Board(board_width, board_height)
+    def __init__(game, p1, p2, board_width=30, board_height=15, mission="Only War"):
+        game.board = Board(board_width, board_height)
 
-        self.players = [p1, p2]
-        self.current = 0
-        self.round = 1
+        game.players = [p1, p2]
+        game.current = 0
+        game.round = 1
         # place all units initially
-        # self._refresh_board()
+        # game._refresh_board()
         
+        # load raw JSON Objective data
+        # in Game.__init__, replace numeric tuple with pos string:
+        obj_data = load_json('data/objectives.json')[mission]
+        # parse each objective exactly once, always producing numeric (x,y)
+        game.objectives = []
+        for o in obj_data:
+            if 'pos' in o:
+                # "A13" style → numeric
+                code = o['pos']
+                for i in range(1, len(code)):
+                    col_lbl, row_s = code[:i], code[i:]
+                    if row_s.isdigit():
+                        x = parse_column_label(col_lbl)
+                        y = int(row_s) - 1
+                        break
+                else:
+                    raise ValueError(f"Bad objective pos: {code}")
+            else:
+                # legacy numeric form
+                x, y = o['x'], o['y']
+            game.objectives.append(Objective(o['id'], (x, y)))
 
-    def other_player(self):
-        return self.players[1 - self.current]
+        # process objective's location format
 
-    def current_player(self):
-        return self.players[self.current]
 
-    def display_state(self):
-        for u in self.current_player().units:
+    def other_player(game):
+        return game.players[1 - game.current]
+
+    def current_player(game):
+        return game.players[game.current]
+
+    def display_state(game):
+        # show the map with objectives  units
+        game.board.display(flip=True)
+        for obj in game.objectives:
+            ctrl = obj.controller or "Contested"
+            # use obj.position, not obj.pos
+            print(f"Objective {obj.id} at {obj.position}: {ctrl}")
+
+
+        for u in game.current_player().units:
             # 1) show the normal unit stats
             u.display_stats()
-
+            
+            print(f"CP: {game.current_player().cp}   VP: {game.current_player().vp}\n")
             # 2) then enumerate its ranged weapon-groups and their profiles
             print(f"    Ranged Weapons: ")
             for wg in u.datasheet['ranged_weapons']:
@@ -39,7 +76,7 @@ class Game:
                 if profiles:
                     print(f"    Ranged Weapon Group: {wg['name']}")
                 else:
-                    # old format: wg itself is a profile
+                    # old format: wg itgame is a profile
                     profiles = [wg]
             
                 for prof in profiles:
@@ -64,23 +101,24 @@ class Game:
                           f"S={prof['S']}  AP={prof['AP']}  D={prof['D']}  Abils=[{abil}]")
             print()
 
+
     # now each phase just delegates:
-    def command_phase(self):
-        return command_phase(self)
+    def command_phase(game):
+        return command_phase(game)
 
-    def movement_phase(self):
-        return movement_phase(self)
+    def movement_phase(game):
+        return movement_phase(game)
 
-    def shooting_phase(self):
-        return shooting_phase(self)
+    def shooting_phase(game):
+        return shooting_phase(game)
 
-    def charge_phase(self):
-        return charge_phase(self)
+    def charge_phase(game):
+        return charge_phase(game)
 
-    def fight_phase(self):
-        return fight_phase(self)
+    def fight_phase(game):
+        return fight_phase(game)
 
-    def resolve_damage(self,D):
+    def resolve_damage(game,D):
         if isinstance(D,int): return D
         if isinstance(D,str):
             if D.startswith('D6'):
@@ -91,25 +129,78 @@ class Game:
             except: return 0
         return 0
 
-    def play_turn(self):
-        self.display_state()
-        self.command_phase()
-        self.movement_phase()
-        self.shooting_phase()
-        if not self.charge_phase(): return
-        if not self.fight_phase(): return
-        self._refresh_board()
-        self.other_player().remove_dead()
-        for u in self.current_player().units:
-            u.advanced=u.fell_back=u.charged=False
-        self.current=1-self.current; self.round+=1
+    def play_turn(game):
+        # redraw everything (objectives  units) before showing
+        game._refresh_board()
+        game.display_state()
+        game.command_phase()
+        game.movement_phase()
+        game.shooting_phase()
+        if not game.charge_phase(): return
+        if not game.fight_phase(): return
 
-    def is_over(self):
-        return not all(p.has_units() for p in self.players)
+        # refresh for next turn
+        game._refresh_board()
+        game.other_player().remove_dead()
+        for u in game.current_player().units:
+            u.advanced = u.fell_back = u.charged = False
 
-    def _refresh_board(self):
-        self.board.grid = [[' ' for _ in range(self.board.width)]
-                           for _ in range(self.board.height)]
-        for p in self.players:
+        # check for end
+        if game.is_over():
+            game.show_scoreboard()
+            return
+
+        game.current = 1 - game.current
+        game.round  += 1
+
+    def is_over(game):
+        return not all(p.has_units() for p in game.players)
+
+    def _refresh_board(game):
+        # clear board
+        game.board.grid = [[' ' for _ in range(game.board.width)] for _ in range(game.board.height)]
+
+            # first, draw objectives
+        for obj in game.objectives:
+            game.board.place_objective(obj)    
+
+        # then, draw units on top
+        for p in game.players:
             for u in p.units:
-                if u.is_alive(): self.board.place_unit(u)
+                if u.is_alive():
+                    game.board.place_unit(u)
+
+    def show_scoreboard(game):
+        print("\n===== Final Scoreboard =====\n")
+        for idx,pl in enumerate(game.players, start=1):
+            print(f"P{idx} - {pl.name}")
+            print(f"VP: {pl.vp}   CP: {pl.cp}   Total Damage: {pl.total_damage()}   Models Killed: {pl.total_models_killed()}")
+            # per-unit breakdown
+            headers = ["Unit","Dmg","Rng %","Melee %","Kills"]
+            rows = []
+            for u in pl.units:
+                rows.append([
+                    u.name,
+                    u.stats['damage_dealt'],
+                    f"{u.stats['ranged_hits']}/{u.stats['ranged_attacks']}"
+                      if u.stats['ranged_attacks']>0 else "-",
+                    f"{u.stats['melee_hits']}/{u.stats['melee_attacks']}"
+                      if u.stats['melee_attacks']>0 else "-",
+                    u.stats['models_killed'],
+                ])
+            print_table(headers, rows)
+            print()
+        # decide winner
+        if game.players[0].vp > game.players[1].vp:
+            winner = game.players[0]
+            pnum   = 1
+        elif game.players[1].vp > game.players[0].vp:
+            winner = game.players[1]
+            pnum   = 2
+        else:
+            print("The game is a tie!")
+            return
+        print(f"Winner: P{pnum} - {winner.name}!\n")
+
+        
+

@@ -43,6 +43,12 @@ class Board:
             self._expand_height(y + 1)
         self.grid[y][x] = unit.symbol
 
+    def place_objective(self, obj):
+        """Draw an objective marker on the grid."""
+        x,y = obj.position
+        # choose whatever symbol you like; here “O”
+        self.grid[y][x] = 'O'
+
     def clear_position(self, x, y):
         # Safely clear even if out-of-bounds
         if 0 <= x < self.width and 0 <= y < self.height:

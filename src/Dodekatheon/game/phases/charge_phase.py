@@ -1,6 +1,7 @@
 import math as _math
 from objects.dice import roll_d6
 from .movement_phase import reachable_squares, parse_column_label
+from ..objective import Objective
 
 def parse_column_label(label):
     """Convert Excel-style column label (A, B, ..., Z, AA, AB...) to 0-based index"""
@@ -68,5 +69,5 @@ def charge_phase(game):
                 print("Invalid format. Try again.")
                 continue
             break
-
+    Objective.update_objective_control(game)
     return True
