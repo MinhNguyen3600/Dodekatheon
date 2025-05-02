@@ -3,6 +3,10 @@ import math
 from objects.dice import roll_d6
 from ..objective import Objective
 
+# Deployment Zone border display - REUSE AND UNCOMMENT FOR WHEN IMPLEMENTING RESERVE UNITS & DEPLOYMENT: 
+# game.board.display(flip=True, highlight=zone_line)
+
+
 def command_phase(game):
     # STEP 1: both players gain 1 CP
     for p in game.players:
@@ -37,9 +41,7 @@ def command_phase(game):
     yours = sum(1 for o in game.objectives if o.controller == 'P'+str(game.current))
     
     # Uncomment if want max VP to be set to 3
-    #vp = min(yours, 3)
-
-    vp = min(yours)
+    vp = min(yours, 100)
     game.current_player().vp += vp
     print(f"Scored {vp} VP for objectives controlled.")
 

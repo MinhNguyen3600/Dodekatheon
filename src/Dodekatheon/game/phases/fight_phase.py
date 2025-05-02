@@ -76,49 +76,75 @@ def fight_phase(game):
             if wdie == 6 or wdie >= need:
                 wounds += 1
 
-        failed = 0
-        total = 0
+        # before the save loop:
+        failed_saves = 0
+        total_damage = 0
         mw_total = 0
         initial_models = defender.current_models
 
         for _ in range(wounds):
-            wdie = roll_d6()[0]
-            if w['abilities'].skip_saves_on_crit_wound() and wdie == 6:
+            wound_die = roll_d6()[0]
+
+            # 1) Devastating (mortal) wounds on a crit‑wound
+            if w['abilities'].skip_saves_on_crit_wound() and wound_die == 6:
                 mw = w['abilities'].mortal_wounds_on_crit(w['D'])
                 defender.take_damage(mw)
-                total += mw
+                total_damage += mw
                 mw_total += mw
-                failed += 1
+                failed_saves += 1
+                if not defender.is_alive():
+                    print(f"{defender.name} is destroyed!")
+                    game.board.clear_position(*defender.position)
+                    break
+                continue
+
+            # 2) Otherwise roll save (armour vs invuln)
+            save_roll = roll_d6()[0]
+            armour_needed = defender.datasheet['Sv'] - w['AP']
+            invuln_needed = defender.datasheet.get('Invul')
+
+            if invuln_needed is not None and invuln_needed < armour_needed:
+                save_needed = invuln_needed
+                used_invuln = True
             else:
-                svr = roll_d6()[0]
-                svt = defender.datasheet['Sv'] - w['AP']
-                if svr < svt:
-                    dmg = game.resolve_damage(w['D'])
-                    defender.take_damage(dmg)
-                    total += dmg
-                    failed += 1
+                save_needed = armour_needed
+                used_invuln = False
+
+            if used_invuln:
+                print(f"   Invuln Save Roll: {save_roll} vs {save_needed}+")
+            else:
+                print(f"   Armour Save Roll: {save_roll} vs {save_needed}+")
+
+            if save_roll < save_needed:
+                dmg = game.resolve_damage(w['D'])
+                defender.take_damage(dmg)
+                total_damage += dmg
+                failed_saves += 1
 
             if not defender.is_alive():
                 print(f"{defender.name} is destroyed!")
                 game.board.clear_position(*defender.position)
                 break
 
+        # 3) summary
         bdr_s()
         print(f"Hit Rolls: {hits}/{num_attacks}")
         print(f"Wound Rolls: {wounds}/{hits}")
-        print(f"Failed Saves: {failed}/{wounds}")
-        print(f"Total Damage: {total}, Wounds now {defender.current_wounds}/{defender.max_wounds}")
+        print(f"Failed Saves: {failed_saves}/{wounds}")
+        print(f"Total Damage: {total_damage}, Wounds now {defender.current_wounds}/{defender.max_wounds}")
         bdr_s()
 
+        # 4) record stats properly
         attacker._last_num_attacks = num_attacks
-        attacker._last_hits = hits
+        attacker._last_hits        = hits
         attacker.register_damage_dealt(
-            dmg=total,
+            dmg=total_damage,
             models_killed=(initial_models - defender.current_models),
             is_ranged=False,
             is_melee=True,
             mortal_wounds=mw_total
         )
+
     Objective.update_objective_control(game)
     return True
     

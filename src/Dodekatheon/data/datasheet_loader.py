@@ -101,8 +101,9 @@ class DatasheetLoader:
 
     def get_unit(self, key):
         entry = self.data[key]
-        M, T, Sv_raw, W, Ld_raw, OC_raw = entry['statline']
+        M, T, Sv_raw, Invul_raw, W, Ld_raw, OC_raw = entry['statline']
         Sv = int(str(Sv_raw).rstrip('+'))
+        Invul = None if Invul_raw == "-" else int(str(Invul_raw).rstrip('+'))
         Ld = int(str(Ld_raw).rstrip('+'))
         OC = int(str(OC_raw).rstrip('+'))
 

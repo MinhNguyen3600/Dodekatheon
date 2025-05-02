@@ -2,7 +2,7 @@
 
   "Custodian Guard": {
     "size": 5,
-    "statline": [6, 6, "2+", 3, "6+", 2],
+    "statline": [6, 6, "2+", "4+", 3, "8+", 1],
 
     "ranged_weapons": [
       {
@@ -35,9 +35,10 @@
       "stand_vigil": { "type": "reroll_wound_1", "condition": "always" }
     }
   }  ,
+
   "Shield-Captain": {
     "size": 1,
-    "statline": [6, 6, "2+", 6, "6+", 2],
+    "statline": [6, 6, "2+", "4+", 6, "6+", 2],
     "ranged_weapons": [
       ["Castellan axe", "24", 2, "2+", 4, -1, 2, ["assault"]],
       ["Guardian spear",   "24", 2, "2+", 4, -1, 2, ["assault"]],
@@ -60,7 +61,7 @@
 
   "Custodian Wardens": {
     "size": 5,
-    "statline": [6, 6, "2+", 3, "6+", 2],
+    "statline": [6, 6, "2+", "4+", 3, "6+", 2],
     "ranged_weapons": [
       ["Castellan axe", "24", 2, "2+", 4, -1, 2, ["assault"]],
       ["Guardian spear", "24", 2, "2+", 4, -1, 2, ["assault"]]
@@ -78,7 +79,7 @@
 
   "Lion El'Johnson": {
     "size": 1,
-    "statline": [8, 9, "2+", 10, "5+", 4],
+    "statline": [8, 9, "2+", "4+", 10, "5+", 4],
     "ranged_weapons": [
       ["Arma Luminis - bolt",  "12", 4, "2+", 4, -1, 2, ["pistol"]],
       ["Arma Luminis - beam",  "12", 2, "2+", 8, -3, 2, ["pistol"]]
@@ -100,7 +101,7 @@
 
   "Angron": {
     "size": 1,
-    "statline": [14, 11, "2+", 16, "5+", 6],
+    "statline": [14, 11, "2+", "4+", 16, "5+", 6],
     "ranged_weapons": [],
     "melee_weapons": [
       ["Samni'arius & Spinegrinder - strike", 8, "2+",16, -4, "D6+2", []],
@@ -117,7 +118,7 @@
 
   "Mortarion": {
     "size": 1,
-    "statline": [10, 12, "2+", 16, "5+", 6],
+    "statline": [10, 12, "2+", "4+", 16, "5+", 6],
     "ranged_weapons": [
       ["Rotwind",    "18", "D6+3", "2+", 7, -2, 1, ["blast","devastating wounds","lethal hits","psychic"]],
       ["The Lantern","18", 1,      "2+", 9, -3, 3, ["pistol","sustained hits D3"]]
@@ -143,7 +144,7 @@
 
   "Fulgrim": {
     "size": 1,
-    "statline": [16, 11, "2+", 16, "5+", 6],
+    "statline": [16, 11, "2+", "4+", 16, "5+", 6],
     "ranged_weapons": [
       ["Malefic lash", "12", 6, "2+", 8, -2, 2, ["sustained hits 1"]]
     ],
@@ -167,7 +168,7 @@
 
   "Terminator Squad": {
     "size": 5,
-    "statline": [5, 5, "2+", 3, "6+", 1],
+    "statline": [5, 5, "2+", "4+", 3, "6+", 1],
     "ranged_weapons": [
       ["Assault cannon",       "24", 6, "3+", 6,  0, 1, ["devastating wounds"]],
       ["Cyclone ML - frag",    "36", "2D6", "3+", 4,  0, 1, ["blast"]],
@@ -184,7 +185,38 @@
       "teleport_homer":   { "type": "teleport_homer" },
       "fury_of_the_first":{ "type": "fury_of_the_first" }
     }
+  },
+
+  "Sanguinor": {
+    "size": 1,
+    "statline": [12, 4, "2+", "4+", 7, "6+", 1],
+    "ranged_weapons": [
+      ["Lion's Wrath", "24", 2, "2+", 8, -3, 2, ["devastating wounds"]]
+    ],
+    "melee_weapons": [
+      ["Encarmine broadsword ", 8, "2+",6, -3, 2, ["devastating wounds"]]
+    ],
+    "abilities": {
+      "deep_strike": { "type": "deep_strike" },
+      "fights_first":{ "type": "fights_first" },
+      "lone_operative":{ "type": "lone_operative" }
+    },
+    "specialRules": {}
+  },
+
+  "Azrael": {
+    "size": 1,
+    "statline": [6, 4, "2+", "4+", 6, "6+", 1],
+    "ranged_weapons": [
+      ["Lion's Wrath", "24", 2, "2+", 8, -3, 2, ["devastating wounds, rapid fire 1"]]
+    ],
+    "melee_weapons": [
+      ["The Sword of Secrets", 6, "2+", 6, -4, 2, ["devastating wounds"]]
+    ],
+    "abilities": {},
+    "specialRules": {}
   }
+
 
 
 }

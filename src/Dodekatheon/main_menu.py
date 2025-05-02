@@ -29,40 +29,61 @@ def do_new_game():
     # placement phase
     for pl in (P1, P2):
         print(f"\n{pl.name}, place your units on the board:")
-        game.board.display(flip=True)
+
+        # figure out which key they are—"P1" or "P2":
+        pkey = "P1" if pl is P1 else "P2"
+        dz = game.deploy_zones[pkey]
+
+        # highlight every cell in column x = dz['x_max']
+        #zone_line = {(dz['x_max'], y) for y in range(game.board.height)}
+        #game.board.display(flip=True, highlight=zone_line)
+
+        zone_cells = {
+            (x, y)
+            for x in range(dz['x_min'], dz['x_max']+1)
+            for y in range(game.board.height)
+        }
+        game.board.display(flip=True, highlight=zone_cells)
+        
         for u in pl.units:
             while True:
                 code = input(f"  Where place {u.name} (e.g. A1): ").strip().upper()
-                # try every possible split between letters and digits
+
+                # first, parse code → x,y
+                parsed = False
                 for i in range(1, len(code)):
                     col_label, row_s = code[:i], code[i:]
                     if row_s.isdigit():
                         try:
                             x = parse_column_label(col_label)
                             y = int(row_s) - 1
-                            # bounds check
-                            if not (0 <= x < game.board.width and 0 <= y < game.board.height):
-                                raise ValueError("off board")
-                            # occupancy check
-                            if game.board.grid[y][x] != ' ':
-                                print("    That square is occupied; choose another.")
-                                raise ValueError
-                            # place it
-                            u.position = (x, y)
-                            game.board.place_unit(u)
-                            game.board.display(flip=True)
-                            raise StopIteration          # exit both loops
-                        except StopIteration:
-                            break
-                        except Exception:
-                            # any error, ask again
-                            break
-                else:
-                    print("    Bad format.  Letters (A…Z,AA…) then digits.  Try again.")
+                            parsed = True
+                        except:
+                            pass
+                        break
+                if not parsed:
+                    print("    Bad format.  Letters then digits.  Try again.")
                     continue
+
+                # now enforce deployment‑zone
+                dz = game.deploy_zones[pkey]
+                if x < dz['x_min'] or x > dz['x_max']:
+                    print("    That position is outside your deployment zone.")
+                    continue
+
+                # then bounds & occupancy checks...
+                if not (0 <= x < game.board.width and 0 <= y < game.board.height):
+                    print("    That square is off‑board.")
+                    continue
+
                 # if we broke out successfully, go to next unit
                 if game.board.grid[y][x] == u.symbol:
                     break
+
+                # all good → place
+                u.position = (x,y)
+                game.board.place_unit(u)
+                break
 
     print("\nAll units placed.  Let the battle begin!\n")
 

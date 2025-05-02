@@ -36,7 +36,7 @@ class Unit:
         self.stats = {
             'rng_fired':       0,
             'rng_hits':        0,
-            'melee_fired':     0,
+            'melee_attacks':   0,
             'melee_hits':      0,
             'mortal_wounds':   0,
             'damage_dealt':    0,
@@ -49,8 +49,8 @@ class Unit:
         self.stats['damage_dealt']  += dmg + mortal_wounds
         self.stats['models_killed'] += models_killed
         if is_ranged:
-            self.stats['ranged_attacks'] += getattr(self, '_last_num_attacks', 0)
-            self.stats['ranged_hits']    += getattr(self, '_last_hits', 0)
+            self.stats['rng_fired'] += getattr(self, '_last_num_attacks', 0)
+            self.stats['rng_hits']    += getattr(self, '_last_hits', 0)
         if is_melee:
             self.stats['melee_attacks'] += getattr(self, '_last_num_attacks', 0)
             self.stats['melee_hits']    += getattr(self, '_last_hits', 0)

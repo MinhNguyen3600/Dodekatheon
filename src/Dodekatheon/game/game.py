@@ -22,30 +22,48 @@ class Game:
         game.round = 1
         # place all units initially
         # game._refresh_board()
-        
-        # load raw JSON Objective data
-        # in Game.__init__, replace numeric tuple with pos string:
-        obj_data = load_json('data/objectives.json')[mission]
-        # parse each objective exactly once, always producing numeric (x,y)
-        game.objectives = []
-        for o in obj_data:
-            if 'pos' in o:
-                # "A13" style → numeric
-                code = o['pos']
-                for i in range(1, len(code)):
-                    col_lbl, row_s = code[:i], code[i:]
-                    if row_s.isdigit():
-                        x = parse_column_label(col_lbl)
-                        y = int(row_s) - 1
-                        break
-                else:
-                    raise ValueError(f"Bad objective pos: {code}")
-            else:
-                # legacy numeric form
-                x, y = o['x'], o['y']
-            game.objectives.append(Objective(o['id'], (x, y)))
 
-        # process objective's location format
+        # 1) load the entire mission dict
+        mission_data = load_json('data/objectives.json')[mission]
+
+        # 2) pull off deploy_zones and store for later
+        #    (so main_menu can reference game.deploy_zones)
+        game.deploy_zones = mission_data.get('deploy_zones', {})
+
+        # build our Objective instances
+        game.objectives = [
+            Objective(o['id'], o['pos'])
+            for o in mission_data.get('objectives', [])
+        ]
+        #         game.objectives.append( Objective(o['id'], o['pos']) )
+                
+        #         # now that game.objectives is a list of Objective instances,
+        #         # _refresh_board (called later) will place them on the grid
+        #         # now iterate only the actual objectives list
+        #         if isinstance(o, dict):
+        #             oid = o['id']
+        #             if 'pos' in o:
+        #                 code = o['pos']
+        #             else:
+        #                 # o['pos'] is a string like "H6"
+        #                 game.objectives.append(Objective(o['id'], o['pos']))
+        #                 continue
+        #         else:
+        #             oid = len(game.objectives)+1
+        #             code = o
+
+        #     for i in range(1, len(code)):
+        #         letters, digits = code[:i], code[i:]
+        #         if digits.isdigit():
+        #             x = parse_column_label(letters)
+        #             y = int(digits) - 1
+        #             break
+        #     else:
+        #         raise ValueError(f"Bad objective pos: {code}")
+
+        #     game.objectives.append(Objective(oid, (x, y)))
+        # ]
+
 
 
     def other_player(game):
@@ -163,11 +181,11 @@ class Game:
         # clear board
         game.board.grid = [[' ' for _ in range(game.board.width)] for _ in range(game.board.height)]
 
-            # first, draw objectives
+        # first, draw objectives
         for obj in game.objectives:
-            game.board.place_objective(obj)    
-
-        # then, draw units on top
+            game.board.place_objective(obj)
+            
+        # then draw units on top…
         for p in game.players:
             for u in p.units:
                 if u.is_alive():

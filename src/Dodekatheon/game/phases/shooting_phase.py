@@ -96,47 +96,73 @@ def shooting_phase(game):
             if wdie == 6 or wdie >= need:
                 wounds += 1
 
-        failed = 0
-        total = 0
+        # before the save loop:
+        failed_saves = 0
+        total_damage = 0
         mw_total = 0
         initial_models = tgt.current_models
 
         for _ in range(wounds):
-            wdie = roll_d6()[0]
-            if w['abilities'].skip_saves_on_crit_wound() and wdie == 6:
+            wound_die = roll_d6()[0]
+
+            # 1) Devastating (mortal) wounds on a crit‑wound
+            if w['abilities'].skip_saves_on_crit_wound() and wound_die == 6:
                 mw = w['abilities'].mortal_wounds_on_crit(w['D'])
                 tgt.take_damage(mw)
-                total += mw
+                total_damage += mw
                 mw_total += mw
-                failed += 1
+                failed_saves += 1
+                if not tgt.is_alive():
+                    print(f"{tgt.name} is destroyed!")
+                    game.board.clear_position(*tgt.position)
+                    break
+                continue
+
+            # 2) Otherwise roll save (armour vs invuln)
+            save_roll = roll_d6()[0]
+            armour_needed = tgt.datasheet['Sv'] - w['AP']
+            invuln_needed = tgt.datasheet.get('Invul')
+
+            if invuln_needed is not None and invuln_needed < armour_needed:
+                save_needed = invuln_needed
+                used_invuln = True
             else:
-                svr = roll_d6()[0]
-                svt = tgt.datasheet['Sv'] - w['AP']
-                if svr < svt:
-                    dmg = game.resolve_damage(w['D'])
-                    tgt.take_damage(dmg)
-                    total += dmg
-                    failed += 1
+                save_needed = armour_needed
+                used_invuln = False
+
+            if used_invuln:
+                print(f"   Invuln Save Roll: {save_roll} vs {save_needed}+")
+            else:
+                print(f"   Armour Save Roll: {save_roll} vs {save_needed}+")
+
+            if save_roll < save_needed:
+                dmg = game.resolve_damage(w['D'])
+                tgt.take_damage(dmg)
+                total_damage += dmg
+                failed_saves += 1
 
             if not tgt.is_alive():
                 print(f"{tgt.name} is destroyed!")
                 game.board.clear_position(*tgt.position)
                 break
 
+        # 3) summary
         bdr_s()
         print(f"Hit Rolls: {hits}/{num_attacks}")
         print(f"Wound Rolls: {wounds}/{hits}")
-        print(f"Failed Saves: {failed}/{wounds}")
-        print(f"Total Damage: {total}, Wounds now {tgt.current_wounds}/{tgt.max_wounds}")
+        print(f"Failed Saves: {failed_saves}/{wounds}")
+        print(f"Total Damage: {total_damage}, Wounds now {tgt.current_wounds}/{tgt.max_wounds}")
         bdr_s()
 
+        # 4) record stats properly
         unit._last_num_attacks = num_attacks
-        unit._last_hits = hits
+        unit._last_hits        = hits
         unit.register_damage_dealt(
-            dmg=total,
+            dmg=total_damage,
             models_killed=(initial_models - tgt.current_models),
             is_ranged=True,
             is_melee=False,
             mortal_wounds=mw_total
         )
+
         Objective.update_objective_control(game)
