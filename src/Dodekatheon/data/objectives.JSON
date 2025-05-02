@@ -1,8 +1,11 @@
 {
-    "Only War": [
-        { "id": 1, "pos": "H6" },
-        { "id": 2, "pos": "O8" },
-        { "id": 3, "pos": "W12" }
-    ]
-  }
+    "Only War": {
+        "primary": "Domination",
+        "objectives": [
+            { "id": 1, "pos": "H6" },
+            { "id": 2, "pos": "O8" },
+            { "id": 3, "pos": "W12" }
+        ]
+    }
+}
   

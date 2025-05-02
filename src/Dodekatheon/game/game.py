@@ -145,8 +145,11 @@ class Game:
         for u in game.current_player().units:
             u.advanced = u.fell_back = u.charged = False
 
+
         # check for end
-        if game.is_over():
+        if game.round > 5:
+            game.is_over()
+            print("Round 5 - Game Over!")
             game.show_scoreboard()
             return
 
@@ -154,7 +157,7 @@ class Game:
         game.round  += 1
 
     def is_over(game):
-        return not all(p.has_units() for p in game.players)
+        return game.round > 5 or not all(p.has_units() for p in game.players)
 
     def _refresh_board(game):
         # clear board

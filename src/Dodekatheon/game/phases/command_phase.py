@@ -35,7 +35,11 @@ def command_phase(game):
     # Check and update OC
     Objective.update_objective_control(game)
     yours = sum(1 for o in game.objectives if o.controller == 'P'+str(game.current))
-    vp = min(yours, 3)
+    
+    # Uncomment if want max VP to be set to 3
+    #vp = min(yours, 3)
+
+    vp = min(yours)
     game.current_player().vp += vp
     print(f"Scored {vp} VP for objectives controlled.")
 
