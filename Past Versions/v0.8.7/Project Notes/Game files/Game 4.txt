@@ -1,0 +1,601 @@
+PS C:\Users\[username]\PERSONAL\PERSONAL\Coding projects\!40k game> py main.py
+-- Round 1: P1's turn --
+    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+11| . | . | . | . | . | . | . | . | . | . | . | . | . | . | C |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+10| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 9| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 8| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 7| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 6| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 5| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 4| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 3| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 2| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 1| L | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+Lion El'Johnson (ID 1) - Pos:(0, 0) Wounds:10/10 M:8 T:9 Sv:2 W:10
+CP: 0
+
+Lion El'Johnson at (0, 0) move [n]ormal/[a]dv/[f]all/[s]tationary: n
+Δx: 4
+Δy: 4
+-- Round 1: P1's turn --
+    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+11| . | . | . | . | . | . | . | . | . | . | . | . | . | . | C |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+10| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 9| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 8| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 7| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 6| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 5| . | . | . | . | L | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 4| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 3| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 2| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 1| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+Lion El'Johnson (ID 1) - Pos:(4, 4) Wounds:10/10 M:8 T:9 Sv:2 W:10
+CP: 1
+
+Shooting for Lion El'Johnson:
+Make ranged attack? (y/n): Traceback (most recent call last):
+  File "C:\Users\[username]\PERSONAL\PERSONAL\Coding projects\!40k game\main.py", line 35, in <module>
+    game.play_turn()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\[username]\PERSONAL\PERSONAL\Coding projects\!40k game\game.py", line 235, in play_turn
+    self.shooting_phase()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\[username]\PERSONAL\PERSONAL\Coding projects\!40k game\game.py", line 94, in shooting_phase
+    if input("Make ranged attack? (y/n): ").lower()!='y':
+       ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+PS C:\Users\[username]\PERSONAL\PERSONAL\Coding projects\!40k game> py main.py
+-- Round 1: P1's turn --
+    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+11| . | . | . | . | . | . | . | . | . | . | . | . | . | . | C |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+10| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 9| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 8| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 7| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 6| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 5| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 4| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 3| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 2| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 1| L | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+Lion El'Johnson (ID 1) - Pos:(0, 0) Wounds:10/10 M:8 T:9 Sv:2 W:10
+CP: 0
+
+Lion El'Johnson at (0, 0) move [n]ormal/[a]dv/[f]all/[s]tationary: n
+Δx: 5
+Δy: 5
+-- Round 1: P1's turn --
+    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+11| . | . | . | . | . | . | . | . | . | . | . | . | . | . | C |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+10| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 9| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 8| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 7| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 6| . | . | . | . | . | L | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 5| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 4| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 3| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 2| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 1| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+Lion El'Johnson (ID 1) - Pos:(5, 5) Wounds:10/10 M:8 T:9 Sv:2 W:10
+CP: 1
+
+Shooting for Lion El'Johnson:
+Make ranged attack? (y/n): y
+0: Arma Luminis - Bolt
+1: Arma Luminis - Beam
+Select ranged weapon: 0
+Target Δx: 9
+Target Δy: 5
+Hit roll: 6 vs BS 2
+--> Hit!
+Wound roll: 1 vs needed 5 (S 4 vs T 6)
+--> No wound.
+Hit roll: 4 vs BS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 4 vs T 6)
+--> Wound!
+Save roll: 1 vs Sv 2 AP-1 => target 3
+--> Damage 2 inflicted. Wounds now 28/30
+Hit roll: 6 vs BS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 4 vs T 6)
+--> Wound!
+Save roll: 5 vs Sv 2 AP-1 => target 3
+--> Saved, no damage.
+Hit roll: 1 vs BS 2
+--> Missed.
+
+Enter charge phase: [c]harge/[s]kip (end turn): c
+Charge roll for Lion El'Johnson: 4"
+Charge Δx: 2
+Charge Δy: 2
+-- Round 1: P1's turn --
+    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+11| . | . | . | . | . | . | . | . | . | . | . | . | . | . | C |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+10| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 9| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 8| . | . | . | . | . | . | . | L | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 7| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 6| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 5| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 4| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 3| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 2| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 1| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+Lion El'Johnson (ID 1) - Pos:(7, 7) Wounds:10/10 M:8 T:9 Sv:2 W:10
+CP: 1
+
+Enter fight phase: [f]ight/[s]kip (end turn): s
+Skip fight = end your turn. Confirm? (y/n): y
+-- Round 2: P2's turn --
+    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+11| . | . | . | . | . | . | . | . | . | . | . | . | . | . | C |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+10| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 9| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 8| . | . | . | . | . | . | . | L | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 7| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 6| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 5| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 4| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 3| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 2| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 1| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+Custodian Squad (ID 2) - Pos:(14, 10) Wounds:28/30 M:6 T:6 Sv:2 W:30
+CP: 1
+
+Custodian Squad at (14, 10) move [n]ormal/[a]dv/[f]all/[s]tationary: n
+Δx: 3
+Δy: 3
+Off-board. Try again.
+Custodian Squad at (14, 10) move [n]ormal/[a]dv/[f]all/[s]tationary: n
+Δx: -3
+Δy: -3
+-- Round 2: P2's turn --
+    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+11| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+10| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 9| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 8| . | . | . | . | . | . | . | L | . | . | . | C | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 7| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 6| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 5| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 4| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 3| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 2| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 1| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+Custodian Squad (ID 2) - Pos:(11, 7) Wounds:28/30 M:6 T:6 Sv:2 W:30
+CP: 2
+
+Shooting for Custodian Squad:
+Make ranged attack? (y/n): y
+0: Guardian Spear
+1: Guardian Spear
+Select ranged weapon: 0
+Target Δx: -4
+Target Δy: 0
+Hit roll: 1 vs BS 2
+--> Missed.
+Hit roll: 1 vs BS 2
+--> Missed.
+Hit roll: 6 vs BS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 4 vs T 9)
+--> Wound!
+Save roll: 5 vs Sv 2 AP-1 => target 3
+--> Saved, no damage.
+Hit roll: 5 vs BS 2
+--> Hit!
+Wound roll: 5 vs needed 5 (S 4 vs T 9)
+--> Wound!
+Save roll: 3 vs Sv 2 AP-1 => target 3
+--> Saved, no damage.
+Hit roll: 2 vs BS 2
+--> Hit!
+Wound roll: 4 vs needed 5 (S 4 vs T 9)
+--> No wound.
+Hit roll: 6 vs BS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 4 vs T 9)
+--> Wound!
+Save roll: 6 vs Sv 2 AP-1 => target 3
+--> Saved, no damage.
+Hit roll: 6 vs BS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 4 vs T 9)
+--> Wound!
+Save roll: 2 vs Sv 2 AP-1 => target 3
+--> Damage 2 inflicted. Wounds now 8/10
+Hit roll: 1 vs BS 2
+--> Missed.
+Hit roll: 4 vs BS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 4 vs T 9)
+--> Wound!
+Save roll: 3 vs Sv 2 AP-1 => target 3
+--> Saved, no damage.
+Hit roll: 4 vs BS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 4 vs T 9)
+--> Wound!
+Save roll: 6 vs Sv 2 AP-1 => target 3
+--> Saved, no damage.
+Hit roll: 4 vs BS 2
+--> Hit!
+Wound roll: 1 vs needed 5 (S 4 vs T 9)
+--> No wound.
+Hit roll: 3 vs BS 2
+--> Hit!
+Wound roll: 3 vs needed 5 (S 4 vs T 9)
+--> No wound.
+Hit roll: 2 vs BS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 4 vs T 9)
+--> Wound!
+Save roll: 1 vs Sv 2 AP-1 => target 3
+--> Damage 2 inflicted. Wounds now 6/10
+Hit roll: 4 vs BS 2
+--> Hit!
+Wound roll: 2 vs needed 5 (S 4 vs T 9)
+--> No wound.
+Hit roll: 5 vs BS 2
+--> Hit!
+Wound roll: 4 vs needed 5 (S 4 vs T 9)
+--> No wound.
+Hit roll: 3 vs BS 2
+--> Hit!
+Wound roll: 1 vs needed 5 (S 4 vs T 9)
+--> No wound.
+Hit roll: 1 vs BS 2
+--> Missed.
+Hit roll: 3 vs BS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 4 vs T 9)
+--> Wound!
+Save roll: 1 vs Sv 2 AP-1 => target 3
+--> Damage 2 inflicted. Wounds now 4/10
+Hit roll: 5 vs BS 2
+--> Hit!
+Wound roll: 4 vs needed 5 (S 4 vs T 9)
+--> No wound.
+Hit roll: 5 vs BS 2
+--> Hit!
+Wound roll: 1 vs needed 5 (S 4 vs T 9)
+--> No wound.
+
+Enter charge phase: [c]harge/[s]kip (end turn): c
+Charge roll for Custodian Squad: 8"
+Charge Δx: -3
+Charge Δy: 0
+-- Round 2: P2's turn --
+    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+11| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+10| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 9| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 8| . | . | . | . | . | . | . | L | C | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 7| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 6| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 5| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 4| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 3| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 2| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+ 1| . | . | . | . | . | . | . | . | . | . | . | . | . | . | . |
+  +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+Custodian Squad (ID 2) - Pos:(8, 7) Wounds:28/30 M:6 T:6 Sv:2 W:30
+CP: 2
+
+Enter fight phase: [f]ight/[s]kip (end turn): f
+Fighting for Custodian Squad:
+Make melee attack? (y/n): y
+0: Guardian Spear
+1: Guardian Spear
+Select melee weapon: 0
+Target Δx: -1
+Target Δy: 0
+Hit roll: 1 vs WS 2
+--> Missed.
+Hit roll: 4 vs WS 2
+--> Hit!
+Wound roll: 3 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 3 vs WS 2
+--> Hit!
+Wound roll: 5 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 6 vs Sv 2 AP-2 => 4
+--> Saved, no damage.
+Hit roll: 1 vs WS 2
+--> Missed.
+Hit roll: 5 vs WS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 2 vs Sv 2 AP-2 => 4
+--> Damage 2 inflicted. Wounds now 2/10
+Hit roll: 5 vs WS 2
+--> Hit!
+Wound roll: 5 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 2 vs Sv 2 AP-2 => 4
+--> Damage 2 inflicted. Wounds now 0/10
+Hit roll: 3 vs WS 2
+--> Hit!
+Wound roll: 4 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 4 vs WS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 3 vs Sv 2 AP-2 => 4
+--> Damage 2 inflicted. Wounds now 0/10
+Hit roll: 5 vs WS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 5 vs Sv 2 AP-2 => 4
+--> Saved, no damage.
+Hit roll: 3 vs WS 2
+--> Hit!
+Wound roll: 2 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 3 vs WS 2
+--> Hit!
+Wound roll: 4 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 3 vs WS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 6 vs Sv 2 AP-2 => 4
+--> Saved, no damage.
+Hit roll: 1 vs WS 2
+--> Missed.
+Hit roll: 6 vs WS 2
+--> Hit!
+Wound roll: 2 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 5 vs WS 2
+--> Hit!
+Wound roll: 3 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 5 vs WS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 1 vs Sv 2 AP-2 => 4
+--> Damage 2 inflicted. Wounds now 0/10
+Hit roll: 6 vs WS 2
+--> Hit!
+Wound roll: 3 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 1 vs WS 2
+--> Missed.
+Hit roll: 2 vs WS 2
+--> Hit!
+Wound roll: 4 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 2 vs WS 2
+--> Hit!
+Wound roll: 4 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 5 vs WS 2
+--> Hit!
+Wound roll: 3 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 4 vs WS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 6 vs Sv 2 AP-2 => 4
+--> Saved, no damage.
+Hit roll: 1 vs WS 2
+--> Missed.
+Hit roll: 4 vs WS 2
+--> Hit!
+Wound roll: 2 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 6 vs WS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 4 vs Sv 2 AP-2 => 4
+--> Saved, no damage.
+Hit roll: 6 vs WS 2
+--> Hit!
+Wound roll: 2 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 1 vs WS 2
+--> Missed.
+Hit roll: 1 vs WS 2
+--> Missed.
+Hit roll: 2 vs WS 2
+--> Hit!
+Wound roll: 5 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 4 vs Sv 2 AP-2 => 4
+--> Saved, no damage.
+Hit roll: 4 vs WS 2
+--> Hit!
+Wound roll: 1 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 1 vs WS 2
+--> Missed.
+Hit roll: 5 vs WS 2
+--> Hit!
+Wound roll: 3 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 5 vs WS 2
+--> Hit!
+Wound roll: 1 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 5 vs WS 2
+--> Hit!
+Wound roll: 1 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 6 vs WS 2
+--> Hit!
+Wound roll: 3 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 1 vs WS 2
+--> Missed.
+Hit roll: 2 vs WS 2
+--> Hit!
+Wound roll: 5 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 6 vs Sv 2 AP-2 => 4
+--> Saved, no damage.
+Hit roll: 4 vs WS 2
+--> Hit!
+Wound roll: 1 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 3 vs WS 2
+--> Hit!
+Wound roll: 4 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 2 vs WS 2
+--> Hit!
+Wound roll: 2 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 1 vs WS 2
+--> Missed.
+Hit roll: 6 vs WS 2
+--> Hit!
+Wound roll: 5 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 5 vs Sv 2 AP-2 => 4
+--> Saved, no damage.
+Hit roll: 3 vs WS 2
+--> Hit!
+Wound roll: 4 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 4 vs WS 2
+--> Hit!
+Wound roll: 1 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 3 vs WS 2
+--> Hit!
+Wound roll: 2 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 2 vs WS 2
+--> Hit!
+Wound roll: 2 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 3 vs WS 2
+--> Hit!
+Wound roll: 5 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 1 vs Sv 2 AP-2 => 4
+--> Damage 2 inflicted. Wounds now 0/10
+Hit roll: 3 vs WS 2
+--> Hit!
+Wound roll: 3 vs needed 5 (S 7 vs T 9)
+--> No wound.
+Hit roll: 6 vs WS 2
+--> Hit!
+Wound roll: 6 vs needed 5 (S 7 vs T 9)
+--> Wound!
+Save roll: 2 vs Sv 2 AP-2 => 4
+--> Damage 2 inflicted. Wounds now 0/10
+Hit roll: 5 vs WS 2
+--> Hit!
+Wound roll: 2 vs needed 5 (S 7 vs T 9)
+--> No wound.
+
+Game over! P2 wins!

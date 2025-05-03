@@ -1,0 +1,30 @@
+I see the issue with balance now! Typically, squads in game usually have 5 models (there can be x4, or even x3, depending on which unit it is), and so, while their wounds are compounded, attacks also, for every model that gets destroyed from the squad, the number of attacks drop SIGNIFICANLY. For example, take the Terminator squad:
+
+statline : [5, 5, "2+", 15, "6+", 1]
+["Storm bolter", "24", 10, "3+", 4, 0, 1]
+["Powerfist", 15, "3+", 8, -2, 2]
+
+Because these stats are for 5 models, currently, if 1 model dies, the number of attacks for this unit stays the same, for example:
+statline : [5, 5, "2+", 11/15 (1 model destroyed, 4 models remain, out that, 1 model only has 2 remaining health), "6+", 1]
+["Storm bolter", "24", 10, "3+", 4, 0, 1]
+["Powerfist", 15, "3+", 8, -2, 2]
+
+But because the weapons' "A" or Attack stat is also compounded, each time a unit is destroyed, the number of attacks of a unit also goes down depending on how many attacks each unit has. So, using the same example as before:
+statline : [5, 5, "2+", 11/15, "6+", 1]
+["Storm bolter", "24", 8/10, "3+", 4, 0, 1]
+["Powerfist", 12, "3+", 8, -2, 2]
+
+Note that the number of attacks ONLY drop when one or more models are destroyed, if the number of remaining wounds are not divisible by the max wounds of a model in that unit, attacks remain the same until it gets dropped further.
+
+I need you to implement a way for this to work on units with more than 1 model (non-character units), I'll provide you the ORIGINAL (stat for 1 model) datasheet of the Custodian guard unit and the terminator unit:
+```
+Terminator : [5, 5, "2+", 3, "6+", 1]
+["Storm bolter", "24", 2, "3+", 4, 0, 1]
+["Powerfist", 3, "3+", 8, -2, 2]
+```
+```
+Custodian Guard : [6, 6, "2+", 3, "6+", 2]
+["Guardian Spear", "24", 2, "2+", 4, -1, 2]
+["Guardian Spear", 5, "2+", 7, -2, 2]
+```
+Quick reminder that ONLY the attacks and wound stats will be compounded in a squad unit, other stats remain the same.
