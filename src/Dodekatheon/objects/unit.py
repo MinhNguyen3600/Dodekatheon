@@ -33,6 +33,10 @@ class Unit:
         # attachments holds other Unit instances (Characters)
         self.attachments = []
 
+        self.datasheet = datasheet
+        # copy them onto the unit for easier access:
+        self.unit_abilities = list(datasheet.get('unit_abilities', []))
+
         self.stats = {
             'rng_fired':       0,
             'rng_hits':        0,

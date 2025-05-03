@@ -1,11 +1,16 @@
 # Game/shooting_phase.py
 import math as _math
+
 from objects.dice import roll_d6
 from data.unit_abilities import *
+from data.keywords import has_keyword
+
 from ..utils import bdr_s, bdr_m, bdr_l
 from ..objective import Objective
 
 def shooting_phase(game):
+    game.run_choice_abilities('shooting')
+
     for unit in [u for u in game.current_player().units if u.is_alive() and not u.fell_back]:
         all_weapons = unit.datasheet['ranged_weapons']
 
@@ -36,7 +41,16 @@ def shooting_phase(game):
 
         enemies = []
         for e in game.other_player().units:
-            if not e.is_alive(): continue
+            if not e.is_alive(): 
+                continue
+
+            # Fly units cannot be shot at unless within half‑range of non‑assault
+            if has_keyword(e,'unit','Fly') \
+                and w['type']=='ranged' and not w['abilities'].is_assault:
+                
+                # require full range bypass: skip this target
+                continue
+
             d = game.board.distance_inches(unit.position, e.position)
             if d <= w['range']:
                 enemies.append((e, d))
@@ -91,6 +105,14 @@ def shooting_phase(game):
         wounds = 0
         for _ in range(hits):
             wdie = roll_d6()[0]
+
+            
+            # 0) Anti‑X: unmodified wound roll may score a crit wound
+            if w['abilities'].scores_crit_wound(
+                tgt.datasheet['keywords']['unit'], wdie):
+                wounds = 1
+                continue
+
             s, t = w['S'], tgt.datasheet['T']
             need = 2 if s >= 2*t else 3 if s > t else 4 if s == t else 5
             if wdie == 6 or wdie >= need:

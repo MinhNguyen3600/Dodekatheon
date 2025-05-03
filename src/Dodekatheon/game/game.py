@@ -1,6 +1,8 @@
 # Game/game.py
 import json
 from game.utils import *   # or define load_json inline
+from game.objective import Objective
+
 from .objective import Objective
 from objects.dice import roll_d6
 from objects.board import Board
@@ -11,7 +13,7 @@ from .phases.shooting_phase import shooting_phase
 from .phases.charge_phase   import charge_phase
 from .phases.fight_phase    import fight_phase
 
-from game.objective import Objective
+from data.unit_abilities import ChoiceAbility
 
 class Game:
     def __init__(game, p1, p2, board_width=30, board_height=15, mission="Only War"):
@@ -64,7 +66,16 @@ class Game:
         #     game.objectives.append(Objective(oid, (x, y)))
         # ]
 
-
+    def run_choice_abilities(game, phase_name):
+        """
+        For each unit of the current player, if it has any ChoiceAbility
+        whose .phase matches phase_name, prompt and apply it now.
+        """
+        for u in game.current_player().units:
+            for a in u.unit_abilities:              # <- fails here
+                if isinstance(a, ChoiceAbility) and phase_name in a.phase:
+                    a.prompt(game, u)
+                    a.apply(game, u)
 
     def other_player(game):
         return game.players[1 - game.current]
@@ -118,7 +129,9 @@ class Game:
                     print(f"      • {prof['name']}: A={prof['A']}  WS={ws}  "
                           f"S={prof['S']}  AP={prof['AP']}  D={prof['D']}  Abils=[{abil}]")
             print()
+            game.run_choice_abilities('round_start')
 
+    
 
     # now each phase just delegates:
     def command_phase(game):

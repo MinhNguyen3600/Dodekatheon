@@ -1,12 +1,18 @@
 # movement_phase.py
 import math as _math
+
 from objects.dice import roll_d6
+from data.keywords import has_keyword
+
 from ..utils import reachable_squares, parse_column_label    # your helper to turn "AA"->int
 from ..objective import Objective
+
 
 ENGAGEMENT_RANGE = 1.0
 
 def movement_phase(game):
+    game.run_choice_abilities('movement')
+
     for u in [u for u in game.current_player().units if u.is_alive()]:
         base = u.datasheet['M']
         choice = input(f"{u.name} move [n]ormal/[a]dv/[f]all/[s]tationary: ").lower()
@@ -63,7 +69,20 @@ def movement_phase(game):
                                 moves.add((x,y))
         else:
             # Normal or Advance or Stationary
-            moves = reachable_squares(u, game.board, max_move)
+            # Fly units ignore terrain
+            if has_keyword(u, 'unit', 'Fly'):
+                # any empty square within move distance
+                moves = set()
+                cx, cy = u.position
+                for x in range(game.board.width):
+                    for y in range(game.board.height):
+
+                        # distance applies to both “can stay” or “empty to move into”
+                        if game.board.distance_inches((cx,cy),(x,y)) <= max_move \
+                           and ((x,y)==(cx,cy) or game.board.grid[y][x]==' '):
+                            moves.add((x,y))
+            else:
+                moves = reachable_squares(u, game.board, max_move)
 
         # never include starting square
         moves.discard(u.position)

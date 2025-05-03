@@ -1,7 +1,11 @@
 import math as _math
+
 from objects.dice import roll_d6
+from data.keywords import has_keyword
+
 from .movement_phase import reachable_squares, parse_column_label
 from ..objective import Objective
+
 
 def parse_column_label(label):
     """Convert Excel-style column label (A, B, ..., Z, AA, AB...) to 0-based index"""
@@ -14,6 +18,10 @@ def parse_column_label(label):
 
 
 def charge_phase(game):
+    # ——— Choice hook for “Wrathful Presence” ———
+    # STEP 0: first, let each unit pick any charge‑phase choices
+    game.run_choice_abilities('charge')
+
     # ask whether to charge at all
     if input("Enter charge phase ([c]harge/[s]kip): ").lower()!='c':
         if input("Confirm end turn? (y/n): ").lower()=='y':
@@ -30,6 +38,8 @@ def charge_phase(game):
 
         # compute all squares reachable (including diagonal) up to charge_dist
         moves = reachable_squares(u, game.board, charge_dist)
+
+        # Fly units ignore engagement‑range blocking too
         # cannot stay in place for a charge
         moves.discard(u.position)
 
@@ -54,12 +64,14 @@ def charge_phase(game):
                             break
                         u.charged = True
                         game.board.move_unit(u, x, y)
-                        if u.symbol == 'C':
-                            for v in game.current_player().units:
-                                if v is not u and v.symbol == 'C':
-                                    game.board.clear_position(*v.position)
-                                    v.position = (x, y)
-                                    game.board.place_unit(v)
+
+                        # if u.symbol == 'C':
+                        #     for v in game.current_player().units:
+                        #         if v is not u and v.symbol == 'C':
+                        #             game.board.clear_position(*v.position)
+                        #             v.position = (x, y)
+                        #             game.board.place_unit(v)
+
                         game.display_state()
                         break
                     except ValueError:

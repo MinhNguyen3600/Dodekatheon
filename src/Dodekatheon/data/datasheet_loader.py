@@ -59,6 +59,13 @@ def build_weapon_group(entry, kind):
 
 def build_unit_ability(name, cfg):
     t = cfg['type']
+    if t == 'choice':
+        # build each sub‑ability
+        choices = {}
+        for key, subcfg in cfg['choices'].items():
+            choices[key] = build_unit_ability(key, subcfg)
+        return ChoiceAbility(name, cfg.get('phase'), choices, cfg.get('once_per'))
+
     if t == 'deep_strike':
         return DeepStrike()
     if t == 'dark_angels_bodyguard':
@@ -126,12 +133,17 @@ class DatasheetLoader:
                 for prof in wg.get('profiles', []):
                     melee.append(build_weapon(prof, 'melee'))  # ← wrap profile here
 
+        # merge both "abilities" and any "unit_abilities" into one dict
+        all_abils = {}
+        all_abils.update(entry.get('abilities', {}))
+        all_abils.update(entry.get('unit_abilities', {}))
         unit_abils = []
-        for nm,cfg in entry.get('abilities',{}).items():
-            a = build_unit_ability(nm,cfg)
-            if a: unit_abils.append(a)
+        for nm, cfg in all_abils.items():
+            a = build_unit_ability(nm, cfg)
+            if a:
+                unit_abils.append(a)
 
-        return {
+        result = {
             'size': entry.get('size',1),
             'M': M, 'T': T, 'Sv': Sv, 'W': W,
             'Ld': Ld, 'OC': OC,
@@ -140,5 +152,8 @@ class DatasheetLoader:
             'wargear_options': entry.get('wargear_options',{}),
             'attachable_leaders': entry.get('attachable_leaders',[]),
             'unit_abilities': unit_abils,
-            'specialRules': entry.get('specialRules',{})
+            'specialRules': entry.get('specialRules',{}),
+            'keywords': entry.get('keywords', {'faction':[], 'unit':[]}) # Faction and unit keywords
         }
+
+        return result

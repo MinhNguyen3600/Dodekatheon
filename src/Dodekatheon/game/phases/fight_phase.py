@@ -1,10 +1,15 @@
 # Game/fight_phase.py
 import math as _math
+
 from objects.dice import roll_d6
+from data.keywords import has_keyword
+
 from ..utils import bdr_s, bdr_m, bdr_l
 from ..objective import Objective
 
 def fight_phase(game):
+    game.run_choice_abilities('fight')
+
     for attacker in [u for u in game.current_player().units if u.is_alive() and u.charged]:
         bdr_m()
         print(f"Fighting for {attacker.name}:")
@@ -85,6 +90,13 @@ def fight_phase(game):
         for _ in range(wounds):
             wound_die = roll_d6()[0]
 
+            
+            # 0) Anti‑X: unmodified wound roll may score a crit wound
+            if w['abilities'].scores_crit_wound(
+                tgt.datasheet['keywords']['unit'], wdie):
+                wounds = 1
+                continue
+
             # 1) Devastating (mortal) wounds on a crit‑wound
             if w['abilities'].skip_saves_on_crit_wound() and wound_die == 6:
                 mw = w['abilities'].mortal_wounds_on_crit(w['D'])
@@ -101,6 +113,12 @@ def fight_phase(game):
             # 2) Otherwise roll save (armour vs invuln)
             save_roll = roll_d6()[0]
             armour_needed = defender.datasheet['Sv'] - w['AP']
+
+            # Cover bonus only to Infantry
+            if has_keyword(defender,'unit','Infantry') \
+            and game.board.terrain_at(defender.position).grants_cover():
+                armour_needed -= 1
+
             invuln_needed = defender.datasheet.get('Invul')
 
             if invuln_needed is not None and invuln_needed < armour_needed:

@@ -63,6 +63,18 @@ class WeaponAbility:
         if self.rapid_fire_bonus and context.get("half_range", False):
             a += self.rapid_fire_bonus
 
+        # parse Anti- keywords
+        # e.g. "ANTI-VEHICLE 2+" or "ANTI-INFANTRY 4+"
+        self.anti = []               # list of (keyword, threshold int)
+        for n in self.names:
+            if n.startswith("ANTI-"):
+                # split off the number
+                parts = n.split()
+                kw = parts[0][5:]    # text after "ANTI-"
+                th = int(parts[1].rstrip('+'))
+                self.anti.append((kw, th))
+
+
         # blast: +1 attack per 5 models in target
         if self.is_blast and "target_models" in context:
             a += (context["target_models"] // 5)
@@ -97,3 +109,15 @@ class WeaponAbility:
         If devastating, returns how many mortal wounds on a crit wound.
         """
         return damage if self.is_devastating else 0
+
+        def scores_crit_wound(self, target_keywords, wound_roll):
+            """
+            Check each Anti-X+ ability: if target has keyword X and
+            this wound_roll (unmodified) ≥ threshold, treat as crit-wound.
+            """
+            for (kw, th) in self.anti:
+                # target_keywords is a list of strings on the unit
+                if kw.upper() in (k.upper() for k in target_keywords):
+                    if wound_roll >= th:
+                        return True
+            return False

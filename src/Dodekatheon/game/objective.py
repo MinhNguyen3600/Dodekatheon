@@ -34,9 +34,7 @@ class Objective:
                     if not u.is_alive(): continue
                     # for each model in unit
                     for _ in range(u.current_models):
-                        dx = abs(u.position[0] - obj.position[0])
-                        dy = abs(u.position[1] - obj.position[1])
-                        if dx <= 3 and dy <= 5:
+                        if game.board.distance_inches(u.position, obj.position) <= 3:
                             levels[player_key] += u.datasheet['OC']
             # decide controller
             if levels['P1'] > levels['P2']:

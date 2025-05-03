@@ -33,8 +33,13 @@
     "attachable_leaders": ["Shield-Captain"],
     "abilities": {
       "stand_vigil": { "type": "reroll_wound_1", "condition": "always" }
+    },
+    "specialRules": {},
+    "keywords": {
+      "unit":    ["Infantry","Battleline","Imperium","Custodian Guard"],
+      "faction": ["Adeptus Custodes"]
     }
-  }  ,
+  },
 
   "Shield-Captain": {
     "size": 1,
@@ -56,6 +61,11 @@
       "leader":                { "type": "leader" },
       "master_of_the_stances": { "type": "master_of_the_stances", "once_per": "battle" },
       "strategic_mastery":     { "type": "strategic_mastery",   "once_per": "battle_round" }
+    },
+    "specialRules": {},
+    "keywords": {
+      "unit":    ["Infantry","Character","Imperium","Shield-captain"],
+      "faction": ["Adeptus Custodes"]
     }
   },
 
@@ -74,12 +84,17 @@
       "deep_strike":     { "type": "deep_strike" },
       "resolute_will":   { "type": "resolute_will",   "condition": "character_leader" },
       "living_fortress": { "type": "living_fortress", "once_per": "battle", "grants": "feel_no_pain_4" }
+    },
+    "specialRules": {},
+    "keywords": {
+      "unit":    ["Infantry","Imperium","Custodian Wardens"],
+      "faction": ["Adeptus Custodes"]
     }
   },
 
   "Lion El'Johnson": {
     "size": 1,
-    "statline": [8, 9, "2+", "4+", 10, "5+", 4],
+    "statline": [8, 9, "2+", "3+", 10, "5+", 4],
     "ranged_weapons": [
       ["Arma Luminis - bolt",  "12", 4, "2+", 4, -1, 2, ["pistol"]],
       ["Arma Luminis - beam",  "12", 2, "2+", 8, -3, 2, ["pistol"]]
@@ -93,9 +108,22 @@
       "fights_first":            { "type": "fights_first" },
       "the_emperors_shield":     { "type": "melee_save_retaliate", "trigger": 6, "effect": "attacker_suffers_same_damage" },
       "dark_angels_bodyguard":   { "type": "dark_angels_bodyguard", "radius": 3 },
-      "all_secrets_revealed":    { "type": "all_secrets_revealed", "once_per": "turn" },
-      "martial_exemplar":        { "type": "martial_exemplar",   "aura": 6, "bonus": "hit_roll" },
-      "no_hiding_from_watchers": { "type": "no_hiding_from_watchers", "aura": 6, "grants": "feel_no_pain_4" }
+  
+      "primarch_of_the_first_legion": {
+        "type":     "choice",
+        "phase":    "command",
+        "once_per": "battle_round",
+        "choices": {
+          "all_secrets_revealed":    { "type": "all_secrets_revealed",    "once_per": "turn" },
+          "martial_exemplar":        { "type": "martial_exemplar",        "aura": 6, "bonus": "hit_roll" },
+          "no_hiding_from_watchers": { "type": "no_hiding_from_watchers", "aura": 6, "grants": "feel_no_pain_4" }
+        }
+      }
+    },
+    "specialRules": {},
+    "keywords": {
+      "unit":    ["Monster","Character","Epic Hero","Imperium","Primarch","Lion El'jonson"],
+      "faction": ["Adeptus Astartes", "Dark Angels"]
     }
   },
 
@@ -108,11 +136,50 @@
       ["Samni'arius & Spinegrinder - cleave", 18, "2+", 8, -2, 2, []]
     ],
     "abilities": {
-      "deep_strike": { "type": "deep_strike" },
-      "fights_first":{ "type": "fights_first" }
+      "deep_strike":  { "type": "deep_strike" },
+      "fights_first": { "type": "fights_first" },
+
+      "wrathful_presence": {
+        "type":     "choice",
+        "phase":    "charge",
+        "once_per": "charge_phase",
+        "choices": {
+          "glorious_bloodletting": { "type": "aura_bonus_charge",       "aura": 6, "bonus": 1 },
+          "infectious_rage":       { "type": "aura_bonus_melee_attacks", "aura": 6, "condition": "below_half", "bonus": 1 },
+          "righteous_slaughter":   { "type": "aura_reroll_hits",         "aura": 6 }
+        }
+      }
     },
     "specialRules": {
       "damagedBracket": { "woundThreshold": 6, "hitPenalty": -1 }
+    },
+    "keywords": {
+      "unit":    ["Monster","Fly","Character","Epic Hero","Chaos","Khorne","Daemon","Primarch","Angron"],
+      "faction": ["World Eaters"]
+    }
+  },
+
+  "Khorne Berzerkers": {
+    "size": 5,
+    "statline": [6, 4, "3+", "", 3, "6+", 1],
+    "ranged_weapons": [
+      ["Bolt pistol",       "12", 6, "3+", 6,  0, 1, ["pistol"]],
+      ["Plasma pistol - standard",    "12", 1, "3+", 7,  -2, 1, ["pistol"]],
+      ["Plasma pistol - supercharge",    "12", 1, "3+", 7,  -2, 1, ["pistol", "hazardous"]]
+    ],
+    "melee_weapons": [
+      ["Berzerker chainblade", 4, "3+", 5, -1, 1, []],
+      ["Khornate eviscerator", 3, "3+", 8, -2, 2, []]
+    ],
+    "abilities": {
+      "deep_strike":      { "type": "deep_strike" },
+      "teleport_homer":   { "type": "teleport_homer" },
+      "fury_of_the_first":{ "type": "fury_of_the_first" }
+    },
+    "specialRules": {},
+    "keywords": {
+      "unit":    ["Infantry","Imperium","Terminator","Terminator Squad","Deathwing"],
+      "faction": ["Adeptus Astartes"]
     }
   },
 
@@ -128,9 +195,22 @@
       ["Silence - sweep", 15, "2+", 7, -1, 1, ["lethal hits"]]
     ],
     "abilities": {
-      "deep_strike":    { "type": "deep_strike" },
-      "deadly_demise":  { "type": "deadly_demise", "dice": "D6" },
-      "feel_no_pain":   { "type": "feel_no_pain",   "threshold": 5 }
+      "deep_strike":   { "type": "deep_strike" },
+      "deadly_demise": { "type": "deadly_demise", "dice": "D6" },
+      "feel_no_pain":  { "type": "feel_no_pain",    "threshold": 5 },
+
+      "lord_of_the_death_guard": { "type": "aura_ignore_modifiers", "aura": 6 },
+
+      "host_of_plagues": {
+        "type":     "choice",
+        "phase":    "round_start",
+        "once_per": "battle_round",
+        "choices": {
+          "miasma_of_pestilence":  { "type": "aura_benefit",         "aura": 6, "benefit": "cover" },
+          "diseased_influence":    { "type": "aura_reroll_wound_1",  "aura": 6 },
+          "toxic_presence":        { "type": "aura_contagion_bonus", "aura": 12, "bonus": 3 }
+        }
+      }
     },
     "specialRules": {
       "damagedBracket": { "woundThreshold": 6, "hitPenalty": -1 }
@@ -139,6 +219,10 @@
       "miasma_of_pestilence": { "type": "aura_benefit", "aura": 6, "benefit": "cover" },
       "diseased_influence":   { "type": "aura_reroll_wound_1", "aura": 6 },
       "toxic_presence":       { "type": "aura_contagion_bonus", "aura": 12, "bonus": 3 }
+    },
+    "keywords": {
+      "unit":    ["Monster","Psyker","Fly","Character","Epic Hero","Daemon","Grenades","Chaos","Nurgle","Primarch","Mortarion"],
+      "faction": ["Death Guard"]
     }
   },
 
@@ -155,14 +239,30 @@
     ],
     "abilities": {
       "deep_strike":     { "type": "deep_strike" },
-      "deadly_demise":   { "type": "deadly_demise", "dice": "D6" },
-      "feel_no_pain":    { "type": "feel_no_pain",    "threshold": 5 },
-      "beguiling_form":  { "type": "beguiling_form",  "effect": "hit_roll_penalty" },
-      "daemonic_speed":  { "type": "fights_first" },
-      "enthralling_hypnosis": { "type": "aura_leadership_test", "aura": 6 }
+      "deadly_demise":   { "type": "deadly_demise",  "dice": "D6" },
+      "feel_no_pain":    { "type": "feel_no_pain",   "threshold": 5 },
+
+      "daemonic_poisons": { "type": "choice", "phase": "shooting,fight", "once_per": "battle",
+        "choices": {
+          "daemonic_poisons":    { "type": "aura_infect_poison",     "effect": "poisoned" },
+          "daemon_primarch_slaanesh": {
+            "type":     "choice",
+            "phase":    "opponent_command",
+            "choices": {
+              "beguiling_form":        { "type": "beguiling_form",        "effect": "hit_roll_penalty" },
+              "daemonic_speed":        { "type": "fights_first" },
+              "enthralling_hypnosis":  { "type": "aura_leadership_test",   "aura": 6 }
+            }
+          }
+        }
+      }
     },
     "specialRules": {
       "damagedBracket": { "woundThreshold": 6, "hitPenalty": -1 }
+    },
+    "keywords": {
+      "unit":    ["Monster","Fly","Character","Epic Hero","Daemon","Chaos","Slaanesh","Primarch","Fulgrim"],
+      "faction": ["Emperor's Children"]
     }
   },
 
@@ -184,6 +284,11 @@
       "deep_strike":      { "type": "deep_strike" },
       "teleport_homer":   { "type": "teleport_homer" },
       "fury_of_the_first":{ "type": "fury_of_the_first" }
+    },
+    "specialRules": {},
+    "keywords": {
+      "unit":    ["Infantry","Imperium","Terminator","Terminator Squad","Deathwing"],
+      "faction": ["Adeptus Astartes"]
     }
   },
 
@@ -201,22 +306,58 @@
       "fights_first":{ "type": "fights_first" },
       "lone_operative":{ "type": "lone_operative" }
     },
-    "specialRules": {}
+    "specialRules": {},
+    "keywords": {
+      "unit":    ["Infantry","Character","Epic Hero","Fly","Jump Pack","Imperium","Tacticus","The Sanguinor"],
+      "faction": ["Adeptus Astartes","Blood Angels"]
+    }
   },
 
   "Azrael": {
     "size": 1,
     "statline": [6, 4, "2+", "4+", 6, "6+", 1],
     "ranged_weapons": [
-      ["Lion's Wrath", "24", 2, "2+", 8, -3, 2, ["devastating wounds, rapid fire 1"]]
+      ["Lion's Wrath", "24", 2, "2+", 8, -3, 2, ["devastating wounds","rapid fire 1","anti-infantry 4+"]]
     ],
     "melee_weapons": [
       ["The Sword of Secrets", 6, "2+", 6, -4, 2, ["devastating wounds"]]
     ],
-    "abilities": {},
-    "specialRules": {}
+    "abilities": {
+      "leader":               { "type": "leader" },
+      "masterful_tactician":  { "type": "masterful_tactician" },
+      "lion_helm":            { "type": "lion_helm" }
+    },
+    "specialRules": {},
+    "keywords": {
+      "unit":    ["Infantry","Character","Epic Hero","Grenades","Imperium","Deathwing","Tacticus","Chapter Master","Azrael"],
+      "faction": ["Adeptus Astartes","Dark Angels"]
+    }
+  },
+
+  "C'tan Shard Of The Void Dragon": {
+    "size": 1,
+    "statline": [6, 11, "4+", "4+", 12, "6+", 4],
+    "ranged_weapons": [
+      ["Spear of the Void Dragon",  "12", 1, "2+", 4, -3, "D6+2", ["anti-vehicle 2+"]],
+      ["Voltaic storm",  "18", "D6+3", "2+", 7, -1, 2, ["blast", "sustained hits 2"]]
+    ],
+    "melee_weapons": [
+      ["Spear of the Void Dragon - strike", 5, "2+", 12, -3, "D6+2", []],
+      ["Spear of the Void Dragon - sweep", 10, "2+", 8, -1, 2, []],
+      ["Spear of the Void Dragon - sweep", 10, "2+", 8, -1, 2, ["extra attacks"]]
+    ],
+    "abilities": {
+      "deadly_demise":      { "type": "deadly_demise",   "dice": "D6" },
+      "feel_no_pain":       { "type": "feel_no_pain",    "threshold": 5 },
+      "necrodermis":        { "type": "necrodermis" },
+      "matter_absorption":  { "type": "matter_absorption" },
+      "reanimation_protocols": { "type": "reanimation_protocols" }
+    },
+    "specialRules": {},
+    "keywords": {
+      "unit":    ["Monster","Character","Fly","Epic Hero","C'Tan Shard of the Void Dragon"],
+      "faction": ["Necrons"]
+    }
   }
-
-
 
 }
