@@ -7,7 +7,7 @@
             "P2": { "x_min": 24, "x_max": 29 }
         },
         "objectives": [
-            { "id": 1, "pos": "H8" },
+            { "id": 1, "pos": "O8" },
             { "id": 2, "pos": "I8" },
             { "id": 3, "pos": "U8" },
             { "id": 4, "pos": "O13" },

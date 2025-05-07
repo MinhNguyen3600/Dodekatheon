@@ -1,0 +1,41 @@
+{
+    "Fulgrim": {
+        "size": 1,
+        "statline": [16, 11, "2+", "4+", 16, "5+", 6],
+        "ranged_weapons": [
+        ["Malefic lash", "12", 6, "2+", 8, -2, 2, ["sustained hits 1"]]
+        ],
+        "melee_weapons": [
+        ["Daemonic blades - strike", 6,  "2+",14, -3, "D6+1", ["sustained hits 1"]],
+        ["Daemonic blades - sweep",  12, "2+", 8, -2, 2, ["sustained hits 1"]],
+        ["Serpentine tail",           6, "2+", 6, -1, 1, ["extra attacks"]]
+        ],
+        "abilities": {
+        "deep_strike":     { "type": "deep_strike" },
+        "deadly_demise":   { "type": "deadly_demise",  "dice": "D6" },
+        "feel_no_pain":    { "type": "feel_no_pain",   "threshold": 5 },
+
+        "daemonic_poisons": { "type": "choice", "phase": "shooting,fight", "once_per": "battle",
+            "choices": {
+            "daemonic_poisons":    { "type": "aura_infect_poison",     "effect": "poisoned" },
+            "daemon_primarch_slaanesh": {
+                "type":     "choice",
+                "phase":    "opponent_command",
+                "choices": {
+                "beguiling_form":        { "type": "beguiling_form",        "effect": "hit_roll_penalty" },
+                "daemonic_speed":        { "type": "fights_first" },
+                "enthralling_hypnosis":  { "type": "aura_leadership_test",   "aura": 6 }
+                }
+            }
+            }
+        }
+        },
+        "specialRules": {
+        "damagedBracket": { "woundThreshold": 6, "hitPenalty": -1 }
+        },
+        "keywords": {
+        "unit":    ["Monster","Fly","Character","Epic Hero","Daemon","Chaos","Slaanesh","Primarch","Fulgrim"],
+        "faction": ["Emperor's Children"]
+        }
+    }
+}

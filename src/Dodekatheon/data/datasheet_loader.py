@@ -1,10 +1,12 @@
 # data/datasheet_loader.py
+import os
+import fnmatch
 import json
-from data.weapon_abilities import WeaponAbility
+
+from data.weapon_abilities import *
 from data.unit_abilities import *
 
 def build_weapon(entry, kind):
-    # unchanged from your existing function…
     *base, maybe_abils = entry
     if isinstance(maybe_abils, list):
         core, abil_keys = base, maybe_abils
@@ -12,7 +14,6 @@ def build_weapon(entry, kind):
         core, abil_keys = entry, []
     if kind == 'ranged':
         name, rng, A, Skill, S, AP, D = core
-
         rng_val = int(rng.rstrip('"')) if isinstance(rng,str) else int(rng)
         try:
             BS = int(str(Skill).rstrip('+'))
@@ -61,50 +62,51 @@ def build_unit_ability(name, cfg):
     t = cfg['type']
     if t == 'choice':
         # build each sub‑ability
-        choices = {}
-        for key, subcfg in cfg['choices'].items():
-            choices[key] = build_unit_ability(key, subcfg)
+        choices = {k: build_unit_ability(k, sc) for k, sc in cfg['choices'].items()}
         return ChoiceAbility(name, cfg.get('phase'), choices, cfg.get('once_per'))
 
-    if t == 'deep_strike':
-        return DeepStrike()
-    if t == 'dark_angels_bodyguard':
-        return DarkAngelsBodyguard(radius=cfg.get('radius',3))
-    if t == 'lone_operative':
-        return LoneOperative(max_range=cfg.get('max_range',12))
-    if t == 'leader':
-        return Leader()
-    if t == 'master_of_the_stances':
-        return MasterOfTheStances(cfg.get('once_per'))
-    if t == 'strategic_mastery':
-        return StrategicMastery(cfg.get('once_per'))
-    if t == 'resolute_will':
-        return ResoluteWill()
-    if t == 'living_fortress':
-        return LivingFortress(cfg.get('grants'))
-    # … then in build_unit_ability, add:
-    if t=="fights_first":           return FightsFirst()
-    if t=="melee_save_retaliate":    return MeleeSaveRetaliate()
-    if t=="all_secrets_revealed":    return AllSecretsRevealed()
-    if t=="martial_exemplar":        return MartialExemplar()
-    if t=="no_hiding_from_watchers": return NoHidingFromTheWatchers()
-    if t=="deadly_demise":           return DeadlyDemise(cfg.get("dice"))
-    if t=="feel_no_pain":            return FeelNoPain(cfg.get("threshold"))
-    if t=="beguiling_form":          return BeguilingForm()
-    if t=="daemonic_speed":          return DaemonicSpeed()
-    if t=="enthralling_hypnosis":    return EnthrallingHypnosis(cfg.get("aura"))
-    if t=="teleport_homer":          return TeleportHomer()
-    if t=="fury_of_the_first":       return FuryOfTheFirst()
-    if t=="aura_benefit":            return AuraBenefit(cfg["aura"], cfg["benefit"])
-    if t=="aura_reroll_wound_1":     return AuraRerollWound1(cfg["aura"])
-    if t=="aura_contagion_bonus":    return AuraContagionBonus(cfg["aura"], cfg["bonus"])
+    if t == 'deep_strike':            return DeepStrike()
+    if t == 'dark_angels_bodyguard':  return DarkAngelsBodyguard(radius=cfg.get('radius',3))
+    if t == 'lone_operative':         return LoneOperative(max_range=cfg.get('max_range',12))
+    if t == 'leader':                 return Leader()
+    if t == 'master_of_the_stances':  return MasterOfTheStances(cfg.get('once_per'))
+    if t == 'strategic_mastery':      return StrategicMastery(cfg.get('once_per'))
+    if t == 'resolute_will':          return ResoluteWill()
+    if t == 'living_fortress':        return LivingFortress(cfg.get('grants'))
+    if t == 'fights_first':           return FightsFirst()
+    if t == 'melee_save_retaliate':    return MeleeSaveRetaliate()
+    if t == 'all_secrets_revealed':    return AllSecretsRevealed()
+    if t == 'martial_exemplar':        return MartialExemplar()
+    if t == 'no_hiding_from_watchers': return NoHidingFromTheWatchers()
+    if t == 'deadly_demise':           return DeadlyDemise(cfg.get("dice"))
+    if t == 'feel_no_pain':            return FeelNoPain(cfg.get("threshold"))
+    if t == 'beguiling_form':          return BeguilingForm()
+    if t == 'daemonic_speed':          return DaemonicSpeed()
+    if t == 'enthralling_hypnosis':    return EnthrallingHypnosis(cfg.get("aura"))
+    if t == 'teleport_homer':          return TeleportHomer()
+    if t == 'fury_of_the_first':       return FuryOfTheFirst()
+    if t == 'aura_benefit':            return AuraBenefit(cfg["aura"], cfg["benefit"])
+    if t == 'aura_reroll_wound_1':     return AuraRerollWound1(cfg["aura"])
+    if t == 'aura_contagion_bonus':    return AuraContagionBonus(cfg["aura"], cfg["bonus"])
     return None
 
-
 class DatasheetLoader:
-    def __init__(self, path='data/datasheets.json'):
-        with open(path) as f:
-            self.data = json.load(f)
+    """
+    Recursively load every .json file under data/datasheets,
+    merge them into self.data, and provide get_unit().
+    """
+    def __init__(self, base_path='data/datasheets'):
+        self.data = {}
+        for root, dirs, files in os.walk(base_path):
+            for fname in fnmatch.filter(files, '*.json'):
+                path = os.path.join(root, fname)
+                with open(path, encoding='utf-8') as f:
+                    frag = json.load(f)
+                # detect duplicates if you wish:
+                for k in frag:
+                    if k in self.data:
+                        raise ValueError(f"Duplicate unit '{k}' in {path}")
+                self.data.update(frag)
 
     def get_unit(self, key):
         entry = self.data[key]
@@ -114,46 +116,40 @@ class DatasheetLoader:
         Ld = int(str(Ld_raw).rstrip('+'))
         OC = int(str(OC_raw).rstrip('+'))
 
-        # flatten: if it’s already a simple list entry, build it directly
-        # Fix ranged weapons
         ranged = []
         for wg in entry.get('ranged_weapons', []):
             if isinstance(wg, list):
                 ranged.append(build_weapon(wg, 'ranged'))
             else:
                 for prof in wg.get('profiles', []):
-                    ranged.append(build_weapon(prof, 'ranged'))  # ← wrap profile here
+                    ranged.append(build_weapon(prof, 'ranged'))
 
-        # Fix melee weapons
         melee = []
         for wg in entry.get('melee_weapons', []):
             if isinstance(wg, list):
                 melee.append(build_weapon(wg, 'melee'))
             else:
                 for prof in wg.get('profiles', []):
-                    melee.append(build_weapon(prof, 'melee'))  # ← wrap profile here
+                    melee.append(build_weapon(prof, 'melee'))
 
-        # merge both "abilities" and any "unit_abilities" into one dict
+        # merge sheet-level and unit_abilities
         all_abils = {}
         all_abils.update(entry.get('abilities', {}))
         all_abils.update(entry.get('unit_abilities', {}))
-        unit_abils = []
-        for nm, cfg in all_abils.items():
-            a = build_unit_ability(nm, cfg)
-            if a:
-                unit_abils.append(a)
+        unit_abils = [build_unit_ability(n, c) for n, c in all_abils.items() if build_unit_ability(n,c)]
 
-        result = {
-            'size': entry.get('size',1),
-            'M': M, 'T': T, 'Sv': Sv, 'W': W,
+        return {
+            'size': entry.get('size', 1),
+            'M': M, 'T': T, 'Sv': Sv, 'Invul': Invul, 'W': W,
             'Ld': Ld, 'OC': OC,
             'ranged_weapons': ranged,
             'melee_weapons': melee,
-            'wargear_options': entry.get('wargear_options',{}),
-            'attachable_leaders': entry.get('attachable_leaders',[]),
+            'default_equipment': entry.get('default_equipment', []),
+            'wargear_options': entry.get('wargear_options', {}),
+            'unit_composition': entry.get('unit_composition', {}),
+            'attachable_leaders': entry.get('attachable_leaders', []),
             'unit_abilities': unit_abils,
-            'specialRules': entry.get('specialRules',{}),
-            'keywords': entry.get('keywords', {'faction':[], 'unit':[]}) # Faction and unit keywords
+            'specialRules': entry.get('specialRules', {}),
+            'keywords': entry.get('keywords', {}),
+            'led_by': entry.get('led_by', [])
         }
-
-        return result

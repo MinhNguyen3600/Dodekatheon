@@ -1,0 +1,28 @@
+We may need to revamp the datasheet.json and datasheet_loader.json, and create a unit_builder.py file, because datasheets in the real game typically includes:
+- Multiple weapon options for a certain number of models
+- Typically, a unit can only have 1 ranged weapon and 1 melee weapon. Special types of weapons may have 2 profiles, in the real datasheet, this is denoted by the Banner Arrow shape to the left of the weapons, this counts as 1 weapon, but when it's that unit's turn to attack, the user is able to choose between either weapon profile of that weapon equipped on that unit.
+- unit_builder file/screen is required as it needs to do 2 things:
+    + allow players to swap certain models with different weapons from the list of weapon selections shown in the original datasheet (PRE-GAME, once the game starts, players are only able to use the weapons they've equipped for that model and units)
+    + Allow players to add a special character unit to another unit:
+	example: a custodian guard/warden unit is typically x5 models, but in the real game, 1 custodian guard/warden can be changed to become an x1 custodes Shield Captain. This model is still attached to the original custodian guard/warden squad, making this unit while being named the same as the original unit, is now composed of x4 custodian guard/warden and x1 Shield Captain. 
+	For the Custodes shield-captain and their variants, the Shield-captain On Dawneagle Jetbike and the Shield-captain In Allarus Terminator models SPECIFICALLY, they mostly share the same stats with their respective attatched units, their only difference is their wounds from the data sheet, their unit abilities, and their weapon profile data compared to their respective normal units. 
+	It is important to note that while these special models move WITH the unit they're attached to, when it's this unit's turn to shoot or fight, they will be allowed to input which unit they wish to shoot/fight first, the special character or their normal units. When the other player shoots/fights this unit, the opponent will be given the unit's composition and prompted which model they want to target their attack first (both parts of the unit need to be attacked either way)
+     + Allow players to ATTACH a Unique character to the unit, here's the official definition for attached units from the Core Rulebook:
+```
+ATTACHED UNITS
+Some CHARACTER units have the Leader ability, which lets them merge with other units (known as Bodyguard units) to form an Attached unit.
+
+The Starting Strength of an Attached unit is equal to the combined Starting Strengths of all of its units (i.e. the number of models in the Leader unit added to the number of models in the Bodyguard unit). If either the Leader unit or the Bodyguard unit in an Attached unit is destroyed, the Starting Strength of the remaining unit is changed to be equal to its original Starting Strength.
+
+Example: A Primaris Captain (Starting Strength 1) is attached to a unit of Intercessors (Starting Strength 5). This Attached unit has a Starting Strength of 6. If all the Intercessors are destroyed, the remaining Primaris Captain would revert to having a Starting Strength of 1.
+
+For the purposes of rules that are triggered when a unit is destroyed, such rules are still triggered when one of the individual units that made up an Attached unit is destroyed (the Leader or the Bodyguard unit).
+
+Example: If a rule awards you with 1VP each time an enemy unit is destroyed, and you target an Attached unit, you would gain 1VP if the Bodyguard unit is destroyed and 1VP if the Leader unit is destroyed (for a total of 2VP).
+```
+
+
+Note: we may need to make a main menu, for users to :
+- build their armies (includes weapon customization for units' individual models, if there is an option to based on their original datasheets, and customizing unit composition)
+- pick existing built army lists before the game starts (additionally, once this is done, players begin to each choose which units gets placed where on the initialized board to right before the game starts)
+- see the list of existing units and army list 

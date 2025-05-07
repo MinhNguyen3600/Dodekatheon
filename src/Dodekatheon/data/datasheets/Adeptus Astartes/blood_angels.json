@@ -1,0 +1,20 @@
+{
+    "Sanguinor": {
+        "size": 1,
+        "statline": [12, 4, "2+", "4+", 7, "6+", 1],
+        "ranged_weapons": [],
+        "melee_weapons": [
+          ["Encarmine broadsword ", 8, "2+",6, -3, 2, ["devastating wounds"]]
+        ],
+        "abilities": {
+          "deep_strike": { "type": "deep_strike" },
+          "fights_first":{ "type": "fights_first" },
+          "lone_operative":{ "type": "lone_operative" }
+        },
+        "specialRules": {},
+        "keywords": {
+          "unit":    ["Infantry","Character","Epic Hero","Fly","Jump Pack","Imperium","Tacticus","The Sanguinor"],
+          "faction": ["Adeptus Astartes","Blood Angels"]
+        }
+      }
+}

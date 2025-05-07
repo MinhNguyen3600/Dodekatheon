@@ -10,8 +10,8 @@ def print_scoreboard(game):
     hdr = [
       "Unit (ID)",
       "Rng Fired","Rng Hits","Rng %", 
-      "Mle Fired","Mle Hits","Mle %", 
-      "Mort Wnds","Dmg Dealt","Models Kld","CP Spent"
+      "Mle Attacks","Mle Hits","Mle %", 
+        "Mort Wnds","Dmg Dealt","Models Kld","CP Spent"
     ]
     rows = []
     for p in game.players:
@@ -21,7 +21,7 @@ def print_scoreboard(game):
             rows.append([
                 f"{u.name} ({u.id})",
                 s['rng_fired'], s['rng_hits'], _percent(s['rng_hits'], s['rng_fired']),
-                s['mle_fired'], s['mle_hits'], _percent(s['mle_hits'], s['mle_fired']),
+                s['mle_attacks'], s['mle_hits'], _percent(s['mle_hits'], s['mle_attacks']),
                 s['mortal_wounds'],
                 s['damage_dealt'],
                 s['models_killed'],
@@ -48,7 +48,7 @@ def print_scoreboard(game):
         dmg = sum(u.stats['damage_dealt'] for u in p.units)
         mk  = sum(u.stats['models_killed']  for u in p.units)
         rf, rh = sum(u.stats['rng_fired'] for u in p.units), sum(u.stats['rng_hits'] for u in p.units)
-        mf, mh = sum(u.stats['mle_fired'] for u in p.units), sum(u.stats['mle_hits'] for u in p.units)
+        mf, mh = sum(u.stats['mle_attacks'] for u in p.units), sum(u.stats['mle_hits'] for u in p.units)
         mw = sum(u.stats['mortal_wounds'] for u in p.units)
         prows.append([
             p.name, dmg, mk,

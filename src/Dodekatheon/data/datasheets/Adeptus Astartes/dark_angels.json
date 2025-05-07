@@ -1,0 +1,67 @@
+{
+    "Lion El'Johnson": {
+        "size": 1,
+        "statline": [8, 9, "2+", "3+", 10, "5+", 4],
+        "ranged_weapons": [
+          {
+            "name" : "Arma Luminis",
+            "profiles":[
+              ["Arma Luminis - bolt",  "12", 4, "2+", 4, -1, 2, ["pistol"]],
+              ["Arma Luminis - beam",  "12", 2, "2+", 8, -3, 2, ["pistol"]]
+            ]
+          }
+        ],
+        "melee_weapons": [
+          {
+            "name" : "Fealty",
+            "profiles":[
+              ["Fealty - strike",      8, "2+",12, -4, 4, ["lethal hits"]],
+              ["Fealty - sweep",      16, "2+", 6, -3, 2, ["sustained hits 1"]]
+            ]
+          }
+        ],
+        "abilities": {
+          "deep_strike":             { "type": "deep_strike" },
+          "fights_first":            { "type": "fights_first" },
+          "the_emperors_shield":     { "type": "melee_save_retaliate", "trigger": 6, "effect": "attacker_suffers_same_damage" },
+          "dark_angels_bodyguard":   { "type": "dark_angels_bodyguard", "radius": 3 },
+      
+          "primarch_of_the_first_legion": {
+            "type":     "choice",
+            "phase":    "command",
+            "once_per": "battle_round",
+            "choices": {
+              "all_secrets_revealed":    { "type": "all_secrets_revealed",    "once_per": "turn" },
+              "martial_exemplar":        { "type": "martial_exemplar",        "aura": 6, "bonus": "hit_roll" },
+              "no_hiding_from_watchers": { "type": "no_hiding_from_watchers", "aura": 6, "grants": "feel_no_pain_4" }
+            }
+          }
+        },
+        "specialRules": {},
+        "keywords": {
+          "unit":    ["Monster","Character","Epic Hero","Imperium","Primarch","Lion El'jonson"],
+          "faction": ["Adeptus Astartes", "Dark Angels"]
+        }
+      },
+    
+      "Azrael": {
+        "size": 1,
+        "statline": [6, 4, "2+", "4+", 6, "6+", 1],
+        "ranged_weapons": [
+          ["Lion's Wrath", "24", 2, "2+", 8, -3, 2, ["devastating wounds","rapid fire 1","anti-infantry 4+"]]
+        ],
+        "melee_weapons": [
+          ["The Sword of Secrets", 6, "2+", 6, -4, 2, ["devastating wounds"]]
+        ],
+        "abilities": {
+          "leader":               { "type": "leader" },
+          "masterful_tactician":  { "type": "masterful_tactician" },
+          "lion_helm":            { "type": "lion_helm" }
+        },
+        "specialRules": {},
+        "keywords": {
+          "unit":    ["Infantry","Character","Epic Hero","Grenades","Imperium","Deathwing","Tacticus","Chapter Master","Azrael"],
+          "faction": ["Adeptus Astartes","Dark Angels"]
+        }
+      }
+}

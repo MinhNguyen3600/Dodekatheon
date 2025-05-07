@@ -1,5 +1,4 @@
-# movement_phase.py
-import math as _math
+# /game/phases/movement_phase.py
 
 from objects.dice import roll_d6
 from data.keywords import has_keyword
@@ -11,15 +10,16 @@ from ..objective import Objective
 ENGAGEMENT_RANGE = 1.0
 
 def movement_phase(game):
+
+    # reset all turn‑flags before any unit moves
+    for u in game.current_player().units:
+        u.advanced = u.fell_back = False
     game.run_choice_abilities('movement')
 
     for u in [u for u in game.current_player().units if u.is_alive()]:
         base = u.datasheet['M']
-        choice = input(f"{u.name} move [n]ormal/[a]dv/[f]all/[s]tationary: ").lower()
 
-        # reset flags each turn
-        u.advanced = False
-        u.fell_back = False
+        choice = input(f"{u.name} move [n]ormal/[a]dv/[f]all/[s]tationary: ").lower()
 
         if choice == 'a':
             boost = roll_d6()[0]
@@ -35,6 +35,7 @@ def movement_phase(game):
             if getattr(u, 'battle_shocked', False):
                 tests = u.current_models
                 print(f"  {u.name} is Battle-shocked! -> Taking Desperate Escape tests for {tests}")
+                
                 for i in range(1, tests+1):
                     d = roll_d6()[0]
                     if d <= 2:
@@ -42,10 +43,13 @@ def movement_phase(game):
                         # subtract one model's worth of wounds
                         u.take_damage(u.wounds_per_model)
                 print(f"  -> now {u.current_models}/{u.size} models remain\n")
-
+        
+        elif choice == 'n':
+            # Normal unit movement
+            max_move = base
         else:
             # stationary or any other input
-            max_move = 0 if choice == 's' else base
+            max_move = 0 
 
         # compute reachable squares
         if u.fell_back:
@@ -102,32 +106,44 @@ def movement_phase(game):
                 col_label, row_s = code[:i], code[i:]
                 if not row_s.isdigit():
                     continue
+
                 x = parse_column_label(col_label)
                 y = int(row_s) - 1
-                # bounds check
+                
+                # 1) bounds check
                 if not (0 <= x < game.board.width and 0 <= y < game.board.height):
                     print("That coordinate is off the board.")
                     break
-                # reachability check
+
+                # 2) reachability check
                 if (x,y) not in moves:
                     print("That square is not reachable this move.")
                     break
-                # occupancy check
+
+                # 3) occupancy check
                 if game.board.grid[y][x] != ' ':
                     print("That square is occupied; choose another.")
                     break
 
-                # if we get here, x,y is good:
-                valid = True
+                # if we get here, x,y is good -> perform the move
+                game.board.move_unit(u, x, y)
+                print(f"{u.name} moved to {col_label}{row_s}\n")
+                game.board.display(flip=True)
+                
+                # now update objective control
+                Objective.update_objective_control(game)
+
+                # Exit out of loop
+                code = None
                 break
 
-            if not valid:
-                # either bad format, off-board, not reachable, or occupied
+            # end for‑i loop
+            else:
+                # no split yielded a valid digit‑part, try again
                 continue
+            
+            # if we broke out because of a successful move, code was set to None
+            if code is None:
+                break
 
-            # now perform the move
-            game.board.move_unit(u, x, y)
-            print(f"{u.name} moved to {col_label}{row_s}\n")
-            game.board.display(flip=True)
-            break
-        Objective.update_objective_control(game)
+            

@@ -1,0 +1,22 @@
+For reference, here are the original stats:
+
+Unit: Terminator Squad (x5) (shown on board as "T"):
+Stats: [5, 5, 2+, 3, 6+, 1]
+Weapons:
+	- Ranged : [Storm bolter, 24, 2, 3+, 4, 0, 1]
+	- Melee : [Powerfist, 3, 3+, 8, -2, 2]
+
+Character: Lion El' Johnson (shown on board as "L"): 
+Stat: [8, 9, 2+, 10, 5+, 4]
+Ranged Weapons:
+- [Arma Luminis - Bolt, 12, 4, 2+, 4, -1, 2]
+- [Arma Luminis - Bolt, 12, 2, 2+, 8, -3, 2]
+
+Melee Weapons:
+- [Fealty – strike, 8, 2+, 12, -4, 4] 
+- [Fealty – sweep, 16, 2+, 6, -3, 2]
+
+2. Custodian Guard (10 models/2 x5 squad) (shown on board as "C"):
+Stat: [6, 6, 2+, 3, 6+, 2]
+	- Ranged Weapons : [Guardian Spear, 24, 2, 2+, 4, -1, 2]
+	- Melee Weapons: [Guardian Spear, 5, 2+, 7, -2, 2]

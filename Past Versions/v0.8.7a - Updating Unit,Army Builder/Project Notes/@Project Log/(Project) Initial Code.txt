@@ -1,0 +1,7 @@
+Give me a simple python or C++ (choose one best suited for this situation) code for me to run a simulated game of table top warhammer 40k, include mechanics such as D6 dice rolls, I will provide additional rules and unit stats later. Note that the game will run on a 10x10 dotted (.) space, excluding the border. 
+
+The game initializes, the board/playingfield will be shown, and updated after every user interaction, and thus must takes in user responses. The user can interact and control units on the board, such as to which unit to choose, see it's current stats, abilities, weapon options and stratagems, etc., then move and/or do other phases throughout the game. 
+
+Since this is a 2 player game, the currently playing unit can damage and/or apply a status affect to another unit on a board should it should keep track of which unit did the attack, and the target units, then once the rolls are done, and if the currently attacking unit hits and wounds the target unit, the target unit must update it's health, in the format of something like "(1/2)" in it's "W" (Wound) stat.
+
+Due to the game's complexity, it's crucial that we split the code into different files.

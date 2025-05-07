@@ -1,0 +1,80 @@
+{
+    "Terminator Squad": {
+        "size": 5,
+        "statline": [5, 5, "2+", "4+", 3, "6+", 1],
+        "default_equipment": ["Storm bolter", "Power Fist"],
+        "ranged_weapons": [
+          ["Storm bolter",         "24", 2,      "3+", 4, 0, 1, ["rapid fire 2"]],
+          ["Assault cannon",       "24", 6, "3+", 6, 0, 1, ["devastating wounds"]],
+          ["Heavy flamer",         "12", "D6",   "N/A",5, -1, 1, ["ignores cover","torrent"]],
+          {
+            "name" : "Cyclone Missile Launcher",
+            "profiles": [
+              ["Cyclone ML - frag",    "36", "2D6", "3+", 4,  0, 1, ["blast"]],
+              ["Cyclone ML - krak",    "36", 2, "3+", 9,  -2, "D6", []]
+            ]
+          }
+        ],
+        "melee_weapons": [
+          ["Power Fist",               3, "3+", 8, -2, 2, []],
+          ["Chainfist",                 3, "4+", 8, -2, 2, ["anti-vehicle 3+"]],
+          ["Power weapon",              4, "3+", 5, -2, 1, []]
+        ],
+        "wargear_options": {
+          "swap_assault_cannon": {
+            "per_models": 5,
+            "replaces":   ["Storm bolter"],
+            "adds":       ["Assault cannon"],
+            "adds_abilities": []
+          },
+          "swap_heavy_flamer": {
+            "per_models": 5,
+            "replaces":   ["Storm bolter"],
+            "adds":       ["Heavy flamer"],
+            "adds_abilities": []
+          },
+          "add_cyclone": {
+            "per_models": 5,
+            "replaces":   [],
+            "adds":       ["Cyclone ML"],
+            "adds_abilities": []
+          },
+          "swap_chainfist": {
+            "max_models": 1,
+            "replaces":   ["Power Fist"],
+            "adds":       ["Chainfist"],
+            "adds_abilities": []
+          },
+          "sergeant_pw": {
+            "max_models": 1,
+            "replaces":   ["Power Fist"],
+            "adds":       ["Power weapon"],
+            "adds_abilities": []
+          }
+        },
+        "unit_composition": {
+          "size_options": [        
+            { 
+              "count": 5, 
+              "mandatory": [] 
+            }
+          ]
+        },
+        "led_by": [
+          "Ancient In Terminator Armour",
+          "Captain In Terminator Armour",
+          "Chaplain In Terminator Armour",
+          "Librarian In Terminator Armour"
+        ],
+        "abilities": {
+          "deep_strike":      { "type": "deep_strike" },
+          "teleport_homer":   { "type": "teleport_homer" },
+          "fury_of_the_first":{ "type": "fury_of_the_first" }
+        },
+        "specialRules": {},
+        "keywords": {
+          "unit":    ["Infantry","Imperium","Terminator","Terminator Squad","Deathwing"],
+          "faction": ["Adeptus Astartes"]
+        }
+      }
+}

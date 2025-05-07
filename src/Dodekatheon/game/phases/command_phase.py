@@ -5,7 +5,7 @@ from objects.dice import roll_d6
 from ..objective import Objective
 
 from data.keywords import has_keyword
-from data.unit_abilities import ChoiceAbility
+from data.unit_abilities import *    
 
 
 # Deployment Zone border display - REUSE AND UNCOMMENT FOR WHEN IMPLEMENTING RESERVE UNITS & DEPLOYMENT: 
@@ -23,9 +23,9 @@ def command_phase(game):
     # STEP 1.5: units with "Masterful Tactician" ability gains an additional CP
     for u in game.current_player().units:
         for a in u.unit_abilities:
-            if isinstance(a, ChoiceAbility) and 'command' in a.phase:
+            if isinstance(a, ChoiceAbility) and 'command' in getattr(a, 'phase', []):
                 a.apply(game, u)
-            if isinstance(a, MasterfulTactician):
+            elif isinstance(a, MasterfulTactician):
                 a.at_start_of_command(game, u)
 
     # STEP 2: Battle-shock tests for current player
@@ -50,7 +50,10 @@ def command_phase(game):
         print(f"  {u.name} below half-strength -> roll {dice} = {total} vs Ld {leadership}", end=' ')
         if total < leadership:
             u.battle_shocked = True
-            is_battle_shocked = True
+
+            # Unused Variable
+            #is_battle_shocked = True
+            
             print(f"-> FAILED => {u.name} is Battle-shocked!")
         else:
             print("-> Passed.")

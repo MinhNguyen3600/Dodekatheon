@@ -1,0 +1,82 @@
+Okay, now, remember the abilities database (weaponabilities.JSON) we had before? We will need to create a full database for it, so that the ability's name, is connected to a weapon via a new List (containing none, one or multiple weapon ability keywords) provided in the ranged and melee weapon stats (should be located after the name of the weapon). So what we need to do right now is to first, [rocess the conditions of each weapon abilities, and translate them in a way that it can be applied in the correct conditions to a weapon, when it is used. Here is some definitions of the weapon abilities available in the units currently in the datasheets.JSON file:
+```
+- PISTOL
+Pistols can be wielded even at point-blank range.
+Weapons with [PISTOL] in their profile are known as Pistols. If a unit contains any models equipped with Pistols, that unit is eligible to shoot in its controlling player’s Shooting phase even while it is within Engagement Range of one or more enemy units. When such a unit is selected to shoot, it can only resolve attacks using its Pistols and can only target one of the enemy units it is within Engagement Range of. In such circumstances, a Pistol can target an enemy unit even if other friendly units are within Engagement Range of the same enemy unit.
+
+If a model is equipped with one or more Pistols, unless it is a MONSTER or VEHICLE model, it can either shoot with its Pistols or with all of its other ranged weapons. Declare whether such a model will shoot with its Pistols or its other ranged weapons before selecting targets.
+
+   + Can be shot even if the bearer’s unit is within Engagement Range of enemy units, but must target one of those enemy units.
+   + Cannot be shot alongside any other non-Pistol weapon (except by a MONSTER or VEHICLE).
+
+
+- LETHAL HITS
+Some weapons can inflict fatal injuries on any foe, no matter their resilience.
+Weapons with [LETHAL HITS] in their profile are known as Lethal Hits weapons. Each time an attack is made with such a weapon, a Critical Hit automatically wounds the target. 
+
+- SUSTAINED HITS
+Some weapons strike in a flurry of blows, tearing the foe apart with relentless ferocity.
+Weapons with [SUSTAINED HITS X] in their profile are known as Sustained Hits weapons. Each time an attack is made with such a weapon, if a Critical Hit is rolled, that attack scores a number of additional hits on the target as denoted by ‘x’.
+
+Example: A model makes an attack with a melee weapon with the [SUSTAINED HITS 2] ability. If the Hit roll is an unmodified 6 (a Critical Hit), then that attack scores a total of 3 hits on the target (1 from the successful Hit roll of 6, and 2 from the [SUSTAINED HITS 2] ability).
+
+   + [SUSTAINED HITS X]: Each Critical Hit scores ‘x’ additional hits on the target.
+
+
+- RAPID FIRE
+Rapid fire weapons are capable of long-ranged precision shots or controlled bursts at nearby targets.
+Weapons with [RAPID FIRE X] in their profile are known as Rapid Fire weapons. Each time such a weapon targets a unit within half that weapon’s range, the Attacks characteristic of that weapon is increased by the amount denoted by ‘x’.
+
+Example: A model targets a unit that is within half range of a weapon with an Attacks characteristic of 1 and the [RAPID FIRE 1] ability. That weapon therefore makes two attacks at the target, and you make two Hit rolls.
+
+    + [RAPID FIRE X]: Increase the Attacks by ‘x’ when targeting units within half range.
+
+- DEVASTATING WOUNDS
+Weapons with [DEVASTATING WOUNDS] in their profile are known as Devastating Wounds weapons. Each time an attack is made with such a weapon, if that attack scores a Critical Wound, no saving throw of any kind can be made against that attack (including invulnerable saving throws). Such attacks are only allocated to models after all other attacks made by the attacking unit have been allocated and resolved. After that attack is allocated and after any modifiers are applied, it inflicts a number of mortal wounds on the target equal to the Damage characteristic of that attack, instead of inflicting damage normally.
+
+Example: An attack made with a Devastating Wounds weapon with a Damage characteristic of 2 scores a Critical Wound. Instead of allocating the attack and making saving throws normally, the target suffers 2 mortal wounds.
+
+   + A Critical Wound inflicts mortal wounds equal to the weapon’s Damage characteristic, instead of any normal damage.
+
+- ASSAULT
+Assault weapons fire so indiscriminately that they can be shot from the hip as warriors dash forward.
+Weapons with [ASSAULT] in their profile are known as Assault weapons. If a unit that Advanced this turn contains any models equipped with Assault weapons, it is still eligible to shoot in this turn’s Shooting phase. When such a unit is selected to shoot, you can only resolve attacks using Assault weapons its models are equipped with.
+
+   + Can be shot even if the bearer’s unit Advanced.
+
+
+- BLAST
+High-explosives can fell several warriors in a single blast, but firing them where your comrades will get caught in the ensuing detonation is simply unwise.
+Weapons with [BLAST] in their profile are known as Blast weapons, and they make a random number of attacks. Each time you determine how many attacks are made with a Blast weapon, add 1 to the result for every five models that were in the target unit when you selected it as the target (rounding down). Blast weapons can never be used to make attacks against a unit that is within Engagement Range of one or more units from the attacking model’s army (including its own unit).
+
+Example: If a weapon with the [BLAST] ability and an Attacks characteristic of 2D6 targets a unit that contains 11 models, and the roll to determine how many attacks are made is a 9, a total of 11 attacks would be made against that unit.
+
+   + Add 1 to the Attacks characteristic for every five models in the target unit (rounding down).
+   + Can never be used against a target that is within Engagement Range of any units from the attacking model’s army (including its own).
+
+
+```
+
+So, for example, these stats are shown with the following weapons belonging to the units' stats that are currently stored in datasheets.JSON:
+
+```
+Lion El' Johnson:
+- Arma Luminis – bolt [pistol]
+- Arma Luminis – plasma [pistol]
+- Fealty – strike [lethal hits]
+- Fealty – sweep [sustained hits 1]
+
+Terminator Squad:
+- Storm bolter [rapid fire 2]
+
+Custodian Guard:
+- Guardian spear [assault]
+
+Mortarion:
+- Rotwind [blast, devastating wounds, lethal hits]
+- The Lantern [pistol, sustained hits d3]
+- Silence – strike [lethal hits]
+- Silence – sweep [lethal hits]
+```
+
+Now, with this, I need you to process, and have an in-depth understanding and analysis of these weapon abilities and their conditions, what they do. Then, I need you to turn it into a code, whether the condition is stored inside the weaponabilities.JSON file directly or you can create a new python file to load the weapon abilities, either fine. But, it should be APPLIED to the weapon's stats and condition once loaded in, so if the weapon profile/stat has those weapon abilities key word, once it's loaded in, the weapon abilities become a part of the weapon itself, and dictates how the weapon behaves in different conditions. Please, do keep in mind that these are not the only weapon abilities that will show up, and many more will be added.

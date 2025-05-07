@@ -10,9 +10,9 @@ from game.utils import parse_column_label
 def do_new_game():
     loader = DatasheetLoader()
 
-    print("\n=== Build Player 1’s army ===")
+    print("\n=== Build Player 1's army ===")
     p1_units = build_army(loader)
-    print("\n=== Build Player 2’s army ===")
+    print("\n=== Build Player 2's army ===")
     p2_units = build_army(loader)
 
     # wrap into Player objects
@@ -65,7 +65,7 @@ def do_new_game():
                     print("    Bad format.  Letters then digits.  Try again.")
                     continue
 
-                # now enforce deployment‑zone
+                # now enforce deployment-zone
                 dz = game.deploy_zones[pkey]
                 if x < dz['x_min'] or x > dz['x_max']:
                     print("    That position is outside your deployment zone.")
@@ -73,7 +73,7 @@ def do_new_game():
 
                 # then bounds & occupancy checks...
                 if not (0 <= x < game.board.width and 0 <= y < game.board.height):
-                    print("    That square is off‑board.")
+                    print("    That square is off-board.")
                     continue
 
                 # if we broke out successfully, go to next unit

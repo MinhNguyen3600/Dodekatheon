@@ -4,7 +4,7 @@ from math import hypot
 
 class ChoiceAbility:
     """
-    Wraps a named group of sub‑abilities from which the player must pick one
+    Wraps a named group of sub-abilities from which the player must pick one
     at the start of the specified phase.
     """
     def __init__(self, name, phase, choices: dict, once_per=None):
@@ -31,7 +31,7 @@ class ChoiceAbility:
         print(f"=> {unit.name} gains {pick.replace('_',' ').title()} for this {self.phase}.\n")
 
     def apply(self, game, unit):
-        # delegate to the selected sub‑ability if it has any hooks
+        # delegate to the selected sub-ability if it has any hooks
         if self.selected and hasattr(self.selected, self.phase):
             getattr(self.selected, self.phase)(game, unit)
 

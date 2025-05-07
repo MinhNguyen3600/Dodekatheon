@@ -1,0 +1,27 @@
+{
+    "C'tan Shard Of The Void Dragon": {
+        "size": 1,
+        "statline": [6, 11, "4+", "4+", 12, "6+", 4],
+        "ranged_weapons": [
+        ["Spear of the Void Dragon",  "12", 1, "2+", 4, -3, "D6+2", ["anti-vehicle 2+"]],
+        ["Voltaic storm",  "18", "D6+3", "2+", 7, -1, 2, ["blast", "sustained hits 2"]]
+        ],
+        "melee_weapons": [
+        ["Spear of the Void Dragon - strike", 5, "2+", 12, -3, "D6+2", []],
+        ["Spear of the Void Dragon - sweep", 10, "2+", 8, -1, 2, []],
+        ["Spear of the Void Dragon - sweep", 10, "2+", 8, -1, 2, ["extra attacks"]]
+        ],
+        "abilities": {
+        "deadly_demise":      { "type": "deadly_demise",   "dice": "D6" },
+        "feel_no_pain":       { "type": "feel_no_pain",    "threshold": 5 },
+        "necrodermis":        { "type": "necrodermis" },
+        "matter_absorption":  { "type": "matter_absorption" },
+        "reanimation_protocols": { "type": "reanimation_protocols" }
+        },
+        "specialRules": {},
+        "keywords": {
+        "unit":    ["Monster","Character","Fly","Epic Hero","C'Tan Shard of the Void Dragon"],
+        "faction": ["Necrons"]
+        }
+    }
+}

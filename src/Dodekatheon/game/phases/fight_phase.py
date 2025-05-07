@@ -91,10 +91,20 @@ def fight_phase(game):
             wound_die = roll_d6()[0]
 
             
-            # 0) Anti‑X: unmodified wound roll may score a crit wound
-            if w['abilities'].scores_crit_wound(
-                tgt.datasheet['keywords']['unit'], wdie):
-                wounds = 1
+            # 0) Anti‑X: if this weapon is anti‑something and defender has that keyword,
+            #    an unmodified wound_die ≥ threshold is a critical wound (i.e. auto‑wound).
+            if w['abilities'].triggers_anti_x(
+                   defender.datasheet['keywords']['unit'],
+                   wound_die):
+                # auto‑wound, count one wound and skip saves
+                defender.take_damage(1)
+                total_damage = 1
+                failed_saves = 1
+                # if the unit died, stop
+                if not defender.is_alive():
+                    print(f"{defender.name} is destroyed!")
+                    game.board.clear_position(*defender.position)
+                    break
                 continue
 
             # 1) Devastating (mortal) wounds on a crit‑wound
@@ -114,31 +124,35 @@ def fight_phase(game):
             save_roll = roll_d6()[0]
             armour_needed = defender.datasheet['Sv'] - w['AP']
 
-            # Cover bonus only to Infantry
-            if has_keyword(defender,'unit','Infantry') \
-            and game.board.terrain_at(defender.position).grants_cover():
-                armour_needed -= 1
 
+            # COVER/TERRAIN MECHANICS TO BE IMPLEMENTED, uncomment when it is
+            # Cover bonus only to Infantry
+            # if has_keyword(defender,'unit','Infantry') \
+            # and game.board.terrain_at(defender.position).grants_cover():
+            #     armour_needed -= 1
+
+            # Parse Invul stat of unit from datasheet
             invuln_needed = defender.datasheet.get('Invul')
 
+            # Check if Invulnerable save was used, if unit has the ability to use it
+            # Roll Invuln save if lower than rolls needed for wound rolls, automatically use it (for higher chance of survival)
             if invuln_needed is not None and invuln_needed < armour_needed:
                 save_needed = invuln_needed
                 used_invuln = True
+                print(f"   Invuln Save Roll: {save_roll} vs {save_needed}+")
             else:
                 save_needed = armour_needed
                 used_invuln = False
-
-            if used_invuln:
-                print(f"   Invuln Save Roll: {save_roll} vs {save_needed}+")
-            else:
                 print(f"   Armour Save Roll: {save_roll} vs {save_needed}+")
 
+            # If opponent unit failed save roll, deal damage
             if save_roll < save_needed:
                 dmg = game.resolve_damage(w['D'])
                 defender.take_damage(dmg)
                 total_damage += dmg
                 failed_saves += 1
 
+            # Unit is destroyed and removed from board
             if not defender.is_alive():
                 print(f"{defender.name} is destroyed!")
                 game.board.clear_position(*defender.position)
