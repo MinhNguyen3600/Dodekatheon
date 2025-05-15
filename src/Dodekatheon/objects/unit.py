@@ -46,6 +46,8 @@ class Unit:
         self.unit_composition  = datasheet.get('unit_composition', {})
         self.led_by            = datasheet.get('led_by', [])
 
+        self.leader_attached = None  # or name of attached leader model
+
         # Set unit stats for final scoreboard and statistic calculation, post-match
         self.stats = {
             'rng_fired':       0,
@@ -92,7 +94,7 @@ class Unit:
                             elif isinstance(wg, dict) and wg.get('name') == wname and 'profiles' in wg:
                                 for prof in wg['profiles']:
                                     slot['weapons'][side].append(build_weapon(prof, side))
-                                    
+
                             # if it’s the legacy list form
                             elif isinstance(wg, list) and wg[0] == wname:
                                 slot['weapons'][side].append(build_weapon(wg, side))
@@ -136,6 +138,16 @@ class Unit:
     # If unit's wound is not 0 -> unit is still alice
     def is_alive(self):
         return self.current_wounds > 0
+    
+    @property
+    def points_cost(self):
+        # if points_model is null in the JSON, treat it as 0
+        pm = self.datasheet.get('points_model') or 0
+        pl = self.datasheet.get('points_leader') or 0
+        base = pm * self.current_models
+        if self.leader_attached:
+            base = pl
+        return base
     
     # define what "below hald strength" means for Leadership/Battleshock tests
     @property
@@ -230,7 +242,7 @@ class Unit:
             old_models = self.models
             self.models = []
             for idx in range(self.size):
-                if idx < len(old):
+                if idx < len(old_models):
                     self.models.append(old_models[idx])
                 else:
                     # fresh slot – use the same default_equipment logic

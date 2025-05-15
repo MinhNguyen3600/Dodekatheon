@@ -1,0 +1,7 @@
+Alright, so this should be one of the last changes to the .json datasheet structure. We need to include POINTS cost for each unit. If you check out the core rule book or wahapedia, each unit has a certain number of points cost. This doesn't have any gameplay implications itself, but it is required for game balance. The stronger the unit, the more points it costs, and vice versa, but in return, weaker units cost less points, so unless if the unit is a unique character or epic hero, the unit can be fielded multiple times, although it's composition is depenedent on what it's datasheet's  "UNIT COMPOSITION" states. 
+
+For example, the reason the terminator squad was so ineffective against angron was because a single terminator squad unit is only worth 170 points (340 points for 2 terminator squads) while Angron himself is worth 435 points!
+
+So yeah, need your suggestions on where to put these points cost in the datasheet's json to not interefere too much with the dataloading and game & it's phases. And dataloader, unit and unit builder will definitely need to handle this new points cost for balance. 
+
+Oh, and for good measure, after units and armies are finished being built after the unit builder screen, the game should summarize all the units and the loadout of each player's armies in a table form before the unit placement on board pre-game phase starts.

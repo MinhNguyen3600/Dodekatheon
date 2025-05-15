@@ -1,0 +1,63 @@
+As of current, our army builder is very weird, I may provide it back to you but we may need to redefine what the unit builder actually does. When building a unit, specifically ones that are in x3, x4 or x5 models size, the unit builder allows the player to build the unit composition. This means that if the unit has weapon customization options, they can REPLACE a certain number of models, with those weapons according to their datasheet, this is usually denoted in "Wargear Options" and "Unit Composition", if available. During shooting and fighting phases, units with differently equipped weapons will ONLY be able to attack/shoot with those specifically equipped weapons, and cannot use other weapon options, unless the equipped weapon has 2 weapon profiles, which urges the user to pick before making an attack. This would mean that during attacks, despite the unit's models' differently equipped weapons, all models with will attack at the same time with their currently equipped weapons (although this needs to be notified to the user and see how much damage/target wound each weapon has dealt). 
+
+To give you a better idea, lets go back to the Custodian Guard:
+Here are their weapon profiles:
+```
+[RANGED WEAPONS]
+
+["Guardian spear", "24", 2, "2+", 4, -1, 2, ["assault"]]
+["Sentinel blade",  "12", 2, "2+", 4, -1, 2, ["assault","pistol"]]
+
+[MELEE OPTIONS]
+["Guardian spear", 5, "2+", 7, -2, 2, ["assault"]]
+["Misericordia",    5, "2+", 5, -2, 1, []]
+```
+Here are the conditions for their wargear options:
+```
+[WARGEAR OPTIONS]
+
+    Any number of models can each have their guardian spear replaced with 1 sentinel blade and 1 praesidium shield.
+    1 model’s guardian spear can be replaced with one of the following:
+        1 vexilla and 1 misericordia
+        1 vexilla, 1 misericordia and 1 praesidium shield
+```
+>>> PLEASE NOTE: this means that:
+0. By default, ALL models in the unit are equipped with a guardian spear
+
+1. ONCE the units have swapped out their default guardian spears with other weapon/wargear options, and user confirms it before adding other units/characters to the army, that model's Weapon options which are used in shooting and fight phase will PERMANNETLY use those options, and cannot pick from other weapon options regardless of during fight or shooting phase. The only exception to this rule is if that specific weapon has multiple profiles (a.k.a firing modes fo the same weapon) THEN when it's the unit's turn to shoot/fight, it will loop through all units that have multiple weapon profiles to ask the player to pick one to use this phase.
+
+2. Only 1 MODEL is able to swap out their default guardian spear for vexilla, misercordia and shield option, not including guardian spear. ONLY 1 MODEL can choose to swap it, once that model is chosen to swap, the rest of the models in the unit cannot do the same. Please note that models equipped with Vexilia will NOT participate in the shooting phase, and are equipped with the Praesidium shield by default to increase their survivability because of it.
+
+3. "Any number" means players can select the number of models in this units (or remaining number of models in this unit, if player has chosen to swap out one of their model's guardian spear for the option previously listed in 2.) they wish to swap the default guardian spear, with the sentinel blade and shield option
+
+For you to understand this better, lets think of it in terms of a real life, custodian guard unit set. The unit comes with 5 models of custodian guard. While assembling the models, the player gets to decide which weapon options they get to glue on, since weapons are on the arms of the models. For example:
+- Guardian spears require 2 hands for the model to wield, and are the custodes' iconic weapon, which is why they're selected by default and why the can't be added with other weapons
+- Vexilia, misercordia, Praesidium shield and Sentinel Blade are each wielded with 1 hand. BUT the Praesidium shield is always on the left hand, while the other weapons are held in the right hand (Vexilia, Sentinel Blade), Misercordia is essentially a knife, which is why it's ONLY equipped on models that hold the Vexilia, to give them a melee option to assist the unit during melee attacks.
+Once the weapon options for each model has been decided, they are glued onto the torso, and will remain holding those weapon options PERMANENTLY (for our game's purposes, this will not be permanent outside of the game, units built for this game will only remain so in this game only, and can recustomize the unit and its models once a new game starts)
+
+With that, hopefully you can understand what I mean here.
+
+```
+[WARGEAR ABILITIES]
+Praesidium Shield: Add 1 to the bearer’s Wounds characteristic.
+Vexilla: Add 1 to the Objective Control characteristic of models in the bearer’s unit.
+```
+
+Once the model has been equipped with their wargear options, they will gain the weapons and wargear abilities of the wargear which they have equipped. Because of this, despite being in the same unit, these models must be listed separately, for clarity, managing their status, and for opponents to clearly target which ever model they so wish to target first in the unit. For example:
+
+Unit composition 1:
+x2 Custodian Guard
+x2 Custodian Guard (with Sentinel Blade and Praesidium Shield)
+x1 Custodian Guard (with Vexilia, Misercordia, and Praesidium Shield)
+
+Unit composition 2:
+x5 Custodian Guard
+
+Unit 3:
+x4 Custodian Guard (with Sentinel Blade and Praesidium Shield)
+x1 Custodian Guard (with Vexilia, Misercordia, and Praesidium Shield)
+
+This should be displayed on the board for the player currently playing this unit and for the opponent player, when this unit is targeted for an attack. Opponent units and characters can target specific units to attack first.
+
+
+This is merely an example of how the wargear options, abilities and unit composition should work, please analyze this well (no code needed yet) and tell me again what should be done the next time you're provided Wargeat Options, Abilities and Unit composition.

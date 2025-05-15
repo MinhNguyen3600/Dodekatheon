@@ -26,6 +26,10 @@ def shooting_phase(game):
         else:
             weaps = all_weapons
 
+        if not weaps:
+            print(f"  {unit.name} has no ranged weapons — skipping shooting phase.\n")
+            continue
+
         bdr_m()
         print(f"Shooting for {unit.name}:")
         bdr_m()

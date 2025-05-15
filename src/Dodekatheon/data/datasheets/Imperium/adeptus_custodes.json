@@ -73,7 +73,8 @@
         "keywords": {
         "unit":    ["Infantry","Battleline","Imperium","Custodian Guard"],
         "faction": ["Adeptus Custodes"]
-        }
+        },
+        "points_model": 43
     },
 
     "Shield-Captain": {
@@ -168,7 +169,8 @@
         "keywords": {
         "unit":    ["Infantry","Character","Imperium","Shield-captain"],
         "faction": ["Adeptus Custodes"]
-        }
+        },
+        "points_leader": 130
     },
 
     "Custodian Wardens": {
@@ -249,6 +251,7 @@
         "keywords": {
         "unit":    ["Infantry","Imperium","Custodian Wardens"],
         "faction": ["Adeptus Custodes"]
-        }
+        },
+        "points_model": 52
     }
 }

@@ -47,6 +47,22 @@ def do_new_game():
         
         for u in pl.units:
             while True:
+                # after all units built, before deployment
+                # ——— show the army‑points summary once for this player ———
+                print("\n=== Army Points Summary ===")
+                print("Player:", pl.name)
+                print(f"{'Unit':20s} {'#':>2s} {'Pts/mdl':>7s} {'Leader':>10s} {'Total':>7s}")
+                print("-"*50)
+                army_total = 0
+                for u in pl.units:
+                    leader = u.leader_attached or '-'
+                    pts_per_model = u.datasheet['points_model']
+                    line_cost = u.points_cost
+                    print(f"{u.name:20s} {u.current_models:>2d} {pts_per_model:>7d} {leader:>10s} {line_cost:>7d}")
+                    army_total = line_cost
+                print("-"*50)
+                print(f"{'Army Total':>40s} {army_total:>7d}\n")
+
                 code = input(f"  Where place {u.name} (e.g. A1): ").strip().upper()
 
                 # first, parse code → x,y

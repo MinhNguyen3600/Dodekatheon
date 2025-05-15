@@ -1,0 +1,103 @@
+Dodekatheon Error logs:
+7-5-2025:
+1. FIGHT PHASE WEAPON LOOP UNIMPLEMENTED. Player test game log:
+```
+------------------------------
+Fighting for Terminator Squad:
+------------------------------
+Make melee attack? (y/n): y
+----------------------------------------
+0: Power Fist
+1: Chainfist
+2: Power weapon
+Select melee weapon: 0
+----------------------------------------
+0: Angron at W8 (1.4")
+Pick target: 0
+----------------------------------------
+---------------
+Hit Rolls: 3/3
+Wound Rolls: 0/3
+Failed Saves: 0/0
+Total Damage: 0, Wounds now 16/16
+---------------
+``` 
+
+2. Unclear ValueError related to "max() iterable arguement empty" in shooting_phase.py file. Context: after angron stays stationary. Player's test game log:
+```
+     A   B   C   D   E   F   G   H   I   J   K   L   M   N   O   P   Q   R   S   T   U   V   W   X   Y   Z  AA  AB  AC  AD
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+15                                                                                                                        |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+14                                                                                                                        |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+13                                                          O                                                             |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+12                                                                                                                        |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+11                                                                                                                        |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+10                                                                                          A                             |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+ 9                                                                                              T                         |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+ 8                                  O                       O                       O                                     |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+ 7                                                                                                                        |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+ 6                                                                                                                        |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+ 5                                                                                                                        |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+ 4                                                                                                                        |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+ 3                                                          O                                                             |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+ 2                                                                                                                        |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+ 1                                                                                                                        |
+  +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
+Objective 1 at (14, 7): Contested
+Objective 2 at (8, 7): Contested
+Objective 3 at (20, 7): P2
+Objective 4 at (14, 12): Contested
+Objective 5 at (14, 2): Contested
+Angron (ID 1) - Pos:(22, 9) Wounds:13/16 Models:1/1 M:14 T:11 Sv:2 W:16
+CP: 4   VP: 2
+
+    Ranged Weapons:
+    Melee Weapons:
+      • Samni'arius & Spinegrinder - strike: A=8  WS=2  S=16  AP=-4  D=D6+2  Abils=[-]
+      • Samni'arius & Spinegrinder - cleave: A=18  WS=2  S=8  AP=-2  D=2  Abils=[-]
+
+
+-- Battle-shock tests for P1 --
+Scored 1 VP for objectives controlled.
+
+Angron move [n]ormal/[a]dv/[f]all/[s]tationary: s
+No valid moves for this unit.
+
+
+------------------------------
+Shooting for Angron:
+------------------------------
+Traceback (most recent call last):
+  File "C:\Users\nminh\PERSONAL\PERSONAL\Coding projects\WH40k-Dodekatheon (Github Repos)\dodekatheon\src\dodekatheon\main.py", line 4, in <module>
+    main_menu()
+    ~~~~~~~~~^^
+  File "C:\Users\nminh\PERSONAL\PERSONAL\Coding projects\WH40k-Dodekatheon (Github Repos)\dodekatheon\src\dodekatheon\main_menu.py", line 106, in main_menu
+    do_new_game()
+    ~~~~~~~~~~~^^
+  File "C:\Users\nminh\PERSONAL\PERSONAL\Coding projects\WH40k-Dodekatheon (Github Repos)\dodekatheon\src\dodekatheon\main_menu.py", line 92, in do_new_game
+    game.play_turn()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\nminh\PERSONAL\PERSONAL\Coding projects\WH40k-Dodekatheon (Github Repos)\dodekatheon\src\dodekatheon\game\game.py", line 169, in play_turn
+    game.shooting_phase()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\nminh\PERSONAL\PERSONAL\Coding projects\WH40k-Dodekatheon (Github Repos)\dodekatheon\src\dodekatheon\game\game.py", line 144, in shooting_phase
+    return shooting_phase(game)
+  File "C:\Users\nminh\PERSONAL\PERSONAL\Coding projects\WH40k-Dodekatheon (Github Repos)\dodekatheon\src\dodekatheon\game\phases\shooting_phase.py", line 38, in shooting_phase
+    if d <= max(wp['range'] for wp in weaps):
+            ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: max() iterable argument is empty
+```

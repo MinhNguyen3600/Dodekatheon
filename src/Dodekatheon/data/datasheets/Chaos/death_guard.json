@@ -1,49 +1,50 @@
 {
-    "Mortarion": {
-        "size": 1,
-        "statline": [10, 12, "2+", "4+", 16, "5+", 6],
-        "ranged_weapons": [      
-          {
-            "name": "Rotwing & The Lantern",
-            "profiles":[
-                ["Rotwind",    "18", "D6+3", "2+", 7, -2, 1, ["blast","devastating wounds","lethal hits","psychic"]],
-                ["The Lantern","18", 1,      "2+", 9, -3, 3, ["pistol","sustained hits D3"]]
-            ]
-          }
-        ], 
-        "melee_weapons": [
-          ["Silence - strike", 5, "2+",14, -3, 4, ["lethal hits"]],
-          ["Silence - sweep", 15, "2+", 7, -1, 1, ["lethal hits"]]
-        ],
-        "abilities": {
-          "deep_strike":   { "type": "deep_strike" },
-          "deadly_demise": { "type": "deadly_demise", "dice": "D6" },
-          "feel_no_pain":  { "type": "feel_no_pain",    "threshold": 5 },
-    
-          "lord_of_the_death_guard": { "type": "aura_ignore_modifiers", "aura": 6 },
-    
-          "host_of_plagues": {
-            "type":     "choice",
-            "phase":    "round_start",
-            "once_per": "battle_round",
-            "choices": {
-              "miasma_of_pestilence":  { "type": "aura_benefit",         "aura": 6, "benefit": "cover" },
-              "diseased_influence":    { "type": "aura_reroll_wound_1",  "aura": 6 },
-              "toxic_presence":        { "type": "aura_contagion_bonus", "aura": 12, "bonus": 3 }
-            }
-          }
-        },
-        "specialRules": {
-          "damagedBracket": { "woundThreshold": 6, "hitPenalty": -1 }
-        },
-        "unit_abilities": {
-          "miasma_of_pestilence": { "type": "aura_benefit", "aura": 6, "benefit": "cover" },
-          "diseased_influence":   { "type": "aura_reroll_wound_1", "aura": 6 },
-          "toxic_presence":       { "type": "aura_contagion_bonus", "aura": 12, "bonus": 3 }
-        },
-        "keywords": {
-          "unit":    ["Monster","Psyker","Fly","Character","Epic Hero","Daemon","Grenades","Chaos","Nurgle","Primarch","Mortarion"],
-          "faction": ["Death Guard"]
+  "Mortarion": {
+    "size": 1,
+    "statline": [10, 12, "2+", "4+", 16, "5+", 6],
+    "ranged_weapons": [      
+      {
+        "name": "Rotwing & The Lantern",
+        "profiles":[
+            ["Rotwind",    "18", "D6+3", "2+", 7, -2, 1, ["blast","devastating wounds","lethal hits","psychic"]],
+            ["The Lantern","18", 1,      "2+", 9, -3, 3, ["pistol","sustained hits D3"]]
+        ]
+      }
+    ], 
+    "melee_weapons": [
+      ["Silence - strike", 5, "2+",14, -3, 4, ["lethal hits"]],
+      ["Silence - sweep", 15, "2+", 7, -1, 1, ["lethal hits"]]
+    ],
+    "abilities": {
+      "deep_strike":   { "type": "deep_strike" },
+      "deadly_demise": { "type": "deadly_demise", "dice": "D6" },
+      "feel_no_pain":  { "type": "feel_no_pain",    "threshold": 5 },
+
+      "lord_of_the_death_guard": { "type": "aura_ignore_modifiers", "aura": 6 },
+
+      "host_of_plagues": {
+        "type":     "choice",
+        "phase":    "round_start",
+        "once_per": "battle_round",
+        "choices": {
+          "miasma_of_pestilence":  { "type": "aura_benefit",         "aura": 6, "benefit": "cover" },
+          "diseased_influence":    { "type": "aura_reroll_wound_1",  "aura": 6 },
+          "toxic_presence":        { "type": "aura_contagion_bonus", "aura": 12, "bonus": 3 }
         }
       }
+    },
+    "specialRules": {
+      "damagedBracket": { "woundThreshold": 6, "hitPenalty": -1 }
+    },
+    "unit_abilities": {
+      "miasma_of_pestilence": { "type": "aura_benefit", "aura": 6, "benefit": "cover" },
+      "diseased_influence":   { "type": "aura_reroll_wound_1", "aura": 6 },
+      "toxic_presence":       { "type": "aura_contagion_bonus", "aura": 12, "bonus": 3 }
+    },
+    "keywords": {
+      "unit":    ["Monster","Psyker","Fly","Character","Epic Hero","Daemon","Grenades","Chaos","Nurgle","Primarch","Mortarion"],
+      "faction": ["Death Guard"]
+    },
+    "points_leader": 300
+  }
 }

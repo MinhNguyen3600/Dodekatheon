@@ -1,5 +1,6 @@
 {
     "C'tan Shard Of The Void Dragon": {
+        "points": 300,
         "size": 1,
         "statline": [6, 11, "4+", "4+", 12, "6+", 4],
         "ranged_weapons": [
@@ -22,6 +23,7 @@
         "keywords": {
         "unit":    ["Monster","Character","Fly","Epic Hero","C'Tan Shard of the Void Dragon"],
         "faction": ["Necrons"]
-        }
+        },
+        "points_leader": 300
     }
 }

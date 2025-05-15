@@ -1,0 +1,19 @@
+data/
+├── datasheets
+    	├── Adeptus Astartes
+		├── adeptus_astartes.json
+		├── blood_angels.json
+		├── dark_angels.json
+    	├── Chaos
+		├── death_guard.json
+		├── emperors_children.json
+		├── world_eaters.json
+    	├── Imperium
+		├── adeptus_custodes.json
+  	├── Xenos
+		├── necrons.json
+├── datasheet_loader.py
+├── keywords.py
+├── objectives.JSON
+├── unit_abilities.py
+└── weapon_abilities.py

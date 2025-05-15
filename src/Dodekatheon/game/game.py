@@ -204,37 +204,63 @@ class Game:
                 if u.is_alive():
                     game.board.place_unit(u)
 
-    def show_scoreboard(game):
-        print("\n===== Final Scoreboard =====\n")
-        for idx,pl in enumerate(game.players, start=1):
-            print(f"P{idx} - {pl.name}")
-            print(f"VP: {pl.vp}   CP: {pl.cp}   Total Damage: {pl.total_damage()}   Models Killed: {pl.total_models_killed()}")
-            # per-unit breakdown
-            headers = ["Unit","Dmg","Rng %","Melee %","Kills"]
+    def show_scoreboard(self):
+        print("\nGame over!\n")
+        print("================ Final Scoreboard ================\n")
+
+        # 1) Unit breakdown per player
+        for p_idx, player in enumerate(self.players, start=1):
+            print(f"-- P{p_idx} Units --")
+            headers = [
+                "Unit (ID)", "Rng Fired", "Rng Hits", "Rng %", 
+                "Mle Attacks", "Mle Hits", "Mle %", 
+                "Mort Wnds", "Dmg Dealt", "Models Kld", "CP Spent"
+            ]
             rows = []
-            for u in pl.units:
+            for u in player.units:
+                # build each row from the stats dict
+                ra = u.stats.get("ranged_attacks", 0)
+                rh = u.stats.get("ranged_hits",    0)
+                ma = u.stats.get("melee_attacks",  0)
+                mh = u.stats.get("melee_hits",     0)
                 rows.append([
-                    u.name,
-                    u.stats['damage_dealt'],
-                    f"{u.stats['ranged_hits']}/{u.stats['ranged_attacks']}"
-                      if u.stats['ranged_attacks']>0 else "-",
-                    f"{u.stats['melee_hits']}/{u.stats['melee_attacks']}"
-                      if u.stats['melee_attacks']>0 else "-",
-                    u.stats['models_killed'],
+                    f"{u.name} ({u.id})",
+                    ra,
+                    rh,
+                    f"{rh}/{ra}" if ra>0 else "-",
+                    ma,
+                    mh,
+                    f"{mh}/{ma}" if ma>0 else "-",
+                    u.stats.get("mortal_wounds", 0),
+                    u.stats.get("damage_dealt",   0),
+                    u.stats.get("models_killed",  0),
+                    getattr(player, "cp_spent", 0)
                 ])
             print_table(headers, rows)
             print()
-        # decide winner
-        if game.players[0].vp > game.players[1].vp:
-            winner = game.players[0]
-            pnum   = 1
-        elif game.players[1].vp > game.players[0].vp:
-            winner = game.players[1]
-            pnum   = 2
-        else:
-            print("The game is a tie!")
-            return
-        print(f"Winner: P{pnum} - {winner.name}!\n")
+
+        # 2) Player totals
+        print("-- Player Totals --")
+        headers = ["Player","Dmg","Models Kld","Rng %","Mle %","Mort Wnds","VP","CP Spent","CP Remain"]
+        rows = []
+        for p_idx, player in enumerate(self.players, start=1):
+            total_ra = sum(u.stats.get("ranged_attacks",0) for u in player.units)
+            total_rh = sum(u.stats.get("ranged_hits",0)    for u in player.units)
+            total_ma = sum(u.stats.get("melee_attacks",0)  for u in player.units)
+            total_mh = sum(u.stats.get("melee_hits",0)     for u in player.units)
+            rows.append([
+                f"P{p_idx}",
+                sum(u.stats.get("damage_dealt",0)   for u in player.units),
+                sum(u.stats.get("models_killed",0)  for u in player.units),
+                f"{total_rh}/{total_ra}" if total_ra>0 else "-",
+                f"{total_mh}/{total_ma}" if total_ma>0 else "-",
+                sum(u.stats.get("mortal_wounds",0) for u in player.units),
+                player.vp,
+                getattr(player, "cp_spent", 0),
+                player.cp
+            ])
+        print_table(headers, rows)
+        print()
 
         
 

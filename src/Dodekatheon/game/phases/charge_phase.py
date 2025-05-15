@@ -44,13 +44,14 @@ def charge_phase(game):
         moves = {
             sq for sq in moves
             if any(
-                game.board.distance_inches(sq, e.position) <= 1
+                game.board.distance_inches(sq, e.position) <= 1.5
                 for e in game.other_player().units
                 if e.is_alive()
             )
         }
 
-        # if this unit has no legal charge, skip it
+        # Quick patch for charge bad charge phase move
+        # — if there are no legal moves, skip this unit entirely —
         if not moves:
             print(f"  {u.name} has no legal charge destinations — skipping.\n")
             continue
@@ -59,32 +60,34 @@ def charge_phase(game):
 
         # highlight and prompt
         game.board.display(flip=True, highlight=moves)
+
         while True:
             coord = input(f"Enter charge destination (e.g. E10) for {u.name}: ").strip().upper()
 
             # parse letter/number split
             for i in range(1, len(coord)):
                 col, row_s = coord[:i], coord[i:]
+
                 if not row_s.isdigit():
                     continue
+                
                 x = parse_column_label(col)
                 y = int(row_s) - 1
 
                 if (x, y) not in moves:
                     print(f"  {coord} is not a valid charge destination.")
+                    # do NOT break out of while—just break for‑i so we re‑prompt
+                    move_made = False
+                    break
+                else:
+                    # perform the charge
+                    u.charged = True
+                    game.board.move_unit(u, x, y)
+                    print(f"{u.name} charged to {coord}\n")
+                    game.display_state()
                     break
 
-                # perform the charge
-                u.charged = True
-                game.board.move_unit(u, x, y)
-                print(f"{u.name} charged to {coord}\n")
-                game.display_state()
                 break  # out of for‑i loop
-
-            else:
-                # no split produced a valid numeric row
-                print("  Could not parse coordinate; try again.")
-                continue
 
             # if we broke out with a successful move, exit the while‑True
             break
@@ -92,5 +95,6 @@ def charge_phase(game):
     # update objectives after all charges
     Objective.update_objective_control(game)
 
-    # return True if any unit actually charged, False if none did
-    return any_moved
+    # regardless of whether any unit actually moved,
+    # we made our charge‐phase decisions, so proceed to fight phase
+    return True

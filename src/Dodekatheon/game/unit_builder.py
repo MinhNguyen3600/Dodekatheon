@@ -72,8 +72,12 @@ def build_army(loader):
     army = []
 
     # 1) pick primary faction (only the first entry of each unit's faction list)
-    primaries = sorted({ loader.get_unit(k)['keywords']['faction'][0] 
-                         for k in loader.data.keys() })
+    #    but skip any JSON entries that are null
+    primaries = sorted({
+        loader.get_unit(k)['keywords']['faction'][0]
+        for k in loader.data.keys()
+        if loader.data[k] is not None
+    })
 
     print("----------------------------")
     print("Choose your PRIMARY faction:")

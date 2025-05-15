@@ -1,42 +1,44 @@
 {
-    "Angron": {
-        "size": 1,
-        "statline": [14, 11, "2+", "4+", 16, "5+", 6],
-        "ranged_weapons": [],
-        "melee_weapons": [
-          {
-            "name": "Samni'arius & Spinegrinder",
-            "profiles":[
-              ["Samni'arius & Spinegrinder - strike", 8, "2+",16, -4, "D6+2", []],
-              ["Samni'arius & Spinegrinder - cleave", 18, "2+", 8, -2, 2, []]
-            ]
-          }
-        ],
-        "abilities": {
-          "deep_strike":  { "type": "deep_strike" },
-          "fights_first": { "type": "fights_first" },
-    
-          "wrathful_presence": {
-            "type":     "choice",
-            "phase":    "charge",
-            "once_per": "charge_phase",
-            "choices": {
-              "glorious_bloodletting": { "type": "aura_bonus_charge",       "aura": 6, "bonus": 1 },
-              "infectious_rage":       { "type": "aura_bonus_melee_attacks", "aura": 6, "condition": "below_half", "bonus": 1 },
-              "righteous_slaughter":   { "type": "aura_reroll_hits",         "aura": 6 }
-            }
-          }
-        },
-        "specialRules": {
-          "damagedBracket": { "woundThreshold": 6, "hitPenalty": -1 }
-        },
-        "keywords": {
-          "unit":    ["Monster","Fly","Character","Epic Hero","Chaos","Khorne","Daemon","Primarch","Angron"],
-          "faction": ["World Eaters"]
+  "Angron": {
+    "size": 1,
+    "statline": [14, 11, "2+", "4+", 16, "5+", 6],
+    "ranged_weapons": [],
+    "melee_weapons": [
+      {
+        "name": "Samni'arius & Spinegrinder",
+        "profiles":[
+          ["Samni'arius & Spinegrinder - strike", 8, "2+",16, -4, "D6+2", []],
+          ["Samni'arius & Spinegrinder - cleave", 18, "2+", 8, -2, 2, []]
+        ]
+      }
+    ],
+    "abilities": {
+      "deep_strike":  { "type": "deep_strike" },
+      "fights_first": { "type": "fights_first" },
+
+      "wrathful_presence": {
+        "type":     "choice",
+        "phase":    "charge",
+        "once_per": "charge_phase",
+        "choices": {
+          "glorious_bloodletting": { "type": "aura_bonus_charge",       "aura": 6, "bonus": 1 },
+          "infectious_rage":       { "type": "aura_bonus_melee_attacks", "aura": 6, "condition": "below_half", "bonus": 1 },
+          "righteous_slaughter":   { "type": "aura_reroll_hits",         "aura": 6 }
         }
-      },
+      }
+    },
+    "specialRules": {
+      "damagedBracket": { "woundThreshold": 6, "hitPenalty": -1 }
+    },
+    "keywords": {
+      "unit":    ["Monster","Fly","Character","Epic Hero","Chaos","Khorne","Daemon","Primarch","Angron"],
+      "faction": ["World Eaters"]
+    },
+    "points_model": null,
+    "points_leader": 435
+  },
     
-    "Khorne Berzerkers": {
+  "Khorne Berzerkers": {
     "size": 5,
     "statline": [6, 4, "3+", "-", 3, "6+", 1],
     "default_equipment": ["Bolt pistol", "Berzerker chainblade"],
@@ -94,6 +96,8 @@
     "keywords": {
         "unit":    ["Infantry","Battleline","Grenades","Chaos","Khorne","Berzerkers"],
         "faction": ["World Eaters"]
-    }
-    }
+    },
+    "points_model": 18,
+    "points_leader": null
+  }
 }

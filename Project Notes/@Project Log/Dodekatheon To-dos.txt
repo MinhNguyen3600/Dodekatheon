@@ -1,0 +1,12 @@
+Dodekatheon To-dos:
+
+1. check an error in unit_builder.py where in the 5) while true loop, the subfaction is used but outside of the subfaction coniditon, so when only a primary faction is chosen, this error shows up:
+```
+\unit_builder.py", line 116, in build_army
+    if subfaction and len(facs)>1 and facs[1]==subfaction
+       ^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'subfaction' where it is not associated with a value
+``` 
+This is because subfaction condition wasn't gone through, leading to undefined subfaction, thus the units cannot be displayed
+
+2. Check specifically in shooting and fight phase is there are any weapon ability function names need to be updated (just updated their definitions inside weappon_ability.py, best check if anything needs updating to mitigate future errors)

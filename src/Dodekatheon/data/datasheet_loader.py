@@ -116,6 +116,9 @@ class DatasheetLoader:
         Ld = int(str(Ld_raw).rstrip('+'))
         OC = int(str(OC_raw).rstrip('+'))
 
+        pts_model  = entry.get('points_model', 0)
+        pts_leader = entry.get('points_leader', 0)
+
         ranged = []
         for wg in entry.get('ranged_weapons', []):
             if isinstance(wg, list):
@@ -142,6 +145,8 @@ class DatasheetLoader:
             'size': entry.get('size', 1),
             'M': M, 'T': T, 'Sv': Sv, 'Invul': Invul, 'W': W,
             'Ld': Ld, 'OC': OC,
+            'points_model': pts_model,
+            'points_leader': pts_leader,
             'ranged_weapons': ranged,
             'melee_weapons': melee,
             'default_equipment': entry.get('default_equipment', []),

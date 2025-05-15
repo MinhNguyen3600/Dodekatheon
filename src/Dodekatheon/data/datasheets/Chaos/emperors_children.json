@@ -36,6 +36,7 @@
         "keywords": {
         "unit":    ["Monster","Fly","Character","Epic Hero","Daemon","Chaos","Slaanesh","Primarch","Fulgrim"],
         "faction": ["Emperor's Children"]
-        }
+        },
+        "points_leader": 385
     }
 }
