@@ -1,0 +1,30 @@
+IMPORTANT! - Review if, based on what we're working on, if python or Java would be the best way to work on this game
+WHY? - Java is OOP-centered, thus can be used to 
+
+
+2. Weapons
+- Weapon datasheets will be assigned as an "weapData" object class containing each of their datasheet stats, e.g.:
+```
+    public class weapData(string rng, str atks, str B_WS, int S, int AP, str D){
+        this.rng = range;
+        this.atks = attacks;
+        this.B_WS = bal_WeapSkill;
+        this.S = strength;
+        this.AP = armorPen;
+        this.D = damage;
+    }
+
+    weapData bolt_rifle = new weapData("24", 2, "3+", 4, -1, "1");
+    weapData astartes_chainsword = new weapData("Melee", 5, "3+", 4, -1, "1")
+```
+- Weapon abilities will be defined as modifiers to either game conditions or weapons when they're used, for e.g.:
+```
+    public class weapAbilKey(str weapKey){
+        switch (weapKey) {
+            
+        }
+    }
+    
+```
+    + NOTE: weapon ability keywords that are dependent on target unit information  will be added later on
+
